@@ -28,7 +28,10 @@ H3                { color: #3366FF;
 H4                { color: #3366FF; 
                     font-family: sans-serif; 
                   }
-INPUT             { background-color: white; }
+INPUT             { background-color: white; 
+                    flavor: pistachio;
+                    temperature: '-273\ C';
+                  }
 OL                { font-family: sans-serif; }
 UL                { font-family: sans-serif; }
 LI                { font-family: sans-serif; 

@@ -27,7 +27,7 @@ my $css = CSS->new(
            -adaptor=>'AceGraphics',
           );
 
-my @styles = $css->styles;
+my @styles = $css->selectors;
 
 print "Tags from this source are:\n", join ' ', @styles,"\n\n";
 
@@ -37,22 +37,34 @@ my $style = $styles[$#styles];
 print "Class of tag $style is: ",ref $style,"\n";
 print "Attributes of tag $style are:\n";
 
-my %tag_info = %{$css->style($style)};
-foreach (keys %tag_info) {
-  print "  $_ : $tag_info{$_}\n\n";
+
+my @tag_info = $style->attributes;
+
+foreach (@tag_info) {
+  print "  $_ : " . $style->value($_) . "\n";
 }
 
-print "Purging: ", $styles[$#styles], "\n\n";
-$css->purge($styles[$#styles]);
+print "\nAdding topping to $style...\n";
+$style->attribute('topping','soy sauce');
 
+print "\nChanging flavor of $style...\n";
+$style->attribute('flavor','butter pecan');
 
-print "Class of tag $style is: ",ref $style,"\n";
-print "Attributes of tag $style are now:\n";
-
-my %tag_info = %{$css->style($style)};
-foreach (keys %tag_info) {
-  print "  $_ : $tag_info{$_}\n";
+foreach ($style->attributes) {
+  print "  $_ : " . $style->value($_) . "\n";
 }
 
 
-print "\nLooks good!\n\n";
+
+
+print "\nPurging: ", $style, "\n\n";
+$css->purge($style);
+
+
+my @newstyles = $css->selectors;
+
+print "Styles are now:\n";
+
+print join ' ', @newstyles;
+
+print "\n\nLooks good!\n\n";

@@ -2,7 +2,7 @@ package CSS;
 
 use strict;
 use vars qw($VERSION);
-$VERSION = '0.02';
+$VERSION = '0.05';
 
 use strict;
 use lib './';
@@ -95,12 +95,16 @@ sub purge {
   my $self = shift;
   my $param = shift;
   return 0 unless $param;
-  undef $self->{source}->{$param};
+
+  delete $self->{source}->{$param};
   return 1;
 }
 
-sub tag  { return shift->style(shift);}
-sub tags { return shift->styles(shift);}
+#due to indecision on method names, we proudly present:
+sub selectors { return shift->styles(@_);}
+sub selector  { return shift->style(@_); }
+sub tag       { return shift->style(@_); }
+sub tags      { return shift->styles(@_);}
 
 sub _parse {
   my $self = shift;
@@ -144,7 +148,7 @@ sub _parse {
       }    
 
       my $style = CSS::Selector->new(
-                                  -tag=>$tag,
+                                  -name=>$tag,
                                   -attribs=>$attribs{$tag},
                                   -debug=>1,
                                   );
@@ -178,9 +182,9 @@ CSS - an Perl object oriented interface to Cascading Style Sheets (CSS)
            -source  => '/path/to/some.css',
            -adaptor => 'AceGraphics');
 
- my @styles  = $css->styles;
+ my @styles  = $css->selectors;
  my $tag     = @styles[0];
- my %markups = %{$css->style($tag)};
+ my %markups = %{$css->selector($tag)};
 
 =head1 DESCRIPTION
 
@@ -225,15 +229,15 @@ the CSS  object.  Called with no arguments, they each return the current
 value of the attribute.  Called with a single argument, they set the 
 attribute and return its previous value.
 
-   Accessor Name      Description
-   ---------------    -----------
+   Accessor Name                 Description
+   ---------------               -----------
 
-   adaptor()	      Get/set the global Style adaptor
-   debug()	      Get/set debug mode
-   source()	      Get/set the source
-   style(),tag()      Get/set the attributes of a Style
-   styles(),tags()    Get a list of all Styles
-   purge()            Remove a Style
+   adaptor()	                 Get/set the global Selector adaptor
+   debug()	                 Get/set debug mode
+   source()	                 Get/set the source
+   selector(),style(),tag()      Get/set the attributes of a Selectors
+   selectors(),styles(),tags()   Get a list of all Selectors
+   purge()                       Remove a Selector
 
 =head1 BUGS
 
@@ -241,7 +245,7 @@ Please report them.
 
 =head1 SEE ALSO
 
-L<CSS::Style>, L<CSS::Adaptor>
+L<CSS::Selector>, L<CSS::Adaptor>
 
 =head1 AUTHOR
 

@@ -1,4 +1,4 @@
-package CSS::Adaptor::AceGraphics;
+package CSS::Adaptor::DasXMLStylesheet;
 
 use strict;
 use vars qw($VERSION @ISA);
@@ -13,6 +13,7 @@ sub convert {
                 'background-color' => 'fillcolor',
                );
 
+  #no mapping needed (or at least not defined)
   return $tag unless $mapped{$tag};
   return $mapped{$tag};
 }

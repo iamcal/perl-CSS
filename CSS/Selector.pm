@@ -1,6 +1,8 @@
 package CSS::Selector;
 
 use strict;
+use vars qw($VERSION);
+$VERSION = '0.05';
 use Carp qw(croak confess);
 use CSS::Adaptor;
 
@@ -17,10 +19,10 @@ sub new {
 
   $self->{source} = {};
 
-  my $tag     = $options{-tag} or croak "-tag needs to be defined";
+  my $name     = $options{-name} or croak "-name needs to be defined";
   my $attribs = $options{-attribs};
 
-  $self->name($tag);
+  $self->name($name);
 
   foreach my $a (@$attribs){
 #    $self->source->{$self->adaptor->convert(@$a[0])} = @$a[1];
@@ -33,6 +35,18 @@ sub new {
 sub toString {
   my $self = shift;
   return $self->name;
+}
+
+sub adaptor {
+  my $self = shift;
+  my $option = shift;
+  return $self->{adaptor} unless $option;
+
+  #not sure this is the correct syntax...
+  die "$option doesn't exist" unless eval {require "CSS::Adaptor::$option"};
+
+  $self->{adaptor} = $option;
+  return $option;
 }
 
 sub tag {
@@ -65,18 +79,26 @@ sub value {
   return $self->{source}->{$tag};
 }
 
-sub attribute {
-  my $self = shift;
-  my $tag  = shift || return undef;
+#due to indecision, we have aliases!
+sub property   { return shift->attribute(@_);  }
+sub properties { return shift->attributes(@_); }
 
-  return $self->source($tag);
+sub attribute {
+  my $self  = shift;
+  my $tag   = shift || return undef;
+  my $value = shift;
+
+  return $self->source($tag) unless $value;
+  $self->{source}->{$tag} = $value;
+  return $value;
 }
 
 sub attributes {
   my $self = shift;
   my %options = @_;
 
-  return $self->source unless %options;
+#  return $self->source unless %options;
+  return keys %{$self->source} unless %options;
 
   $self->source(%options);
 
@@ -91,13 +113,13 @@ sub debug {
 
 =head1 NAME
 
-CSS::Style - a Perl object oriented interface to the markup attributes
-associated with a CSS Style class.
+CSS::Selector - a Perl object oriented interface to the markup properties
+associated with a CSS Selector class.
 
 =head1 SYNOPSIS
 
- use CSS::Style;
- my $style = CSS::Style->new(
+ use CSS::Selector;
+ my $style = CSS::Selector->new(
            -source  => '/path/to/some.css',
            -adaptor => 'AceGraphics');
 
@@ -107,39 +129,34 @@ associated with a CSS Style class.
 
 =head1 DESCRIPTION
 
-CSS is an object-oriented Perl interface to Cascading Style Sheets (CSS).  
-Minimally created with a CSS file, it will parse the file and return an 
-object with methods for accessing and editing the tags extracted from the 
-stylesheet as CSS objects.  Methods are also provided to delete and add 
-Style objects to those maintained by the CSS object.
-
-This module does not depend on any non-standard perl modules.
+CSS::Selector is intended to be accessed via a CSS object.  It is a class to
+represent CSS selectors (duh!).
 
 =head1 METHODS
 
-This section describes the class and object methods for a CSS object.
+This section describes the class and object methods for a CSS::Selector object.
 
 =head2 CONSTRUCTORS
 
 There is only one constructor, the new() method.
 
-=item $css = CSS->new(@options)
+=item $style = CSS::Selector->new(@options)
 
-The new() method creates a new panel object.  The options are
-a set of tag/value pairs as follows:
+The new() method creates a new Selector object.  The options are
+a set of property/value pairs as follows:
 
   Option      Value                                  Default
   ------      -----                                  -------
 
-  -source     path to stylesheet file to be parsed.  none
+  -adaptor    adaptor to be used to translate the    default
+              CSS properties.
 
-  -adaptor    Adaptor to be used in creation of      default
-              Styles.
+  -source     path to stylesheet file to be parsed.  none
 
   -debug      when true, debugging messages are      false
 	      sent to STDERR.
 
-new() will thow an exception if the -source tag is undefined.
+new() will thow an exception if the -name tag is undefined.
 
 =head2 ACCESSORS
 
@@ -148,15 +165,13 @@ the CSS  object.  Called with no arguments, they each return the current
 value of the attribute.  Called with a single argument, they set the 
 attribute and return its previous value.
 
-   Accessor Name      Description
-   ---------------    -----------
-
-   adaptor()	      Get/set the global Style adaptor
-   debug()	      Get/set debug mode
-   source()	      Get/set the source
-   style(),tag()      Get/set the attributes of a Style
-   styles(),tags()    Get a list of all Styles
-   purge()            Remove a Style
+   Accessor Name              Description
+   ---------------            -----------
+   debug()	              Get/set debug mode
+   source()	              Get/set the source
+   name(),tag()               Get/set the attributes of a Selector
+   value()                    Get the value of a Selector property
+   properties(),attributes()  List the attributes of a Selector
 
 =head1 BUGS
 

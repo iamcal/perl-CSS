@@ -1,7 +1,8 @@
 package CSS::Adaptor::default;
 
 use strict;
-use vars '@ISA';
+use vars qw($VERSION @ISA);
+$VERSION = '0.01';
 @ISA = 'CSS::Adaptor';
 
 sub convert {
