@@ -1,6 +1,6 @@
 package CSS::Parse::Lite;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use CSS::Parse;
 @ISA = qw(CSS::Parse);
@@ -47,7 +47,7 @@ sub add_style {
 
 	# parse the properties
 	foreach ( grep { /\S/ } split /\;/, $contents ) {
-		unless ( /^\s*([\w._-]+)\s*:\s(.*?)\s*$/ ) {
+		unless ( /^\s*([\w._-]+)\s*:\s*(.*?)\s*$/ ) {
 			croak( "Invalid or unexpected property '$_' in style '$style'" );
 		}
 		my $property_obj = new CSS::Property({

@@ -1,5 +1,6 @@
-Revision history for Perl extension CSS.
+Revision history for CSS.pm
 
+1.03		Fix to property regexp in CSS::Parse::Lite (thanks to Burak Gürsoy)
 1.01		Bugfix in t/01_basic.t which was looking for a renamed module
 1.00		Complete rewrite with pluggable parsers and full object tree
 		(Backwards compatibility broken!)

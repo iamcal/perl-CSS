@@ -1,6 +1,6 @@
 package CSS::Value;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use strict;
 use warnings;
@@ -29,7 +29,7 @@ __END__
 
 =head1 NAME
 
-CSS::Value- A property value in a CSS object tree
+CSS::Value - A property value in a CSS object tree
 
 =head1 SYNOPSIS
 
