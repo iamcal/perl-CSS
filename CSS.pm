@@ -1,6 +1,6 @@
 package CSS;
 
-$VERSION = 1.06;
+$VERSION = 1.07;
 
 use strict;
 use warnings;
@@ -137,8 +137,8 @@ CSS - Object oriented access to Cascading Style Sheets (CSS)
 
   # create a CSS object with a specific parser
   my $css = CSS->new( { 'parser' => 'CSS::Parse::Lite' } );
-  my $css = CSS->new( { 'parset' => 'CSS::Parse::Heavy' } );
-  my $css = CSS->new( { 'parset' => 'CSS::Parse::Compiled' } );
+  my $css = CSS->new( { 'parser' => 'CSS::Parse::Heavy' } );
+  my $css = CSS->new( { 'parser' => 'CSS::Parse::Compiled' } );
 
   # create a CSS object with a specific adaptor
   my $css = CSS->new( { 'adaptor' => 'CSS::Adaptor' } );
@@ -264,7 +264,7 @@ name attached. Returns zero on failure.
 
 Copyright (C) 2001-2002, Allen Day <allenday@ucla.edu>
 
-Copyright (C) 2003, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

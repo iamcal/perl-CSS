@@ -1,6 +1,6 @@
 package CSS::Adaptor;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use strict;
 use warnings;
@@ -107,9 +107,9 @@ returns a string containing a formatted list of CSS::Value objects, passed as an
 
 =head1 AUTHORS
 
-Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
+Copyright (C) 2001-2002, Allen Day <allenday@ucla.edu>
 
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

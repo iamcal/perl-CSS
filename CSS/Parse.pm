@@ -1,6 +1,6 @@
 package CSS::Parse;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use strict;
 use warnings;
@@ -37,7 +37,7 @@ This module should not be used directly. Instead, use the CSS::Parse::* modules.
 
 =head1 AUTHOR
 
-Copyright (C) 2003, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

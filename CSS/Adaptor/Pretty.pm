@@ -1,6 +1,6 @@
 package CSS::Adaptor::Pretty;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use CSS::Adaptor;
 @ISA = ('CSS::Adaptor');
@@ -50,7 +50,7 @@ stylesheet in a 'pretty' style.
 
 =head1 AUTHORS
 
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

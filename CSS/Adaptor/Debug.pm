@@ -1,6 +1,6 @@
 package CSS::Adaptor::Debug;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use CSS::Adaptor;
 @ISA = qw(CSS::Adaptor);
@@ -51,7 +51,7 @@ stylesheet in  'debugging' style.
 
 =head1 AUTHORS
 
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
