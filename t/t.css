@@ -1,12 +1,12 @@
 a:visited	{
-		 bg: red;
-/*		 fg: blue;          an internal comment */
+		 background-color: red;
+/*		 color: blue;          an internal comment */
 		 font: large;
 		}
-pre.dna		{
+foo.bar		{
 		 font: monospace;
-		 fg: black;
+		 color: black;
 		}
-PRE		{
-		 font: monospace;
+foo.xyzzy	{
+		 font: sans-serif;
 		}

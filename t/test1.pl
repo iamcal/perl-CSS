@@ -1,22 +1,26 @@
 #!/usr/bin/perl -w
 
 use strict;
-use lib '../../';
-use Parse::CSS;
+use lib '../blib/lib';
+use CSS;
 
-my $css = Parse::CSS->new(
-                          -source => './wormbase.css',
-                          -debug  => 1,
+my $css = CSS->new(
+                          -source => './t.css',
+#                          -debug  => 1,
+                          -adaptor => 'Test',
                          );
 
-#my @styles = $css->styles;
+warn "**".$css->adaptor;
+
+my @styles = $css->styles;
 
 foreach my $style ($css->styles){
   print "$style\n";
-
-  my %properties = $style->properties;
+  my %properties = $style->converts;
 
   foreach my $prop (keys %properties){
-    print "\t$prop\t".$properties{$prop}."\n";
+#    print join "\t", ($prop, , $style->convert($prop), $properties{$prop});
+    print join "\t", ($prop, , $properties{$prop});
+    print "\n";
   }
 }

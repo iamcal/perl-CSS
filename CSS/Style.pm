@@ -3,7 +3,7 @@ package CSS::Style;
 use strict;
 use warnings;
 use vars qw($VERSION);
-$VERSION = 0.05;
+$VERSION = 0.06;
 
 use lib '../../';
 use Carp qw(croak confess);
@@ -12,11 +12,11 @@ use CSS::Adaptor;
 
 sub new {
   my $class = shift;
-  my $options = shift;
+  my %options = @_;
   my $self = bless {}, $class;
 
-  $self->debug    ($$options{-debug}     or 0);
-  $self->adaptor  ($$options{-adaptor}   or 'Default');
+  $self->debug    ($options{-debug}     or 0);
+  $self->adaptor  ($options{-adaptor}   or 'Default');
   return $self;
 }
 
@@ -24,7 +24,6 @@ sub adaptor {
   my $self = shift;
   my $option = shift;
   return $self->{adaptor} unless $option;
-
   $self->{adaptor} = $option and return 1
     if (ref($option) =~ /CSS::Adaptor/);
 
@@ -42,6 +41,15 @@ sub debug {
   my $option = shift;
   return $self->{debug} unless defined $option;
   $self->{debug} = $option;
+}
+
+sub add { return shift->edit_property(@_) }
+sub edit {
+  my $self = shift;
+  my $option = shift;
+  my $value = shift;
+  return undef unless $option && $value;
+  $self->{property}->{$option} = $value;
 }
 
 sub convert    { return shift->adaptor->convert(shift); }
@@ -108,3 +116,70 @@ sub toString {
   return $self->selector;
 }
 1;
+
+__END__
+
+=head1 NAME
+
+CSS::Style - Represents a selector section of a CSS document
+
+=head1 SYNOPSIS
+
+  use CSS;
+  ...
+
+=head1 DESCRIPTION
+
+Maybe it should be called I<CSS::Selector>, but I thought that was a
+lousy name.
+
+This class represents a selector from a CSS object.
+
+=head1 METHODS
+
+adaptor()
+  read/write.  view/change the adaptor used by convert() and converts().
+
+property( scalar )
+  returns a hash of the property and its value
+
+properties()
+  returns a hash of all properties and values of the Style object
+
+convert()
+  like property(), except the property tag is converted by adaptor()
+
+converts()
+  like properties(), except the property tags are converted by adaptor()
+
+add( property, value)
+  see edit().
+
+edit( property, value)
+  write only.  add a property to the Style object.
+
+purge( scalar )
+  write-only.  drop a property from the Style object.
+
+selector( scalar )
+  read/write.  view/change the name of the selector.
+
+=head2 CONSTRUCTOR
+
+Only one constructor: new().  Called with:
+ -adaptor	optional	used for transforming properties
+
+=head2 ACCESSORS
+
+=head1 AUTHOR
+
+Allen Day <allenday@ucla.edu>
+Copyright (c) 2001-2002
+
+=head1 SEE ALSO
+
+CSS::Style
+CSS::Adaptor
+perl(1).
+
+=cut
