@@ -28,6 +28,7 @@ t/css_tiny
 t/css_simple
 t/css_selectors
 t/css_selector_groups
+t/css_oddities
 t/harness_parse
 t/harness_adaptor
 examples/parsers.pl

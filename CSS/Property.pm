@@ -1,6 +1,6 @@
 package CSS::Property;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use strict;
 use warnings;
@@ -13,12 +13,16 @@ sub new {
 
 	$self->{options} = shift;
 
-	$self->{property}	= $self->{options}->{property} || '';
-	$self->{simple_value}	= $self->{options}->{value} || '';
-	$self->{adaptor}	= $self->{options}->{adaptor} || 'CSS::Adaptor';
+	$self->{property}	= '';
+	$self->{simple_value}	= '';
+	$self->{adaptor}	= 'CSS::Adaptor';
+
+	$self->{property}	= $self->{options}->{property} if defined $self->{options}->{property};
+	$self->{simple_value}	= $self->{options}->{value} if defined $self->{options}->{value};
+	$self->{adaptor}	= $self->{options}->{adaptor} if defined $self->{options}->{adaptor};
 	$self->{values}		= [];
 
-	if ($self->{simple_value}){
+	if (defined $self->{simple_value}){
 		my $value_obj = new CSS::Value({
 					'value'		=> $self->{simple_value},
 					'adaptor'	=> $self->{adaptor},

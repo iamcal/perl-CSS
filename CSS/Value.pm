@@ -1,6 +1,6 @@
 package CSS::Value;
 
-$VERSION = 1.01;
+$VERSION = 1.02;
 
 use strict;
 use warnings;
@@ -10,9 +10,12 @@ sub new {
         my $class = shift;
         my $self = bless {}, $class;
 
-	$self->{options} = shift;
-        $self->{value}		= $self->{options}->{value} || '';
-	$self->{adaptor}	= $self->{options}->{adaptor} || 'CSS::Adaptor';
+	$self->{options}	= shift;
+	$self->{value}		= '';
+	$self->{adaptor}	= 'CSS::Adaptor';
+
+        $self->{value}		= $self->{options}->{value} if defined $self->{options}->{value};
+	$self->{adaptor}	= $self->{options}->{adaptor} if defined $self->{options}->{adaptor};
 
         return $self;
 }
