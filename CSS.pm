@@ -1,6 +1,6 @@
 package CSS;
 
-$VERSION = 1.04;
+$VERSION = 1.05;
 
 use strict;
 use warnings;

@@ -1,2 +1,2 @@
 $::PARSER = 'CSS::Parse::Lite';
-require 't/full.inc';
+require 't/harness_parse';

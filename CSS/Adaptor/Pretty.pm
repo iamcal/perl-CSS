@@ -3,7 +3,7 @@ package CSS::Adaptor::Pretty;
 $VERSION = 1.00;
 
 use CSS::Adaptor;
-@ISA = qw(CSS::Adaptor);
+@ISA = ('CSS::Adaptor');
 
 use strict;
 use warnings;
@@ -15,7 +15,19 @@ sub output_rule {
 
 sub output_properties {
 	my ($self, $properties) = @_;
-	return join("", map {"\t".$_->{property}.":\t".$_->values.";\n"} @{$properties});
+	my $longest_prop = 0;
+	for(@{$properties}){
+		if (length($_->{property}) > $longest_prop){
+			$longest_prop = length($_->{property});
+		}
+	}
+	my $tabs = int (($longest_prop + 1)/8);
+	return join("", map {
+		my $sp = "\t";
+		my $this = int ((length($_->{property}) + 1)/8);
+		$sp .= "\t" x ($tabs - $this);
+		"\t".$_->{property}.":".$sp.$_->values.";\n";
+	} @{$properties});
 }
 
 1;

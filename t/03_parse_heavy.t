@@ -1,3 +1,3 @@
 $::PARSER = 'CSS::Parse::Heavy';
-require 't/full.inc';
+require 't/harness_parse';
 

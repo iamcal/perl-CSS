@@ -21,10 +21,15 @@ t/02_parse_lite.t
 t/03_parse_heavy.t
 t/04_parse_compiled.t
 t/05_search.t
+t/06_adaptor_simple.t
+t/07_adaptor_pretty.t
+t/08_adaptor_debug.t
+t/css_tiny
 t/css_simple
 t/css_selectors
 t/css_selector_groups
-t/full.inc
+t/harness_parse
+t/harness_adaptor
 examples/parsers.pl
 examples/adapt.pl
 examples/dump.pl
