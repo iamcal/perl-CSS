@@ -1,33 +1,36 @@
 package CSS::Adaptor;
 
+$VERSION = 1.00;
+
 use strict;
 use warnings;
-use vars qw($VERSION);
-$VERSION = 0.06;
 
-use lib '../../';
 use Carp qw(croak confess);
-use overload '""' => 'toString';
 
 sub new {
-  my $class = shift;
-  my $self = bless {}, $class;
-
-  return $self;
+	my $class = shift;
+ 	my $self = bless {}, $class;
+	return $self;
 }
 
-sub convert {
-  croak "no adaptor! $!";
+sub output_rule {
+	my ($self, $rule) = @_;
+	return $rule->selectors.' { '.$rule->properties." }\n" ;
 }
 
-sub name {
-  my $self = shift;
-  return "a_name";
+sub output_selectors {
+	my ($self, $selectors) = @_;
+	return join ', ', map {$_->{name}} @{$selectors}
 }
 
-sub toString {
-  my $self = shift;
-  return $self->name;
+sub output_properties {
+	my ($self, $properties) = @_;
+	return join '; ', map {$_->{property}.": ".$_->values} @{$properties};
+}
+
+sub output_values {
+	my ($self, $values) = @_;
+	return join '', map {$_->{value}} @{$values};
 }
 
 1;
@@ -36,31 +39,71 @@ __END__
 
 =head1 NAME
 
-CSS::Adaptor - Arbitrarily map CSS property names for use in another context.
+CSS::Adaptor - Arbitrarily map CSS data for use in another context.
 
 =head1 SYNOPSIS
 
-  use CSS::Adaptor;
-  ...
+  use CSS;
+
+  # create a CSS object with an adaptor
+  my $css = new CSS({
+       'adaptor' => 'CSS::Adaptor',
+  });
+
+
+  # load some CSS data
+  $css->read_file( "my_file.css" );
+
+
+  # change the adaptor
+  $css->set_adaptor( "CSS::Adaptor::Pretty" );
+
+
+  # output CSS object using the current adaptor
+  print $css->output();
+  
 
 =head1 DESCRIPTION
 
-This class keeps track of how to transform a I<parameter property> to a I<return
-value>.  It happens in the convert() method.
+This class is used by CSS to translate a CSS object to a string. This 
+allows CSS data to be easily mapped into other formats.
+
+This documentation is for people who want to write their own CSS::Adaptor
+module. For usage information, see the documentation for CSS.
 
 =head1 METHODS
 
 =head2 CONSTRUCTOR
 
-Only one constructor: new().  Called without options.
+=over 4
 
-=head2 ACCESSORS
+=item C<new()>
 
- name()    
-  read-only. returns the name of the Adaptor.
+Called without options.
 
- convert()
-  read-only. returns the conversion of a passed in parameter.
+=back
+
+=head2 FUNCTIONS
+
+=over 4
+
+=item C<output_rule( $rule )>
+
+returns a string containing a formatted CSS::Style object, passed as an object ref
+
+=item C<output_selectors( $selectors )>
+
+returns a string containing a formatted list of CSS::Selector objects, passed as an array ref
+
+=item C<output_properties( $properties )>
+
+returns a string containing a formatted list of CSS::Property objects, passed as an array ref
+
+=item C<output_values( $values )>
+
+returns a string containing a formatted list of CSS::Value objects, passed as an array ref
+
+=back
 
 =head1 AUTHORS
 
@@ -70,10 +113,6 @@ Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
-CSS
-
-CSS::Style
-
-perl(1).
+L<CSS>
 
 =cut

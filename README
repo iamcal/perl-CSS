@@ -1,7 +1,15 @@
-CSS.pm version 0.08
+CSS.pm version 1.00
 =======================
 
 Object-oriented access to cascading stylesheets.
+
+NOTICE
+
+Version 1.00 onwards of this modules is
+
+   * NOT BACKWARDS COMPATIBLE *
+
+with previous versions.
 
 
 INSTALLATION
@@ -19,7 +27,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   Parse::RecDescent
-
+  Test::Simple
 
 COPYRIGHT AND LICENCE
 

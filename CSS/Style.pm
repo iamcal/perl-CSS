@@ -1,186 +1,149 @@
 package CSS::Style;
 
+$VERSION = 1.00;
+
 use strict;
 use warnings;
-use vars qw($VERSION);
-$VERSION = 0.07;
+use overload '""' => 'to_string';
 
-use lib '../../';
-use Carp qw(croak confess);
-use overload '""' => 'toString';
-use CSS::Adaptor;
-
+# create a new CSS::Style object
 sub new {
-  my $class = shift;
-  my %options = @_;
-  my $self = bless {}, $class;
+	my $class = shift;
+	my $self = bless {}, $class;
 
-  $self->debug    ($options{-debug}     or 0);
-  $self->adaptor  ($options{-adaptor}   or 'Default');
-  return $self;
+	$self->{options} = shift;
+	$self->{selectors} = [];
+	$self->{properties} = [];
+	$self->{adaptor} = $self->{options}->{adaptor} || 'CSS::Adaptor';
+
+	return $self;
 }
 
-sub adaptor {
-  my $self = shift;
-  my $option = shift;
-  return $self->{adaptor} unless $option;
-  $self->{adaptor} = $option and return 1
-    if (ref($option) =~ /CSS::Adaptor/);
+sub add_selector {
+	my $self = shift;
+	my $selector = shift;
 
-  my $adaptorclass = "CSS::Adaptor::$option";
-  croak "Can't find adaptor $adaptorclass: $!" unless 
-    (eval "require $adaptorclass");
-
-  $self->{adaptor} = $adaptorclass->new() and return 1;
-
-  croak "Couldn't create adaptor $adaptorclass: $!";
+	push @{$self->{selectors}}, $selector;
+	$selector->set_adaptor($self->{adaptor});
 }
 
-sub debug {
-  my $self = shift;
-  my $option = shift;
-  return $self->{debug} unless defined $option;
-  $self->{debug} = $option;
+sub add_property {
+	my $self = shift;
+	my $property = shift;
+
+	push @{$self->{properties}}, $property;
+	$property->set_adaptor($self->{adaptor});
 }
 
-sub add { return shift->edit_property(@_) }
-sub edit {
-  my $self = shift;
-  my $option = shift;
-  my $value = shift;
-  return undef unless $option && $value;
-  $self->{property}->{$option} = $value;
+sub set_adaptor {
+	my $self = shift;
+	my $adaptor = shift;
+
+	# set adaptor
+	$self->{adaptor} = $adaptor;
+
+	# recurse adaptor
+	$_->set_adaptor($adaptor) for(@{$self->{selectors}});
+	$_->set_adaptor($adaptor) for(@{$self->{properties}});
 }
 
-sub convert    { return shift->adaptor->convert(shift); }
-sub converts   { return shift->property('___convert___',@_); }
-sub properties { return shift->property(@_); }
-
-sub property {
-
-  my $self    = shift;
-  my $convert = @_ ? ($_[0] eq '___convert___') ? shift : 0 : 0;
-
-  #if it's an even number of properties, assume they are passing in
-  #key/value pairs.  this is not failsafe.
-  if((@_ / 2) == (int(@_ / 2))){ #test for odd number
-    my %options = @_;
-
-    unless(%options){ #asking for all properties
-      my %h = %{$self->{property}}; #probably better to do a hash
-
-      my %return;
-      if($convert){
-	foreach my $h (keys %h) {
-	  $return{$self->adaptor->convert($h)} = $h{$h};
-	}
-      } else {
-	%return = %h;
-      }
-      return %return;
-    }
-
-    #now set the properties
-    foreach my $o (keys %options){
-      $self->{property}->{$o} = $options{$o};
-    }
-  } elsif(scalar @_ != 1){
-    croak "property() method can only retrieve one value per call";
-  } else {
-    my $option = shift;
-    return $self->{property}->{$option};
-  }
+sub selectors {
+	my $self = shift;
+	eval "use $self->{adaptor}";
+	my $adaptor_obj = new $self->{adaptor};
+	return $adaptor_obj->output_selectors($self->{selectors});
 }
 
-sub purge { #purge at the property level;
-  my $self = shift;
-  my $option = shift;
-  my @option = ref $option eq 'ARRAY' ? @$option : $option;
-
-  foreach my $o (@option){
-    delete $self->{property}->{$o};
-  }
+sub properties {
+	my $self = shift;
+	eval "use $self->{adaptor}";
+	my $adaptor_obj = new $self->{adaptor};
+	return $adaptor_obj->output_properties($self->{properties});
 }
 
-sub selector {
-  my $self = shift;
-  my $option = shift;
-  return $self->{selector} unless defined $option;
-  croak "not a scalar name: $!" if ref $option;
-
-  $self->{selector} = $option;
+sub to_string {
+	my $self = shift;
+	eval "use $self->{adaptor}";
+	my $adaptor_obj = new $self->{adaptor};
+	return $adaptor_obj->output_rule($self);
 }
 
-sub toString {
-  my $self = shift;
-  return $self->selector;
-}
 1;
 
 __END__
 
 =head1 NAME
 
-CSS::Style - Represents a selector section of a CSS document
+CSS::Style - A ruleset in a CSS object tree
 
 =head1 SYNOPSIS
 
   use CSS;
-  ...
 
 =head1 DESCRIPTION
 
-Maybe it should be called I<CSS::Selector>, but I thought that was a
-lousy name.
-
-This class represents a selector from a CSS object.
+This module represents a ruleset in a CSS object tree.
+Read the CSS.pm pod for information about the CSS object tree.
 
 =head1 METHODS
 
- adaptor()
-  read/write.  view/change the adaptor used by convert() and converts().
+=head2 CONSTRUCTORS
 
- property( scalar )
-  returns a hash of the property and its value
+=over 4
 
- properties()
-  returns a hash of all properties and values of the Style object
+=item C<new()> or C<new( { ..options.. } )>
 
- convert()
-  like property(), except the property tag is converted by adaptor()
+This constructor returns a new C<CSS::Style> object, with
+an optional hash of options.
 
- converts()
-  like properties(), except the property tags are converted by adaptor()
+  adaptor       adaptor to use for serialization
 
- add( property, value)
-  see edit().
+=back
 
- edit( property, value)
-  write only.  add a property to the Style object.
+=head2 ACCESSORS
 
- purge( scalar )
-  write-only.  drop a property from the Style object.
+=over 4
 
- selector( scalar )
-  read/write.  view/change the name of the selector.
+=item C<add_selector( $selector )>
 
-=head2 CONSTRUCTOR
+This method adds a selector to the selector list for the object.
+C<$selector> is a reference to a CSS::Selector object.
 
- Only one constructor: new().  Called with:
-  -adaptor	optional	used for transforming properties
+=item C<add_property( $property )>
 
-=head1 AUTHORS
+This method adds a selector to the property list for the object.
+C<$property> is a reference to a CSS::Property object.
 
-Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
+=item C<set_adaptor( 'CSS::Adaptor::Foo' )>
 
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
+This method sets the current adaptor for the object.
+
+=item C<selectors()>
+
+This method is used to serialize the ruleset's selectors, using the current
+adaptor. It returns a string which come from the adaptor's C<output_selectors()>
+method.
+
+=item C<properties()>
+
+This method is used to serialize the ruleset's properties, using the current
+adaptor. It returns a string which come from the adaptor's C<output_properties()>
+method.
+
+=item C<to_string()>
+
+This method is used to serialize the ruleset, using the current adaptor. It returns 
+a string which comes from the adaptor's output_rules() method.
+
+=back
+
+=head1 AUTHOR
+
+Copyright (C) 2003, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
-CSS
-
-CSS::Adaptor
-
-perl(1).
+L<CSS>, http://www.w3.org/TR/REC-CSS1
 
 =cut
+

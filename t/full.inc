@@ -1,0 +1,34 @@
+use Test::Simple tests => 6;
+
+use CSS;
+my $css = new CSS({'parser' => $::PARSER});
+ok(1, "Created the CSS object ok");
+
+#
+# SIMPLE TESTS
+#
+
+$css->read_file("t/css_simple");
+ok(1, "Parsed the simple file ok");
+
+ok(scalar(@{$css->{styles}}) == 3, "Correct number of rulesets");
+
+#
+# PURGE TEST
+#
+
+$css->purge();
+ok(scalar(@{$css->{styles}}) == 0, "CSS::purge() worked");
+
+#
+# SELECTOR GROUPS
+#
+
+$css->read_file("t/css_selector_groups");
+my $is_ok = 1;
+my @selector_counts = (1,2,2,2,2,2,2,2,3,3);
+ok(scalar(@{$css->{styles}}) == 10, "Correct number of rulesets");
+for(@{$css->{styles}}){
+	$is_ok = 0 if (scalar(@{$_->{selectors}}) != shift @selector_counts);
+}
+ok($is_ok, "Correct number of selectors parsed");
