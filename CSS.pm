@@ -1,260 +1,158 @@
 package CSS;
 
 use strict;
+use warnings;
 use vars qw($VERSION);
-$VERSION = '0.05';
+use vars qw($VERSION);
+$VERSION = 0.06;
 
-use strict;
-use lib './';
+use lib '..';
 use Carp qw(croak confess);
-use CSS::Selector;
+use Parse::RecDescent;
+   $Parse::RecDescent::skip = '[ \t\n]*';
+use CSS::Style;
+use CSS::Adaptor;
 
 sub new {
   my $class = shift;
   my %options = @_;
-  
   my $self = bless {},$class;
-  my $debug   = $options{-debug}  || 0;
-  my $cssfile = $options{-source} || './default.css';
-  $self->{debug}  = $debug;
-
-  #create the adaptor handle
-  my $adaptor      = $options{-adaptor} || 'default';
-  $self->adaptor($adaptor);
-
-  $self->{source} = {};
-  $self->add_sheet($cssfile);
+  
+  $self->debug    ($options{-debug}   or 0);
+  $self->add_file ($options{-source}  or './default.css');
+  $self->adaptor  ($options{-adaptor} or 'Default');
 
   return $self;
 }
 
-sub add_sheet {
-  my $self    = shift;
-  my $cssfile = shift  || return undef;
-  $self->_parse($cssfile);
+sub adaptor {  #not a real adaptor, just a scalar for style to create adaptor objects
+  my $self = shift;
+  my $option = shift;
+  return $self->{adaptor} unless $option;
+
+  $self->{adaptor} = $option and return $self->{adaptor};
 }
 
-sub adaptor {
-  my $self    = shift;
-  my $adaptor = shift;
+sub add_file {
+  my $self = shift;
+  my $option = shift;
 
-  if($adaptor){
-    my $adaptorclass = "CSS::Adaptor::$adaptor";
-    confess("the requested Adaptor class, '$adaptor' is not available: $@")
-      unless(eval "require $adaptorclass");
-
-    $self->{adaptor} = $adaptorclass->new() and return $self->{adaptor};
+  if(ref $option){
+    if (ref $option eq 'ARRAY'){
+      foreach my $o (@$option){
+        $self->_parse($o);
+      }
+    } else {
+      croak "only scalars and arrays accepted: $!";
+    }
+  } else {
+    $self->_parse($option) if $option;
   }
-  return $self->{adaptor};
 }
 
 sub debug {
-  my $self  = shift;
-  my $param = shift;
-  $self->{debug} = $param;
-  return $self->{debug};
-}
-
-sub source {
   my $self = shift;
-  scalar @_ == 1 ? return $self->{source}->{@_[0]} : 0;
-  my %options  = @_;
-  return $self->{source} unless %options;
-  $self->{source}->{$_} = $options{$_} foreach keys %options;
-  return 1;
+  my $option = shift;
+  return $self->{debug} unless $option;
+  $self->{debug} = $option;
 }
 
+sub purge {  #purge at the selector level
+  my $self = shift;
+  my $option = shift;
+  return unless $option;
+
+  my @option = ref $option eq 'ARRAY' ? @$option : $option;
+  foreach my $o (@option){
+    delete $self->{style}->{$o};
+  }
+}
+
+sub styles { return shift->style() }
 sub style {
   my $self = shift;
-  my $tag  = shift;
+  my $option = shift;
+  return (values %{$self->{style}}) unless $option;
 
-  my %k = ();
-
-  return \%k unless $self->source($tag);
-
-  foreach my $k (keys %{$self->source($tag)->attributes}){
-    $k{$self->adaptor->convert($k)} = $self->source($tag)->value($k);
+  my @return;
+  my @option = ref $option eq 'ARRAY' ? @$option : $option;
+  foreach my $o (@option){
+    if(ref $o eq 'CSS::Style'){
+      $self->{style}->{$o} = $o;
+    } else {
+      push @return, $self->{style}->{$o};
+    }
   }
 
-  return \%k || undef;
+  return $#return > 1 ? @return : $return[0];
 }
-
-sub styles {
-  my $self = shift;
-  my @tags = ();
-  foreach my $tag (keys %{$self->{source}}){
-#    push @tags, $self->adaptor->convert($tag);
-    push @tags, $self->source($tag);
-  }
-
-  return @tags;
-#  return keys %{shift->{source}};
-}
-
-sub purge {
-  my $self = shift;
-  my $param = shift;
-  return 0 unless $param;
-
-  delete $self->{source}->{$param};
-  return 1;
-}
-
-#due to indecision on method names, we proudly present:
-sub selectors { return shift->styles(@_);}
-sub selector  { return shift->style(@_); }
-sub tag       { return shift->style(@_); }
-sub tags      { return shift->styles(@_);}
 
 sub _parse {
   my $self = shift;
-  my $file = shift;
+  my $option = shift;
 
-  open (IN,$file) or croak "$!";
-  #my $source = undef;
-  my $source = join '', <IN>;
+  open (IN,$option) or croak "couldn't open file: $!";
+  my $source = join '',<IN>;
   close(IN);
 
-  $source =~ s!/\*.+?\*/!!gs;
-  while($source =~ m/([\w\.].+?)\{(.+?)\}\s*/gs){
 
-    my $attrib = $2;
-    my $t = $1; 
-       $t =~ s/\s//gs;
-       $t =~ s/(\S)\s(\S)/$1,$2/gs;
+  $source =~ s/<!--.+?-->//gs; #remove comments
+  $source =~ s!/\*.+?\*/!!gs;  #remove comments
 
-    my @tags;
-    if($t =~ /,/){
-      @tags = split /,/, $t;
-    } else {
-      push @tags, $t;
-    }
+my $parser = new Parse::RecDescent <<'EOPARSER';
+  sheet:        statement(s)
+  statement:    selector '{' declaration(s?) '}' {push @$return, $style}
+  statement:    <rulevar: local $style = new CSS::Style>
+  declaration:  property ':' value ';'
+  declaration:  <rulevar: local $property>
+  selector:     /\S+/                      {$style->selector($item{__PATTERN1__})}
+  property:     /[^:{}]+/                  {$property = $item{__PATTERN1__}}
+  value:        /'?[^;{}]+'?/          {$style->property($property => $item{__PATTERN1__})}
+EOPARSER
 
-    foreach my $tag (@tags){
-      #protect escaped spaces
-      $attrib =~ s/\\ /\\_/gs;
+  my $a = $parser->sheet($source);
 
-      print "$tag\n" if $self->debug;
-      my @attribs = split /;/, $attrib;
-      pop @attribs if @attribs[$#attribs] eq '';
-
-      my %attribs = ();
-      foreach my $a (@attribs){
-        print "\t$a\n" if $self->debug;
-        $a =~ s/[\s'"]//gs;
-        $a =~ s/\\_/ /gs;
-        $a =~ m/(.+)\:(.+)/;
-        push @{$attribs{$tag}}, [$1,$2] if($1 and $2); #parse error test
-      }    
-
-      my $style = CSS::Selector->new(
-                                  -name=>$tag,
-                                  -attribs=>$attribs{$tag},
-                                  -debug=>1,
-                                  );
-
-
-      croak "Style.pm did not return an object" unless $style;
-
-      #someone defined a tag multiple times.  We just merge
-      #the definitions
-
-      if($self->source($tag)){
-        $self->source($tag)->source($_->[0] => $_->[1]) 
-          foreach @{$attribs{$tag}};
-      } else {
-        $self->source($tag=>$style);
-      }
+  foreach my $b (@$a){
+    foreach my $s (@$b){
+      $s->adaptor($self->adaptor);
+      $s->debug($self->debug);
+      $self->style($s);
     }
   }
 }
 
 1;
+__END__
+# Below is stub documentation for your module. You better edit it!
 
 =head1 NAME
 
-CSS - an Perl object oriented interface to Cascading Style Sheets (CSS)
+CSS - Perl Object oriented access to Cascading Style Sheets (CSS)
 
 =head1 SYNOPSIS
 
- use CSS;
- my $css = CSS->new(
-           -source  => '/path/to/some.css',
-           -adaptor => 'AceGraphics');
-
- my @styles  = $css->selectors;
- my $tag     = @styles[0];
- my %markups = %{$css->selector($tag)};
+  use CSS;
+  ...
 
 =head1 DESCRIPTION
 
-CSS is an object-oriented Perl interface to Cascading Style Sheets (CSS).  
-Minimally created with a CSS file, it will parse the file and return an 
-object with methods for accessing and editing the tags extracted from the 
-stylesheet as CSS objects.  Methods are also provided to delete and add 
-Style objects to those maintained by the CSS object.
+Stub documentation for CSS, created by h2xs. It looks like the
+author of the extension was negligent enough to leave the stub
+unedited.
 
-This module does not depend on any non-standard perl modules.
+Blah blah blah.
 
-=head1 METHODS
+=head2 EXPORT
 
-This section describes the class and object methods for a CSS object.
-
-=head2 CONSTRUCTORS
-
-There is only one constructor, the new() method.
-
-=item $css = CSS->new(@options)
-
-The new() method creates a new panel object.  The options are
-a set of tag/value pairs as follows:
-
-  Option      Value                                  Default
-  ------      -----                                  -------
-
-  -source     path to stylesheet file to be parsed.  none
-
-  -adaptor    Adaptor to be used in creation of      default
-              Styles.
-
-  -debug      when true, debugging messages are      false
-	      sent to STDERR.
-
-new() will thow an exception if the -source tag is undefined.
-
-=head2 ACCESSORS
-
-The following accessor methods provide access to various attributes of
-the CSS  object.  Called with no arguments, they each return the current 
-value of the attribute.  Called with a single argument, they set the 
-attribute and return its previous value.
-
-   Accessor Name                 Description
-   ---------------               -----------
-
-   adaptor()	                 Get/set the global Selector adaptor
-   debug()	                 Get/set debug mode
-   source()	                 Get/set the source
-   selector(),style(),tag()      Get/set the attributes of a Selectors
-   selectors(),styles(),tags()   Get a list of all Selectors
-   purge()                       Remove a Selector
-
-=head1 BUGS
-
-Please report them.
-
-=head1 SEE ALSO
-
-L<CSS::Selector>, L<CSS::Adaptor>
+None by default.
 
 =head1 AUTHOR
 
-Allen Day <day@cshl.org>
+Allen Day <allenday@ucla.edu>
+Copyright (c) 2001-2002
 
-Copyright (c) 2001 Cold Spring Harbor Laboratory
+=head1 SEE ALSO
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.  See DISCLAIMER.txt for
-disclaimers of warranty.
+perl(1).
 
 =cut

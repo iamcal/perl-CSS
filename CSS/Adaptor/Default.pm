@@ -1,9 +1,11 @@
-package CSS::Adaptor::default;
+package CSS::Adaptor::Default;
 
 use strict;
 use vars qw($VERSION @ISA);
-$VERSION = '0.01';
+$VERSION = '0.05';
 @ISA = 'CSS::Adaptor';
+
+sub name { return "Default" }
 
 sub convert {
   my $self = shift;

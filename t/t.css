@@ -1,0 +1,12 @@
+a:visited	{
+		 bg: red;
+/*		 fg: blue;          an internal comment */
+		 font: large;
+		}
+pre.dna		{
+		 font: monospace;
+		 fg: black;
+		}
+PRE		{
+		 font: monospace;
+		}
