@@ -24,7 +24,7 @@ use CSS::Property;
 my $css_property = CSS::Property->new();
 ok( (defined($css_property) and ref $css_property eq 'CSS::Property'), 'CSS::Property::new() works' );
 
-use CSS::PropertyValue;
-my $css_property_value = CSS::PropertyValue->new();
-ok( (defined($css_property_value) and ref $css_property_value eq 'CSS::PropertyValue'), 'CSS::PropertyValue::new() works' );
+use CSS::Value;
+my $css_value = CSS::Value->new();
+ok( (defined($css_value) and ref $css_value eq 'CSS::Value'), 'CSS::Value::new() works' );
 
