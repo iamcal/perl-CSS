@@ -3,7 +3,7 @@ package CSS::Style;
 use strict;
 use warnings;
 use vars qw($VERSION);
-$VERSION = 0.06;
+$VERSION = 0.07;
 
 use lib '../../';
 use Carp qw(croak confess);
@@ -137,49 +137,50 @@ This class represents a selector from a CSS object.
 
 =head1 METHODS
 
-adaptor()
+ adaptor()
   read/write.  view/change the adaptor used by convert() and converts().
 
-property( scalar )
+ property( scalar )
   returns a hash of the property and its value
 
-properties()
+ properties()
   returns a hash of all properties and values of the Style object
 
-convert()
+ convert()
   like property(), except the property tag is converted by adaptor()
 
-converts()
+ converts()
   like properties(), except the property tags are converted by adaptor()
 
-add( property, value)
+ add( property, value)
   see edit().
 
-edit( property, value)
+ edit( property, value)
   write only.  add a property to the Style object.
 
-purge( scalar )
+ purge( scalar )
   write-only.  drop a property from the Style object.
 
-selector( scalar )
+ selector( scalar )
   read/write.  view/change the name of the selector.
 
 =head2 CONSTRUCTOR
 
-Only one constructor: new().  Called with:
- -adaptor	optional	used for transforming properties
+ Only one constructor: new().  Called with:
+  -adaptor	optional	used for transforming properties
 
-=head2 ACCESSORS
+=head1 AUTHORS
 
-=head1 AUTHOR
+Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
 
-Allen Day <allenday@ucla.edu>
-Copyright (c) 2001-2002
+Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
-CSS::Style
+CSS
+
 CSS::Adaptor
+
 perl(1).
 
 =cut

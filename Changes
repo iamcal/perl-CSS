@@ -1,4 +1,5 @@
 Revision history for Perl extension CSS.
 
+0.08		Added new_scalar constructor and added simple support for multiple selectors
 0.05		Re-instantiating to the CPAN by popular demand.
 0.01-0.04	Lost...

@@ -1,7 +1,8 @@
-CSS version 0.05
+CSS.pm version 0.08
 =======================
 
 Object-oriented access to cascading stylesheets.
+
 
 INSTALLATION
 
@@ -12,15 +13,16 @@ To install this module type the following:
    make test
    make install
 
+
 DEPENDENCIES
 
 This module requires these other modules and libraries:
 
   Parse::RecDescent
 
+
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
 Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
+Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
 License: Perl Artistic License

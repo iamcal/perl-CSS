@@ -3,12 +3,11 @@ package CSS::Adaptor;
 use strict;
 use warnings;
 use vars qw($VERSION);
-$VERSION = 0.05;
+$VERSION = 0.06;
 
 use lib '../../';
 use Carp qw(croak confess);
 use overload '""' => 'toString';
-use CSS::Adaptor;
 
 sub new {
   my $class = shift;
@@ -57,18 +56,24 @@ Only one constructor: new().  Called without options.
 
 =head2 ACCESSORS
 
-name()    read-only. returns the name of the Adaptor.
-convert() read-only. returns the conversion of a passed in parameter.
+ name()    
+  read-only. returns the name of the Adaptor.
 
-=head1 AUTHOR
+ convert()
+  read-only. returns the conversion of a passed in parameter.
 
-Allen Day <allenday@ucla.edu>
-Copyright (c) 2001-2002
+=head1 AUTHORS
+
+Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
+
+Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
 CSS
+
 CSS::Style
+
 perl(1).
 
 =cut

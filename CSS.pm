@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use vars qw($VERSION);
 use vars qw($VERSION);
-$VERSION = 0.07;
+$VERSION = 0.08;
 
 use lib '..';
 use Carp qw(croak confess);
@@ -21,6 +21,18 @@ sub new {
   $self->debug   ($options{-debug}   || 0);
   $self->adaptor ($options{-adaptor} || 'Default');
   $self->add_file($options{-source}  || die "please provide a -source file");
+
+  return $self;
+}
+
+sub new_scalar {
+  my $class = shift;
+  my $data = shift;
+  my $self = bless {},$class;
+
+  $self->debug(0);
+  $self->adaptor('Default');
+  $self->add_data($data);
 
   return $self;
 }
@@ -46,8 +58,19 @@ sub add_file {
       croak "only scalars and arrays accepted: $!";
     }
   } else {
-    $self->_parse($option) if $option;
+    if ($option){
+      open (IN,$option) or croak "couldn't open file: $!";
+      my $source = join '',<IN>;
+      close(IN);
+      $self->_parse($source) if $source;
+    }
   }
+}
+
+sub add_data {
+  my $self = shift;
+  my $data = shift;
+  $self->_parse($data) if length $data;
 }
 
 sub debug {
@@ -89,25 +112,21 @@ sub style {
 
 sub _parse {
   my $self = shift;
-  my $option = shift;
-
-  open (IN,$option) or croak "couldn't open file: $!";
-  my $source = join '',<IN>;
-  close(IN);
-
+  my $source = shift;
 
   $source =~ s/<!--.+?-->//gs; #remove comments
   $source =~ s!/\*.+?\*/!!gs;  #remove comments
 
 my $parser = new Parse::RecDescent <<'EOPARSER';
-  sheet:        statement(s)
-  statement:    selector '{' declaration(s?) '}' {push @$return, $style}
-  statement:    <rulevar: local $style = new CSS::Style>
-  declaration:  property ':' value ';'
-  declaration:  <rulevar: local $property>
-  selector:     /\S+/                      {$style->selector($item{__PATTERN1__})}
-  property:     /[^:{}]+/                  {$property = $item{__PATTERN1__}}
-  value:        /'?[^;{}]+'?/          {$style->property($property => $item{__PATTERN1__})}
+  sheet:		statement(s?)
+  statement:		selector '{' declaration(s?) '}'		{push @$return, $style}
+  statement:		<rulevar: local $style = new CSS::Style>
+  declaration:		property ':' value terminator(?)
+  declaration:		<rulevar: local $property>
+  selector:		/[a-z0-9 ,#.\[\]]+/i				{$style->selector($item{__PATTERN1__})}
+  property:		/[^:{}]+/					{$property = $item{__PATTERN1__}}
+  value:		/'?[^;{}\n\r]+'?/				{$style->property($property => $item{__PATTERN1__})}
+  terminator:		';'
 EOPARSER
 
   my $a = $parser->sheet($source);
@@ -123,7 +142,6 @@ EOPARSER
 
 1;
 __END__
-# Below is stub documentation for your module. You better edit it!
 
 =head1 NAME
 
@@ -160,8 +178,9 @@ context (an HTML generator, perhaps?).
 =head2 CONSTRUCTOR
 
 Only one constructor: new().  Called with:
- -source	required	the source CSS file
- -adaptor	optional	used for transforming properties
+
+  -source	required	the source CSS file
+  -adaptor	optional	used for transforming properties
 
 =head2 ACCESSORS
 
@@ -179,15 +198,18 @@ Only one constructor: new().  Called with:
    read only.  returns a list of CSS::Style objects corresponding to
    the current selectors associated with the CSS object.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Allen Day <allenday@ucla.edu>
-Copyright (c) 2001-2002
+Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
+
+Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
 CSS::Style
+
 CSS::Adaptor
-perl(1).
+
+perl(1)
 
 =cut
