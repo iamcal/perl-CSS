@@ -1,6 +1,6 @@
 package CSS;
 
-$VERSION = 1.03;
+$VERSION = 1.04;
 
 use strict;
 use warnings;
@@ -106,6 +106,19 @@ sub output {
 	}
 
 	return $output;
+}
+
+sub get_style_by_selector {
+	my ($self, $sel_name) = @_;
+
+        for my $style (@{$self->{styles}}){
+                for my $selector (@{$style->{selectors}}){
+                        if ($selector->{name} eq $sel_name){
+                                return $style;
+                        }
+                }
+        }
+        return 0;
 }
 
 1;
@@ -237,6 +250,13 @@ Set the current adaptor for the CSS tree.
 =item C<purge()>
 
 Forget all the objects in the CSS tree;
+
+
+=item C<get_style_by_selector( 'selector_name' )>
+
+Returns the first CSS::Style object with the specified selector
+name attached. Returns zero on failure.
+
 
 =back
 

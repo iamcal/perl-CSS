@@ -20,6 +20,7 @@ t/01_basic.t
 t/02_parse_lite.t
 t/03_parse_heavy.t
 t/04_parse_compiled.t
+t/05_search.t
 t/css_simple
 t/css_selectors
 t/css_selector_groups

@@ -1,6 +1,6 @@
 package CSS::Style;
 
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 use strict;
 use warnings;
@@ -66,6 +66,17 @@ sub to_string {
 	eval "use $self->{adaptor}";
 	my $adaptor_obj = new $self->{adaptor};
 	return $adaptor_obj->output_rule($self);
+}
+
+sub get_property_by_name {
+        my ($self, $prop_name) = @_;
+
+        for my $prop (@{$self->{properties}}){
+                if ($prop->{property} eq $prop_name){
+                        return $prop;
+                }
+        }
+        return 0;
 }
 
 1;
@@ -134,6 +145,11 @@ method.
 
 This method is used to serialize the ruleset, using the current adaptor. It returns 
 a string which comes from the adaptor's output_rules() method.
+
+=item C<get_property_by_name( 'property_name' )>
+
+Returns the first CSS::Property object with the specified name. Returns
+zero on failure.
 
 =back
 
