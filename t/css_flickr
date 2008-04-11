@@ -1,0 +1,1191 @@
+a.iconlink, a.iconlink:visited, a.iconlink:hover, a.iconlink:active, a.iconlink:link, span.icontext {
+	color: #000000; 
+	font-size: 16px; 
+	text-decoration: none; 
+	background: none; 
+}
+
+body { padding-bottom: 10px; padding-top: 0px; margin: 0px; text-align: center; background: #fff; }
+h1 { color: #333; font: bold 22px Arial, Helvetica, sans-serif; padding: 5px 5px 5px 6px; margin-top: 0px; }
+h2 { font: normal 20px Arial, Helvetica, sans-serif; color: #000000; }
+h3 { font: normal 18px Arial, Helvetica, sans-serif; color: #FF0084; margin-bottom: 5px; }
+h4 { font: bold 12px Arial, Helvetica, sans-serif; color: #111; margin-bottom: 5px; }
+h5 { font: bold 13px Arial, Helvetica, sans-serif; margin-bottom: 5px; }
+h6 { font: normal 11px Arial, Helvetica, sans-serif; color: #666666; }
+p { font: 12px Arial, Helvetica, sans-serif; }
+form { padding: 0px; margin: 0px; border: 0px; }
+table { border: none; }
+th { font: bold 11px Arial, Helvetica, sans-serif; text-align: left; color: #666;}
+td { padding: 5px; font: 12px Arial, Helvetica, sans-serif; } 
+img { border: 1px solid #ddd; }
+ol { font: normal 12px Arial, Helvetica, sans-serif; line-height: 18px; }
+ul { font: normal 12px Arial, Helvetica, sans-serif; line-height: 18px; }
+li { font: normal 12px Arial, Helvetica, sans-serif; line-height: 18px; }
+dd, dt { font: normal 12px Arial, Helvetica, sans-serif; line-height: 18px; }
+
+
+/* ##################### */
+/*      LINK STYLES      */
+/* ##################### */
+
+a:link { color: #0063DC; text-decoration: underline; }
+a:visited { color: #2E67C7; text-decoration: underline; }
+a:hover { color: #FFFFFF; text-decoration: none; background: #0063DC; }
+a:active { color: #FFFFFF; text-decoration: none; background: #0259C4; }
+
+.DelTag:link { color: #c9c9c9; text-decoration: none; font-size: 11px;}
+.DelTag:visited { color: #c9c9c9; text-decoration: none; }
+.DelTag:hover { color: #0063DC; background: #fff; text-decoration: none; }
+.DelTag:active { color: #FF0084; background: #fff; text-decoration: none; }
+
+.remove_thing:link { color: #999; text-decoration: none;}
+.remove_thing:visited { color: #999; text-decoration: none; }
+.remove_thing:hover { color: #0063DC; background: #fff; text-decoration: none; }
+.remove_thing:active { color: #FF0084; background: #fff; text-decoration: none; }
+
+.pale:link { color: #999999; text-decoration: underline; }
+.pale:visited { color: #999999; text-decoration: underline; }
+.pale:hover { color: #FF0084; background: #fff; text-decoration: underline; }
+.pale:active { color: #FF0084; background: #fff; text-decoration: underline; }
+
+.globe {margin-right: 5px; text-decoration:none}
+.globe:link { text-decoration:none; }
+.globe:visited { text-decoration:none; }
+.globe:hover { background: inherit; text-decoration:none; }
+.globe:active { background: inherit; text-decoration:none; }
+
+.ShowUsYerDate:link { color: #777; text-decoration: none; }
+.ShowUsYerDate:visited { color: #777; text-decoration: none; }
+.ShowUsYerDate:hover { color: #FF0084; text-decoration: none; background: #fff; }
+.ShowUsYerDate:active {	color: #FF0084; text-decoration: none; background: #fff; }
+
+a.tagrsUsed:link, a.tagrsUsed:visited, a.tagrsUsed:hover, a.tagrsUsed:active { color: #95b5bd; text-decoration: none; background: #ffffff; font-size: 12px; }
+a.tagrsUnUsed:link, a.tagrsUnUsed:visited, a.tagrsUnUsed:hover, a.tagrsUnUsed:active { color: #0063DC; text-decoration: none; background: inherit; font-size: 12px; }
+a.tagrsUnUsed:hover, a.tagrsUnUsed:active { text-decoration: underline; }
+
+.PopularTag:link { margin-bottom: 10px; text-decoration: none; padding-bottom: 2px;	}
+.PopularTag:visited { color: #0063DC; text-decoration: none; }
+.PopularTag:hover { color: #ffffff; text-decoration: none; background: #0063DC;	}
+.PopularTag:active { color: #ffffff; text-decoration: none; background: #FF0084; }
+
+.Staff:link { color: #3366CC; text-decoration: none; }
+.Staff:visited { color: #3366CC; text-decoration: none; }
+.Staff:hover { color: #fff; background: #FF66CC; text-decoration: none; }
+.Staff:active { color: #fff; background: #FF66CC; text-decoration: none; }
+
+.Warning:link { color: #F30; text-decoration: none; }
+.Warning:visited { color: #F30; text-decoration: none; }
+.Warning:hover { color: #ffffff; text-decoration: none; background: #F30;	}
+.Warning:active { color: #ffffff; text-decoration: none; background: #FF0084; }
+
+/* ########################################## */
+/*                  SITEWIDE                  */
+/* ########################################## */
+
+.Launch { }
+.LoginBar { 
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left bottom; 
+	text-align: right; 
+	color: #999; 
+	background-color: #f3f3f3; 
+	font-size: 11px; 
+	font-family: Arial, Helvetica, Sans-Serif; 
+	padding: 5px 10px 6px 0; 
+	vertical-align: bottom;
+}
+.NavBar { 
+	margin-bottom: 0px; 
+	width: 760px; 
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left bottom; 
+}
+.NavBar td { padding-bottom: 8px;}
+p.topnavi { font: normal 13px Arial, Helvetica, sans-serif; color: #777; margin: 0 0 0 2px; }
+.Ludi { padding-top: 20px; font: 12px Arial, Helvetica, sans-serif; color: #666; }
+.New { font: 8px Verdana, Arial, Helvetica, sans-serif; color: #000000; background: #FFE28A; padding: 1px; vertical-align: middle; }
+
+#Main, #Main2 { margin-top: 0px; margin-left: auto; margin-right: auto; width: 760px; text-align: left; vertical-align: top; }
+#Hint { padding-top: 0px; padding-right: 20px; padding-left: 6px; margin-top: 0px; font-family: Arial, Helvetica, sans-serif; text-align: left; vertical-align: top; }
+#Hint p { font: normal 12px Arial, Helvetica, sans-serif; color: #555555; }
+#Hint h2 { font: 14px Arial, Helvetica, sans-serif; color: #111; margin-bottom: 5px; }
+#Hint h3 { font: normal 18px Arial, Helvetica, sans-serif; color: #FF0084; margin-bottom: 5px; }
+#Hint h4 { }
+#Hint h6 { font: bold 11px Arial, Helvetica, sans-serif; color: #FF0084; }
+#Hint img { border: none; } 
+
+#GoodStuff { width: 100%; vertical-align: top; margin-top: 0px; text-align: left; padding-top: 0px; padding-left: 5px; }
+
+.Top { font: 9px Verdana, Arial, Helvetica, sans-serif; margin: 0px 0px 0px 20px; float: right; }
+.ThinCase {	margin-left: 150px; margin-right: 150px; padding-bottom: 70px;}
+
+.paginator { font: 11px Arial, Helvetica, sans-serif; padding-top: 20px; padding-bottom: 10px; margin: 0px; }
+.paginator a, .pageList .this-page {padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}
+.paginator a:visited {padding: 2px 6px; border: solid 1px #ddd; background: #fff; text-decoration: none;}
+.paginator .break {padding: 2px 6px; border: none; background: #fff; text-decoration: none;}
+.paginator .end {padding: 2px 6px; border: solid 2px #ddd; background: #fff;}
+.paginator .this-page {padding: 2px 6px; border-color: #999; font-weight: bold; font-size: 13px; vertical-align: top; background: #fff;}
+.paginator a:hover {color: #fff; background: #0063DC; border-color: #036; text-decoration: none;}
+.paginator .ranking {display: block; margin-top: 0.5em; font-weight: bold;}
+.paginator .ranking a {padding: 0; border: 0; background: transparent;}
+.paginator .ranking a:hover {text-decoration: underline; color: #f60; background: transparent;}
+
+#Feeds { width:760px; margin:0 auto; padding:0; text-align:left; margin: 10px 0 20px 0; }
+#AtomRSS { width:668px; float:left; background: #fbfbfb; font: normal 11px Arial, Helvetica, sans-serif; color: #666; padding: 5px; text-align: right; }
+#AtomRSS b { color: #888; }
+#AddToYahoo { width:70px; float:right; background: #fff; padding: 5px; text-align: right; }
+#AddToYahoo img { border: none; }
+
+#AdminStrip { background: url(/images/badge_preview_bg.gif) repeat left top; font: normal 11px Arial, Helvetica, sans-serif; color: #666; padding: 5px; text-align: left; border: 2px solid #eee; margin: 20px 0 0 0; }
+#AdminStrip b { color: #444; }
+
+#AdminBox { border: 2px solid #eee; background: url(/images/badge_preview_bg.gif) repeat left top; }
+#AdminBox h4 { padding: 0 5px 3px 5px; font-size: 12px; background: #eee; color: #444; font-weight: bold; margin-top: 0px; }
+#AdminBox p { padding: 5px; margin: 0; color: #888; font-size: 11px; }
+#AdminBox table { margin-top: 0; }
+#AdminBox td { padding: 5px; color: #888; font-size: 11px; }
+.Count { padding: 3px; border: 2px solid #eee; background-color: #fff; }
+
+.ForumStaffOptions { float: right; width: 70px;	text-align: left; font-size: 11px; font-weight: normal;	padding-bottom: 5px; color: #999999; line-height: 15px;	font-family: Arial, Helvetica, sans-serif; } 
+
+#Pages { text-align: center; margin-bottom: 20px; margin-left: auto; margin-right: auto; }
+#Pages b { color: #000; }
+
+.BottomStrip { background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top; text-align: center; margin-top: 0px; padding-bottom: 10px; padding-top: 15px; background-color: #f1f1f1; }
+#MegaFooter { }
+#MegaFooter td { padding: 5px; }
+#MegaFooter a { text-decoration: none; }
+
+.DateCase { float: right; text-align: center; padding-left: 30px; }
+
+h3.Tab { border-bottom: 3px solid #e6e6e6; padding-left: 15px; margin-top: 5px; margin-bottom: 15px; }
+.TabIn { background: #ffffff; padding: 3px 11px 3px 11px; border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; border-top: 1px solid #e6e6e6; border-bottom: 1px solid #fff; margin-right: 3px; margin-left: 3px; }
+.TabOut { font-size: 14px; color: #333; background: #e6e6e6; padding: 2px 8px 4px 8px; }
+.ChooseView { color: #000; font: normal 12px Arial, Helvetica, sans-serif; float: right; margin: 0px; padding: 2px; }
+
+#takenDate { padding-left: 30px; vertical-align: middle; height: 140px; border: 1px solid white; }
+#takenRange { padding-left: 30px; vertical-align: middle; height: 140px; border: 1px solid white; }
+.PostedDate { padding-left: 30px; vertical-align: middle; }
+
+.Tip { color: #777; padding-left: 2px; padding-right: 2px; font-size: 12px;}
+.Tip_no_font { color: #777; padding-left: 2px; padding-right: 2px; }
+.Tip_print_menu { color: #777 !important; padding-left: 2px !important; padding-right: 2px !important; font-style: normal !important; font-size: 12px !important;}
+.Tip_print_menu a { color: #0063DC !important;}
+
+.Heading1 { margin: 0px; width: 760px; }
+.Heading1.td { padding: 0px; margin: 0px; }
+
+.WhoDat { float: left; text-align: left; width: 48px; margin-right: 20px; }
+.WhoDat .Buddy { margin: 0px; }
+.Buddy img { padding-bottom: 0px; margin-bottom: 0px; }
+.IsPro {text-align: center; margin: 0px;}
+.IsPro img { border: none; margin: 0px; }
+.SponsorMe { text-align: center; float: right; font-size: 12px; font-weight: normal; margin-right: 5px; margin-left: 5px; }
+
+/* THAT PSST TABLE */
+
+.Tease { padding-top: 5px; padding-bottom: 10px; color: #000; margin-top: 20px; margin-bottom: 20px; }
+.Tease h3 { }
+.Tease p { font: normal 12px, Arial, Helvetica, sans-serif; margin-bottom: 0px;}
+.Tease .Or { font: normal 12px Arial, Helvetica, sans-serif; margin-top: 5px; }
+
+/* INTRO PAGES IN EACH AREA */
+
+.Intro {
+	text-align: left;
+	vertical-align: top;
+	padding: 10px;
+	background-color: #f5f5f5;
+	width: 50%;
+}
+
+.Intro p {
+	font-size: 16px;
+	line-height: 24px;
+	color: #333333;
+}
+
+.IntroServices {
+	text-align: left;
+	vertical-align: top;
+	padding: 10px;
+	background-color: #f5f5f5;
+	font-size: 16px;
+	line-height: 24px;
+	color: #333333;
+	margin-bottom: 30px;
+}
+
+.Intro h3 { font-size: 20px; font-weight: bold; }
+
+.Starters {
+	text-align: left;
+	vertical-align: top;
+/*	padding-top: 10px; */
+	padding-right: 0px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	width: 50%;
+}
+
+.Starters p { font-size: 14px; }
+
+.Pointers td {
+	padding-top: 30px;
+	padding-right: 10px;
+	padding-bottom: 30px;
+	padding-left: 10px;
+	width: 33%;
+	vertical-align: top;
+}
+
+.Pointers p { font-size: 14px; }
+
+/* MISKELLANIOUS */
+
+.Highlight { font-family: Arial, Helvetica, sans-serif; background-color:#ffc; }
+.StreamBuddy { margin-right: 20px; border: 1px solid #ddd; float: left; margin-bottom: 20px; }
+.Temporal { text-align: center; vertical-align: middle; padding: 5px; font: 11px Arial, Helvetica, sans-serif; }
+.SmallBit { margin-top: 0px; font: 11px Arial, Helvetica, sans-serif; color:#888888 }
+.PinkyWinky { padding: 20px; border: 1px solid #FFD9ED;	}
+.PinkyWinky p { font: 14px Arial, Helvetica; }
+.PostNew { padding: 4px 4px; background-color: #FFE8F4; border: 1px solid #FDD8EB; text-align: center; margin: 5px 0px 10px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; width: 160px; }
+.More { margin-top: 0px; margin-left: auto; margin-right: auto;	 margin-bottom: 5px; float: left; }
+.Flotsam { padding-top: 10px; padding-left: 20px; padding-right: 10px; padding-bottom: 10px; vertical-align: top; }
+.BadgePhoto { font: 12px Arial, Helvetica, sans-serif; background-color: #EEF2FD; padding: 4px; margin: 0px 0px 10px 10px; vertical-align: middle; color: #666666; border: 1px solid #D3DEFA; }	
+.JoinUp { width: 100%; background-color: #FBFFCC; border: 1px solid #F7FEA6; padding: 6px; text-align: left; margin-top: 15px; }
+.HitThis { background-color: #EEF2FD; padding: 5px; width: 100%; vertical-align: middle; color: #000; text-align: left; margin-bottom: 5px; }
+.HitThis h3 { margin-bottom: 0px; margin-top: 0px;	}
+.HitThis p { margin-top: 5px; margin-left: 18px; margin-bottom: 0px; font-size: 12px; }
+.ToolTip { background-color: #ffffcc; color: #000000; padding: 8px; border-top: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 3px solid #000000; border-right: 3px solid #000000; position: absolute; font: 12px Arial, Helvetica, sans-serif; text-align: left; cursor: default; }
+
+.Box { padding: 15px; border: 1px solid #f1f1f1;  margin-top: 15px; }
+.Box h3 { margin-top: 0; }
+
+.linkout { background-color: #FFF;}
+.linkover { background-color:#F0F0EB; border-left-width: 1px; border-left-style: solid; border-left-color: #FFFFFF; }
+
+.WelcomeSSO { background: #f5f5f5; border: #ccc; padding: 20px; margin-bottom: 20px; margin-top: 0 }
+.WelcomeSSO h3 { margin-top: 0; }
+.WelcomeSSO p { font-size: 14px; }
+.WelcomeToS { padding: 0px 20px 0 30px; }
+.WelcomeToS p { font: 14px Arial, Helvetica; color: #888; text-align: center; }
+.WelcomeOr { color: #333; font-family: Georgia, Times; padding-top: 20px; font-size: 30px; text-align: center;}
+
+.ChooseLocation { background: #f5f5f5; border-bottom: 1px solid #ddd; margin-right: 50px; margin-left: 50px; padding: 20px; margin-bottom: 40px;}
+.ChooseLocation h3 { margin-top: 0px; }
+
+/* ############### */
+/*    FORM BITS    */
+/* ############### */
+
+.Confirm { font: bold 14px Arial, Helvetica, sans-serif; padding-left: 25px; padding-bottom: 5px; background: url(/images/icon_confirm.jpg) no-repeat left top; text-align: left; vertical-align: middle; width: 100%; color: #000000; margin-left: 5px; }
+.Problem { font: bold 14px Arial, Helvetica, sans-serif; padding-left: 25px; padding-bottom: 5px; background: url(/images/icon_error.jpg) no-repeat left top; text-align: left; vertical-align: middle; width: 100%; color: #000000;  margin-left: 5px; }
+.NoResult { font: bold 14px Arial, Helvetica, sans-serif; padding-bottom: 5px; width: 100%; text-align: left; vertical-align: middle; color: #888; }
+
+.Butt { font: bold 12px Arial, Helvetica, sans-serif; color: #FFFFFF; background: #0063DC; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: #7CBAFF; border-right-color: #2854A7; border-bottom-color: #2854A7; border-left-color: #7CBAFF; }
+.DeleteButt { color: #000000; background: #DCE0E6; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: #F5F6F7; border-right-color: #BFB7BC; border-bottom-color: #BFB7BC; border-left-color: #F5F6F7; font: 12px Arial, Helvetica, sans-serif; }
+.CancelButt { color: #000000; background: #d9d9d5; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: #fff; border-right-color: #b6aeb3; border-bottom-color: #b6aeb3; border-left-color: #fff; font: 12px Arial, Helvetica, sans-serif; }
+.PinkButt { font: bold 12px Arial, Helvetica, sans-serif; color: #FFFFFF; background: #FF0084; border: 1px solid; border-top-color: #7CBAFF; border-right-color: #2854A7; border-bottom-color: #2854A7; border-left-color: #7CBAFF; }
+.SmallPinkButt { font: bold 10px Arial, Helvetica, sans-serif; color: #FFFFFF; background: #FF0084; border: 1px solid; border-top-color: #7CBAFF; border-right-color: #2854A7; border-bottom-color: #2854A7; border-left-color: #7CBAFF; padding: 0px; margin: 0px; }
+.SmallButt { font: bold 10px Arial, Helvetica, sans-serif; color: #FFFFFF; background: #0063DC; border: 1px solid; border-top-color: #7CBAFF; border-right-color: #2854A7; border-bottom-color: #2854A7; border-left-color: #7CBAFF; padding: 0px; margin: 0px; }
+.SmallDeleteButt { color: #000000; background: #DCE0E6; border: 1px solid; border-top-color: #F5F6F7; border-right-color: #BFB7BC; border-bottom-color: #BFB7BC; border-left-color: #F5F6F7; font: 10px Arial, Helvetica, sans-serif; padding: 0px; margin: 0px; }
+
+.Focus { padding: 10px; text-align: left; font-size: 13px; color: #003366; font-family: Arial, Helvetica, sans-serif; background: #f3f3f3; }
+.FormInstruction { padding: 10px; background: #f5f5f5; font: 13px Arial, Helvetica, sans-serif; }
+.Label { vertical-align: top; text-align: right; font-weight: bold; }
+
+/* ##################### */
+/*      IMG CLASSES      */
+/* ##################### */
+
+.BuddyIcon, .xBuddyIcon { margin-right: 15px; margin-bottom: 5px; }
+.BuddyIconH, .xBuddyIconH { margin-bottom: 3px; }
+
+.Full { font-size: 1.4em; font-family: Arial, Helvetica, sans-serif; padding: 10px; text-align: center; background: #f5f5f5; }
+.icon { border: 0px none; vertical-align: middle; }
+
+/* ##################### */
+/* PROFILE PAGE SPECIFIC */
+/* ##################### */
+
+.RealName { font-size: 75%; color: #333333; }
+#Relations { font: 12px Arial, Helvetica, sans-serif; margin: 0; padding-left: 15px; }
+#YourProfile { font: 12px Arial, Helvetica, sans-serif; margin-top: 0px; padding-left: 15px; background: #f5f5f5; margin-top: 3px; }
+#ChangeView { font: 14px Arial, Helvetica, sans-serif; padding-left: 15px; float: left; margin-top: 0px; }
+.MoreContacts { font: bold 14px Arial, Helvetica, sans-serif; text-align: left; padding-top: 35px; padding-left: 15px; float: left; margin-top: 5px; }
+.Testi { padding-top: 5px; padding-bottom: 5px; font-size: 11px; font-family: Arial, Helvetica, sans-serif; width: 180px; margin-top: 2px; margin-bottom: 8px; }
+.Testi img { float: right; margin-left: 8px; }
+.WhosOnline { font: normal 12px Arial, Helvetica, sans-serif; color: #000000; text-align: left; list-style: none; margin-left: 0px; padding-left: 10px; margin-top: 3px; margin-bottom: 3px; padding-top: 0px; }
+
+/* ##################### */
+/*         INBOX         */
+/* ##################### */
+
+#InBox table { font: 12px Arial, Helvetica, sans-serif; margin-right: 0px; margin-left: 0px; }
+#InBox td { border-bottom: 1px solid #E5E5E5; }
+#InBox th { text-align: left; }
+#InBox p { margin-bottom: 10px; }
+#InBox .Head { font: bold 12px Arial, Helvetica, sans-serif; margin-top: 0px; margin-bottom: 0px; color: #fff; background: #666; }
+#InBox h4 { font: 11px Arial, Helvetica, sans-serif; margin-top: 0px; margin-bottom: 0px; color: #666666; }
+#InBox h6 { margin-bottom: 0px; padding-bottom: 0px; }
+#InBox #Unread { font-weight: bold; background: #F0F0F0; }
+#InBox #Read { font-weight: normal; }
+#InBox #Replied { font-style: italic; color: #333333; }
+#InBoxDel { font-size: 90%; border-bottom: 1px solid #FF66CC; background: #FFFFFF; text-align: center; }
+
+/* ######################### */
+/*         ALERTS etc        */
+/* ######################### */
+
+/* Recent Activity */
+
+.RecentActivity { width: 640px; margin-top: 10px; margin-bottom: 5px; margin-left: 60px; }
+.RecentActivity tr { vertical-align: top; }
+.RecentActivity td {  }
+.RecentActivity .Object { background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; padding-left: 10px; }
+.RecentActivity .Guts { background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; width: 100%; border: none; }
+.Guts h2 { margin-bottom: 0px; padding-top: 5px; }
+
+.NewComments { width: 100%; margin-left: 10px; margin-top: 10px; }
+.NewComments td { vertical-align: top; padding: 3px 3px 6px 3px; margin: 0px; background-image: none;}
+/* .NewComments img { margin-right: 10px; } */
+.NewComments .Icon { text-align: right; }
+.NewComments .Icon img { vertical-align: top; border: none; margin-right: 0px; margin-top: 8px; }
+.NewComments .YouSaid { background: #fbfbfb; font-style: italic; color: #888; }
+.NewComments .YouSaidIcon { background: #fbfbfb; font-style: italic; color: #888; text-align: right; }
+.NewComments .YouSaidIcon img { vertical-align: top; border: none; margin-right: 0px; margin-top: 8px; }
+.HowMany { font: normal 12px Arial, Helvetica, sans-serif; margin-top: 0px; padding-left: 8px; }
+.NewComments .DateTime { padding-left: 30px; }
+
+/* ######################### */
+/*         PHOTO BITS        */
+/* ######################### */
+
+.TagsBox { padding: 15px; border: solid 1px #eee; background: #f5f5f5; }
+.PhotoNav { padding-right: 1px; padding-top: 5px; margin-left: 20px; float: right; text-align: right; font: normal 14px Arial, Helvetica, sans-serif; color: #666; }
+
+.Set {  width: 130px; text-align: left; margin-bottom: 15px; }
+.Set h4  { width: 120px; margin-top: 0px; margin-bottom: 0px; font-size: 15px; font-weight: bold; }
+.Set p { margin-top: 2px; font-size: 11px; color: #777; }
+.Sets { width: 115px; height: 180px; text-align: left; float: left; padding-right: 4px;	margin-right: 5px; margin-bottom: 20px; }
+.Sets h4 { width: 110px; margin-top: 0px; margin-bottom: 0px; font-size: 15px; font-weight: bold; }
+.Sets p { margin-top: 2px; font-size: 11px; color: #777; }
+
+.SetCase { margin-top: 5px; margin-bottom: 5px; width: 91px; height: 95px; padding: 7px 0 0 7px; background: url(/images/set_case.gif) no-repeat; }
+.SetCase a {text-decoration:none}
+.SetCase a:link { text-decoration:none; }
+.SetCase a:visited { text-decoration:none; }
+.SetCase a:hover { background: transparent; text-decoration:none; }
+.SetCase a:active { background: transparent; text-decoration:none; }
+
+.setCommentLinkDiv { margin-top:-20px; margin-left: 2px;}
+a.setLink img { border: 1px solid #000; }
+a.setCommentLink img { border:0;}
+
+.Seta:link { color: #0259C4; text-decoration: none; }
+.Seta:visited { color: #0259C4; text-decoration: none; }
+.Seta:hover { color: #FFFFFF; text-decoration: none; background: #0063DC; }
+.Seta:active { color: #FFFFFF; text-decoration: none; background: #0259C4; }
+
+.ViewSet { padding: 0px; margin: 3px; float: left; }
+
+.StreamList { font: 11px Arial, Helvetica, sans-serif; padding: 0px; margin-right: 10px; margin-bottom: 5px; float: left; text-align: center; width: 110px; height: 130px; }
+.SqStreamList { font: 11px Arial, Helvetica, sans-serif; padding: 0px; margin-right: 10px; margin-bottom: 5px; float: left; text-align: center; width: 80px; height: 110px; }
+.UserTagList { padding: 0px; margin-right: 10px; margin-bottom: 5px; text-align: center; float: left; width: 110px; height: 110px; }
+.PoolList { font: 11px Arial, Helvetica, sans-serif; padding: 0px; margin-top: 5px; margin-right: 10px; margin-bottom: 0px; float: left; text-align: center; width: 110px; height: 120px; }
+.GroupPoolList {	padding: 6px; width: 90%; font: normal 12px Arial, Helvetica, sans-serif; color: #666666; }
+.GroupPoolList h4 { font-weight: bold; font-size: 12px; margin-top: 0px; }
+.GroupPoolList p { margin: 0px; }
+
+.Batch { padding: 0px 5px 10px 5px; }
+.BatchList { margin-top: 0px; width: 100%; }
+.BatchList tr { vertical-align: top; }
+.BatchList td { padding-top: 10px; padding-bottom: 40px; border-bottom: solid 3px #e6e6e6; }
+.BatchPic { text-align: center; padding: 20px 30px 10px 30px; }
+.BatchPic img { margin-top: 10px; }
+.BatchForm { width: 100%; }
+.BatchForm td { border: none; padding: 5px; }
+.BatchDesc { font-size: 14px; padding-bottom: 15px; text-align: center; }
+.BatchOpList { width: 50%; border-right: solid 5px #e6e6e6; }
+.BatchOpList p { font: 11px Arial, Helvetica, sans-serif; padding: 0px; margin-right: 10px; margin-bottom: 10px; float: left; text-align: center; width: 75px; height: 90px; }
+.BatchOptions { width: 50%; border-left: solid 5px #e6e6e6;	padding: 20px 10px 20px 20px; font-size: 14px; }
+
+.OneOption { padding: 10px; margin: 10px; border: solid 1px #e6e6e6; }
+.OneOption h4 { margin-top: 0px; }
+
+.FaveList { width: 85px; height: 85px; float: left; }
+#FaveDetail { font: 11px Arial, Helvetica, sans-serif; color: #333333; background: #FFFFFF; text-align: center; vertical-align: middle; padding: 5px; border: 2px solid #333333; width: 115px; left: auto; bottom: 5px; right: auto; position: relative; z-index: 1; visibility: hidden; }
+
+.SeeSlideShow { padding-bottom: 10px; padding-top: 10px; padding-left: 5px; margin-top: 30px; }
+.SlideShowTop { background: #eaeaea; padding-left: 2px; padding-bottom: 3px; padding-top: 2px; border-bottom: 1px solid #dbdbdb; font: normal 14px Arial, Helvetica; text-align: left; }
+
+.HeadingOne { width: 100%; }
+.HeadingOne tr { vertical-align: top; }
+.HeadingOne td { padding: 0 0 10px 0; }
+.HeadingOne div { float: right; margin-left: 20px; text-align: left; padding-right: 10px; padding-top: 8px; background-image: url(/images/dotted_v.gif); background-repeat: repeat-y; background-position: right top;}
+
+.HeadingOneNew { width: 100%;}
+.HeadingOneNew td { padding: 0 0 10px 0; }
+
+.ShowUnderLogo { float: right; margin-left: 20px; width: 140px; text-align: left; padding-top: 5px; }
+
+.PopularPic { padding: 10px; width: 560px; }
+.PopularPic td { vertical-align: top; padding: 10px 10px 20px 10px ; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; }
+.PopularPic h4 { font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; margin-top: 0px; }
+.PopularPic p { font-family: Arial, Helvetica, sans-serif; font-size: 14px; width: 450px; }
+
+/* View of user photo stream pages, 1 column or two */
+/* Could be consolidated with the DetailView below */
+
+.StreamView {}
+.StreamView h4 { margin-bottom: 0px; margin-top: 0px; font-size: 14px; width: 240px; }
+.StreamView .Photo { margin-top: 3px; margin-bottom: 5px; }
+.StreamView .Desc { width: 225px; margin-top: 5px; margin-bottom: 5px; }
+.StreamView .Activity { font-size: 11px; margin-top: 0px; margin-bottom: 0px; }
+.StreamView .Privacy { font-size: 11px; margin-top: 5px; margin-bottom: 0px; width: 240px; }
+.StreamView .Privacy img { border: none; }
+.StreamView .DateTime { margin-bottom: 18px; margin-top: 5px; width: 240px; }
+
+/* for 240px detail list view on a photo, with permissions, comments etc */
+.DetailView { width: 240px; margin-bottom: 20px; }
+.DetailView h4 { margin-bottom: 0px; margin-top: 0px; font-size: 14px; }
+.DetailView .Photo { margin-top: 3px; margin-bottom: 5px; padding-top:4px; }
+.DetailView .Meta { width: 235px; margin:0 0 6px 0; }
+.DetailView .MetaDetail { margin-top: 5px; }
+
+.DoMore td { padding: 0; }
+.DoMore img { border: none; }
+.WhatThe { width: 640px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top; margin-top: 20px;}
+.WhatThe td { padding-top: 20px; }
+
+/* ########################## */
+/*       PHOTO DOT GNE        */
+/* ########################## */
+
+.UnderPhoto { width: 500px; margin-top: 15px; }
+.UnderPhoto .Content { width: 450px; padding: 0 15px 0 8px; }
+div.photoDescription { margin: 0; border: 0px solid black; }
+#noteCount { font-size: 11px; color: #999; margin-top: 8px; margin-bottom: 4px; }
+.Widget { font-size: 11px; color: #666; padding: 2px; margin-bottom: 10px; }
+.TagList { background-color:#ffffff; padding: 0px; margin-top: 25px; border: 0; color: #666666; }
+#tagadderlink { margin-top: 0px; }
+
+/* THESE ARE NEW */
+
+.contextInfo {
+	border:1px solid black;
+	border-left: 0;
+	border-top: 1px solid #e3e3e3;
+	border-right: 1px solid #e3e3e3;
+	border-bottom: 1px solid #e3e3e3;
+	background-color: #f3f3f3;
+	padding-left:5px;
+}
+.contextInfoInner {
+	height:101px;
+	width:57px;
+	padding: 0;
+	color: #c3bebd; 
+}
+.contextInfoInner .photosNum {
+	padding-top:24px;
+	font-weight: bold;
+	font-size: 17px;
+	line-height: 10px;
+}
+.contextInfoInner .photosText {
+	font-size: 12px;
+}
+.contextInfoInner .showLink {
+	padding-top:6px;
+	font-size: 11px;
+	line-height: 10px;
+}
+.contextInfoInner .showLink a:link { color: #c3bebd; text-decoration: underline; }
+.contextInfoInner .showLink a:visited { color: #c3bebd; text-decoration: underline; }
+.contextInfoInner .showLink a:hover { color: #ff0086; text-decoration: underline; background: inherit; }
+.contextInfoInner .showLink a:active { color: #ff0086; text-decoration: underline; background: inherit; }
+
+a.contextThumbLink:link { color: #0063DC; text-decoration: none; }
+a.contextThumbLink:visited { color: #2E67C7; text-decoration: none; }
+a.contextThumbLink:hover { color: #FFFFFF; text-decoration: none; background: inherit; }
+a.contextThumbLink:active { color: #FFFFFF; text-decoration: none; background: inherit; }
+
+.ContextTop { margin-top: 0px; margin-bottom: 20px; padding-right: 0px; color: #666666; }
+.ContextTop h3 { font-size: 14px; margin: 0 15px 0 2px; border:1px solid #f3f3f3; border-bottom:0px; padding: 3px 4px 4px 4px; width: 195px; }
+
+.ContextsOther { padding-right: 0px; margin-top: 20px; }
+.ContextsOther #other_contexts_p { font-size: 14px; color: #666666; margin-bottom:8px; }
+
+.contextThumbsRow span { padding: 0px; margin: 0px; }
+.contextThumbsRow img { margin-right: 1px; display:inline; border: 1px solid #eee; }
+.contextThumbsRow img.crap { margin: -1 0 0 0; display:inline; border: 0; }
+.contextThumbsRow img.nomore { border: 1px solid #eee;}
+
+.contextsTable { margin: 0 0 6px 0;} 
+
+h3.contextTitleOpen { font-size: 14px; margin: 0 15px 0 2px; border:1px solid #f3f3f3; border-bottom:0px; padding: 3px 4px 4px 4px; width: 195px; }
+h3.contextTitleClosed { font-size: 12px; margin: 1px 15px 0 2px; border:1px solid #f3f3f3; padding: 3px 4px 4px 4px; width: 195px; }
+
+.currentContextLink { font-weight:bold; text-decoration:none;}
+.currentContextLink:link { color: #0063DC; text-decoration:none; }
+.currentContextLink:visited { color: #0063DC; text-decoration:none; }
+.currentContextLink:hover { color: #0063DC; background: #ffffff; text-decoration:none; }
+.currentContextLink:active { color: #ff0084; background: #ffffff; text-decoration:none; }
+
+.contextThumbsMoverDiv { position:relative; width:400px; left:0px; height:80px}
+.contextThumbsMoverWrapperDiv { overflow:hidden; width:156px; position:relative; }
+
+.nextprev_contextThumbsArrowsDiv {height:11px;}
+.nextprev_contextThumbsArrowsDiv img {border:0; visibility:hidden;}
+.nextprev_contextThumbsArrowsDiv img.nextprev_view_page_img {visibility:visible;}
+
+
+.nextprev_contextThumbsDiv {
+	margin: 0;
+	background-color: #f3f3f3;
+	border-left: 0;
+	border-top: 1px solid #e3e3e3;
+	border-right: 0;
+	border-bottom: 1px solid #e3e3e3;
+	padding: 10px 0 0 0;
+}
+
+#TakenBy { font: normal 12px Arial, Helvetica, sans-serif; margin: 0; padding-left: 0; }
+
+.photoswftd { padding:0 16px 0 0; }
+.photoswftd h1 { margin-bottom: 5px; }
+
+#thetags { margin: 0 0 0 2px; width:230px;}
+
+td.RHS { padding: 25px 0 0 0; }
+.RHS table { border: 0; }
+.RHS td { padding: 0; margin:0}
+.RHS .LilIcon { padding-right: 0px; vertical-align:bottom }
+.RHS h5 { color: #666; font: normal 14px Arial, Helvetica, sans-serif; }
+.RHS .Privacy { font: 11px/15px Arial, Helvetica; color: #999999; margin-bottom: 1px; margin-top: 5px; }
+.Stats { margin-left: -21px; font: 11px/15px Arial, Helvetica; color: #999999; list-style-type: circle; }
+.Offensive { font: 11px Arial, Helvetica, sans-serif; color: #999; margin-top: 0; padding-top: 10px;}
+
+.Grey:link { color: #999; text-decoration: none; }
+.Grey:visited { color: #999; text-decoration: none; }
+.Grey:hover { color: #0063DC; text-decoration: none; background: #ffffff; }
+.Grey:active { color: #ff0084; text-decoration: none; background: #ffffff; }
+
+/* ########################### */
+/*     BIG PRETTY CALENDAR     */
+/* ########################### */
+
+.Day { font: bold 14px "Trebuchet MS", Arial, Helvetica, sans-serif; color: #000000; text-align: left; vertical-align: bottom; padding: 0px; margin: 0px; padding-bottom: 6px; padding-left: 8px; }
+.EmptyDay { padding: 0px; font: bold 18px "Trebuchet MS", Arial, Helvetica, sans-serif; color: #D2D2D2; background: url(/images/calendar_bg.jpg) repeat-x; text-align: left; vertical-align: top; padding-left: 4px; padding-top: 3px; border: 1px solid #7E7262; }
+.FutureDay { padding: 0px; font: bold 18px "Trebuchet MS", Arial, Helvetica, sans-serif; color: #e5e5e5; text-align: left; vertical-align: top; padding-left: 4px; padding-top: 3px; border: 1px solid #e5e5e5; }
+.FullDay { background: #FFFFFF; text-align: left; vertical-align: top; border: 1px solid #7E7262; padding: 3px; }
+.WhiteDate { font: bold 18px "Trebuchet MS", Arial, Helvetica, sans-serif; color: #fff; padding-left: 4px; padding-top: 0px; z-index: 3; position: absolute; text-align: left; vertical-align: top; }
+.BlackDate { font: bold 18px "Trebuchet MS", Arial, Helvetica, sans-serif; color: #000; padding-left: 5px; padding-top: 1px; z-index: 2; position: absolute; text-align: left; vertical-align: top;	}
+.Thumb { z-index: 1; position: absolute; }
+.CalendarBlank { padding: 0px; } 
+.CalendarBlank img { border: 0px; }
+
+.Tour { width: 620px; margin-right: 70px; margin-left: 70px; margin-top: 10px; padding: 10px; }
+.Tour h1 { color: #ff0084; padding: 0px;}
+.Tour h2 { font: normal 20px Arial, Helvetica, sans-serif; }
+.Tour p { font: normal 14px/16px Arial, Helvetica, sans-serif; }
+.Tour .Crack p { font: normal 14px/18px Arial, Helvetica, sans-serif; text-align: center; }
+.Tour li { font: normal 14px/16px Arial, Helvetica, sans-serif; list-style: disc; }
+
+span.Found { background:rgb(153, 255, 153) }
+
+.BlogBits p { margin-left: 4px; font-size: 11px; color: #494949; }
+.BlogBits li { font-size: 11px; line-height: 14px; color: #494949; }
+
+/* ######################### */
+/*       ARCHIVE BITS        */
+/* ######################### */
+
+.ArchiveNavi { width: 100%; margin-top: 0px; margin-bottom: 0px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; }
+.ArchiveNavi tr { vertical-align: top; }
+.ArchiveNavi td { padding: 0 5px 5px 5px; font: normal 16px Arial, Helvetica; }
+.ArchiveNavi p { font: normal 12px Arial, Helvetica; }
+.InHere { color: #ff0084; }
+
+.SurfsUp { margin-right: auto; margin-left: auto; margin-top: 0px; text-align: center; vertical-align: middle; }
+.SurfsUp td { width: 15px; vertical-align: middle; margin: 0px 1px 1px 1px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee; padding: 2px; font: bold 11px Arial, Helvetica; color: #ccc; }
+
+.ArchiveDisplay { width: 734px; background: #f5f5f5; margin-bottom: 10px; }
+.ArchiveDisplay td { padding: 10px; background: #f5f5f5; }
+.ArchiveDisplay p { float: left; padding: 4px 4px 12px 4px; border: 1px solid #ddd; background: #fff; margin: 8px; }
+.ArchiveDisplay img { border: none; }
+
+.ArchiveFoot { width: 100%; margin-top: 0px; margin-bottom: 10px; }
+.ArchiveFoot tr { vertical-align: middle; }
+.ArchiveFoot td { padding: 0px; font: normal 14px Arial, Helvetica; }
+
+.EachMonth { width: 220px; }
+.AllMonths { width: 590px; border: none; border-collapse: collapse; }
+.YearListing { width: 230px; }
+.YearListing h4 { font-size: 16px; }
+
+/* ******** LITTLE CALENDARS ******** */
+
+.ArchiveCalendar { background: #fff; border-top: 3px solid #ddd; border-right: 3px solid #ddd; border-left: 3px solid #ddd; border-bottom: 2px solid #ddd; margin: 0px; width: 220px; }
+.ArchiveCount { font-weight: normal; font-size: 12px; }
+.ArchiveCalendar a:link { font-weight: bold; text-decoration: none; color: #0063DC; padding: 3px; }
+.ArchiveCalendar a:visited { font-weight: bold; text-decoration: none; color: #0063DC; padding: 3px; }
+.ArchiveCalendar a:hover { font-weight: bold; text-decoration: none; color: #fff; background: #000; padding: 3px; }
+.ArchiveCalendar a:active { font-weight: bold; text-decoration: none; color: #ff0084; background: #000; padding: 3px; }
+.ArchiveCalendar .Month { background: #e1e1e1; padding: 2px; color: #444; font: bold 14px Arial, Helvetica, sans-serif;	}
+.ArchiveCalendar .MON { background: #f5f5f5; padding: 2px; font: bold 13px Arial, Helvetica, sans-serif; }
+.ArchiveCalendar td { text-align: center; border-bottom: 1px solid #dddddd; padding: 2px; font: normal 12px Arial, Helvetica, sans-serif; color: #ccc; }
+.ArchiveCalendar .DAY { font-size: 11px; font-weight: bold; padding-left: 3px; padding-right: 3px; padding-top: 6px; color: #333; }
+.ArchiveCalendar .Today { font-weight: bold; background: #fff; border: 2px solid #bbb; padding:1px; color: #000; }
+
+/* ################################ */
+/* LISTS OF PEOPLE WITH BUDDY ICONS */
+/* ################################ */
+
+.Person { font: 11px Arial, Helvetica, sans-serif; text-align: center; vertical-align: top; padding: 5px; float: left; margin: 5px; }
+.PersonNoWrap { font: 11px Arial, Helvetica, sans-serif; text-align: center; vertical-align: top; padding: 5px; margin: 5px; }
+
+/* ONLINE/OFFLINE PEOPLE LISTS */
+
+.OnlineNow { font: 11px Arial, Helvetica, sans-serif; text-align: center; background-color: #FFE8F4; vertical-align: top; padding: 5px; float: left; margin: 5px; }
+.OnlineNowAway { font: 11px Arial, Helvetica, sans-serif; text-align: center; vertical-align: top; 	padding: 5px; float: left; margin: 5px; }
+.OfflineList { font: 11px Arial, Helvetica, sans-serif; text-align: center; vertical-align: top; padding: 5px; float: left; margin: 5px; }
+
+/* ##################### */
+/* SEARCH SPECIFIC STUFF */
+/* ##################### */
+
+.SearchChoices { font: 11px/15px Arial, Helvetica; color: #999; padding-left: 30px; }
+.SearchBox { padding-left: 30px; font: 11px/15px Arial, Helvetica; color: #999;}
+.SearchTip { vertical-align: bottom; font: 11px/15px Arial, Helvetica; color: #999; padding-right: 10px; }
+
+
+/* ########################## */
+/*    GROUP SPECIFIC STUFF    */
+/* ########################## */
+
+#noteEdit { display: none; }
+.noteText { width: 80%; height: 70px; margin: 4px 0px 4px 0px; }
+.DateTime { font: 11px/15px Arial, Helvetica; color: #999; }
+.PostDateTime { font: 11px Arial, Helvetica; color: #999; margin-top: 0px; }
+.TopicReply { margin-left: 66px; margin-top: 10px; }
+.CategoryList {	background-color: #f6f6f6; padding: 6px; border: 1px solid #eee; font: 12px Arial, Helvetica, sans-serif; color: #666666;	}
+.CategoryList h4 { font-weight: bold; font-size: 12px; }
+.PostLinks:link { color: #3886E6; text-decoration: none;}
+.PostLinks:visited { color: #3886E6; text-decoration: none;}
+.PostLinks:hover { color: #FFFFFF; text-decoration: none; background: #0063DC; }
+.PostLinks:active { color: #FFFFFF; text-decoration: none; background: #0259C4; }
+.PostPreview { border: 1px solid #D3DEFA; width: 100%; }
+.PostPreview td { background-color: #EEF2FD; padding: 10px; font: 12px Arial, Helvetica, sans-serif; text-align: left; }
+.PostPreview h4 { font-size: 14px; font-weight: bold; padding-bottom: 4px; }
+div.PostPreview  { border: 1px solid #D3DEFA; width: 100%; background-color: #EEF2FD; padding: 10px; font: 12px Arial, Helvetica, sans-serif; text-align: left; }
+.Who { vertical-align: middle; margin-left:0px; border: none; padding-left: 2px; margin-right: 0px; padding-right: 0px; }
+
+/* Search Results  */
+.MainSearchBox { margin: 0px; padding-bottom: 10px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; }
+.Related { color: #555; padding-left: 35px; margin-top: -12px; margin-bottom: 20px; }
+.Try:link { text-decoration: none; }	
+.Try:visited { text-decoration: none; color: #0066CC; }	
+.Try:hover { color: #0063DC; background: #fff; text-decoration: underline; }
+.Try:active { color: #FF0084; background: #fff; text-decoration: underline; }
+.GroupIcon { padding: 8px 10px 0 15px;  }
+.SearchResMeta { padding-bottom: 30px; width: 100%; }
+.SearchResMeta h2 { font-size: 18px; margin: 0px; }
+.GroupStats { font-size: 12px; margin-top: 5px; margin-bottom: 0px; color: #666;}
+.Stat:link { text-decoration: none; }	
+.Stat:visited { text-decoration: none; color: #0066CC; }	
+.Stat:hover { color: #0063DC; background: #fff; text-decoration: underline; }
+.Stat:active { color: #FF0084; background: #fff; text-decoration: underline; }
+.About { font-size: 12px; margin-top: 10px; }
+.SearchResPics { 
+font-size: 11px; font-family: Arial, Helvetica, sans-serif; color: #777; text-align: center; width: 100px; padding-top: 15px; padding-bottom: 30px; } 
+
+.GroupsListing { line-height: 18px; }
+.GroupsListing li { list-style-type: circle; color: #ccc; }
+
+/* ########################## */
+/*    FORUM SPECIFIC STUFF    */
+/* ########################## */
+
+.ForumPost { margin-top: 30px; width: 540px; margin-right: 110px; margin-left: 110px; }
+.InWhich { font: normal 11px Arial, Helvetica, sans-serif; color: #666; margin-bottom: 3px;}
+.ForumPost h2 { font: normal 20px Arial, Helvetica, sans-serif; margin: 0px; }
+.TopicBody { width: 500px;}
+.ForumPost ul { margin-top: 3px; margin-bottom: 0px; } 
+.ForumPost div { float: left; padding: 3px 8px 8px 0; margin-bottom: 0px; }
+.ForumStats { font: 11px/15px Arial, Helvetica; color: #999; list-style-type: circle; }
+
+/* ########################## */
+/*     LAUNCH PAGE STUFF      */
+/* ########################## */
+
+.HomeBox { background:#f3f3f3; margin-right: 0px; margin-bottom: 15px; padding: 6px; }
+.PinkBox { background:#FFEFF8; margin-right: 0px; margin-bottom: 15px; padding: 6px; }
+.HomeBox .But { font: 11px Arial, Helvetica, sans-serif; color: #483100; }
+.TipBox { background:#FED377; margin-right: 0px; margin-top: 15px; padding: 6px; }
+.StartAlert { font: 11px Arial, Helvetica, sans-serif; background-color: #FBFFCC; text-align: left; margin-top: 0px; margin-right: 0px; margin-bottom: 15px; padding: 6px; }
+.StartAlert ul { margin-top: 0px; margin-bottom: 0px; }
+.Home td { font: 14px Arial, Helvetica; color: #000; }
+.Home img { border: none; }
+.caption { font-weight: bold; }
+.Buy { margin: 0px; }
+.But { font-size: 11px; color: #666; margin: 0px; padding-bottom: 5px; }
+
+/* ########################## */
+/*       ICON BUILDER         */
+/* ########################## */
+
+.CurrentIcon { font: 12px Arial, Helvetica, sans-serif; padding: 8px; background-color: #EEF2FD; margin-bottom: 5px; border: 1px solid #D3DEFA; vertical-align: middle; }
+.CurrentIcon img { padding: 3px; float: left; border: none; }
+.IconReady { padding: 6px; border:	1px solid #eeeeee; margin-top: 0px; }
+.IconReady p { font: 11px Arial, Helvetica, sans-serif; margin-top: 0px; margin-bottom: 3px; }
+
+.SetPrivacy { border:	1px solid #CCCCCC; background-color: #ffffff; padding:3px; width: 215px; font: 11px Arial, Helvetica, sans-serif; color: #000000; margin-bottom: 10px; }
+.SetPrivacy img { border: none; } 
+.SetPrivacy p { margin-top:10px; }
+
+/* ############################ */
+/*       CALENDAR PICKER        */
+/* ############################ */
+
+.ShowCalendar { width: 220px; }
+
+.CalendarPop { background: #f5f5f5; border-top: 3px solid #ddd; border-right: 3px solid #ddd; border-left: 3px solid #ddd; border-bottom: 2px solid #ddd; margin: 0px; width: 220px; }
+
+.CalendarPop a:link { text-decoration: none; color: #000; padding: 3px;	}
+.CalendarPop a:visited { text-decoration: none; color: #000; padding: 3px; }
+.CalendarPop a:hover { text-decoration: none; color: #fff; background: #000; padding: 3px; }
+.CalendarPop a:active { text-decoration: none; color: #ff0084; background: #000; padding: 3px; }
+
+.CalendarPop .Cancel a:link { text-decoration: none; color: #0063DC; padding: 3px; }
+.CalendarPop .Cancel a:visited { text-decoration: none; color: #0063DC; padding: 3px; }
+.CalendarPop .Cancel a:hover { text-decoration: underline; color: #0063DC; background: inherit; padding: 3px; }
+.CalendarPop .Cancel a:active { text-decoration: none; color: #0063DC; background: inherit; padding: 3px; }
+
+.CalendarPop th { background: #e1e1e1; padding: 2px; font: bold 11px Arial, Helvetica, sans-serif; }
+.CalendarPop .MON { background: #f5f5f5; padding: 2px; font: bold 13px Arial, Helvetica, sans-serif; }
+.CalendarPop td { text-align: center; border-bottom: 1px solid #dddddd; padding: 2px; font-size: 12px; font-family: Arial, Helvetica, sans-serif; }
+.CalendarPop .DAY { font-size: 11px; font-weight: bold;	padding-left: 3px; padding-right: 3px; padding-top: 7px; }
+.CalendarPop .Today { font-weight: bold; background: #fff; border: 2px solid #bbb; padding:1px; }
+
+/* ###################### */
+/*       PAYMENTS         */
+/* ###################### */
+
+.HowMuch { border: 3px solid #ddd; }
+.HowMuch td { font-size: 14px; padding: 4px; }
+.NoRefund { border: 3px solid #ddd; text-align: center; font-size: 14px; color: #000; padding: 4px; }
+.OrderHistory { }
+.OrderHistory h4 { background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; padding-bottom: 5px; }
+.Order td { font-size: 14px; }
+.PendingNote { 
+	margin-top: 0;
+	border-right: solid 4px #fc3; 
+	border-left: solid 4px #fc3; 
+	color: #c00; 
+	padding: 5px; 
+	font-weight: bold; 
+	font-style: italic; 
+	text-align: center;
+	}
+.PendingOrder { width: 100%; }
+.PendingOrder td { font-size: 14px; background: #eaeaea; color: #666; font-style: italic; }
+.CancelledNote { 
+	margin-top: 0;
+	border-right: solid 4px #c00; 
+	border-left: solid 4px #c00; 
+	color: #c00; 
+	padding: 5px; 
+	font-weight: bold; 
+	font-style: italic; 
+	text-align: center;
+	}
+.CancelledOrder { width: 100%; }
+.CancelledOrder td { font-size: 14px; color: #999; font-style: italic; }
+.SubTotal { font-size: 14px; text-align: right; }
+.Total { text-align: right; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top; font-weight: bold; font-size: 16px; } 
+.AccountStatus { margin-top: 0px; vertical-align: top; width: 100%; padding: 6px; background-color: #f5f5f5; font: 12px Arial, Helvetica, sans-serif; margin-bottom: 20px; border:	1px solid #CCCCCC; }
+
+/* ###################### */
+/*       SURVEY           */
+/* ###################### */
+
+.Survey { font: 12px Arial, Helvetica, sans-serif; border: 2px solid #E5E5E5; }
+.Survey td { padding: 5px; vertical-align: top; }
+
+/* ############################ */
+/*            BADGE             */
+/* ############################ */
+
+.BadgeImg { padding-left: 15px; }
+
+.StepBox { margin-top: 0; margin-bottom: 15px; }
+.Steps { width: 150px; background: #f5f5f5; border-bottom: 1px solid #eed;}
+.Steps .What { color: #777; }
+.InStep { width: 150px; border-top: 1px solid #eed; border-left: 1px solid #eed; border-right: 1px solid #eed;}
+.InStep .Number { color: #FF0084; }
+.Number { color: #777; font-family: Georgia, Times; font-size: 30px; float: left; margin: -8px 3px 30px 2px;}
+.What { font: normal 11px Arial, Helvetica, sans-serif; }
+.Chose { color: #777; font: normal 11px Arial, Helvetica, sans-serif; font-style: italic; }
+
+.PhotoChoice { margin-left: 20px; width: 500px;	border: none; margin-top: 5px; }
+.PhotoChoice td { background-color: #f3f3f3; }
+
+#preview_box { width: 100%; height: 200px; background: url(/images/badge_preview_bg.gif) repeat left top; border: 5px solid #f3f3f3; text-align: center; vertical-align: middle; padding: 30px; }
+.PreviewFour { background: url(/images/badge_preview_bg.gif) repeat left top; border: 5px solid #f3f3f3; }
+/*.PreviewFour td { text-align: left; vertical-align: middle; padding: 20px; }*/
+
+/* ############################ */
+/*          NEW INVITE          */
+/* ############################ */
+
+.Invitee { margin-bottom: 10px; }
+.Invitee p { margin-bottom: 5px; margin-top: 0px; }
+td.BigNumber { color: #333; font-family: Georgia, Times; font-size: 30px; width: 25px; padding: 0; }
+.InvitePreview { background: #f5f5f5; padding: 10px 25px 10px 25px; }
+.Send {	background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top; padding-top: 10px; margin-top: 20px;}
+
+.WelcomeStep { padding: 15px; font-size: 14px; }
+.WelcomeStep b { font-size: 16px; }
+.WelcomeNumber { color: #000; font-family: Georgia, Times; font-size: 30px; float: left; margin: -10px 3px 4px 2px;}
+
+
+/* ############################ */
+/*         GIFT INVITE          */
+/* ############################ */
+
+.GiftBox { margin: 0px;	background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom;}
+.GiftBox td { padding-bottom: 20px; }
+.GiftStatus { padding: 10px; text-align: left; font-size: 13px; color: #003366; font-family: Arial, Helvetica, sans-serif; background: #f3f3f3; margin-top: 0px;}
+.GiftSoFar { padding: 10px; text-align: left; font-size: 13px; font-family: Arial, Helvetica, sans-serif; margin-top: 0px;}
+
+/* ############################ */
+/*         PHOTO.GNE flash-less          */
+/* ############################ */
+#button_bar img {border:0}
+#button_bar {background-color:#fff; margin-bottom:2px;}
+
+#comm_div {position:absolute;}
+#rotate_div {position:absolute;}
+#shadow_div {position:absolute;}
+
+#photo_notes {position:absolute; border:0px solid #cc0000; z-index:1000; visibility:hidden;}
+.photo_note {position:absolute; min-width:500px;}
+.photo_note_box_div {position:absolute; border:0px solid #d4d82d;}
+.photo_note_box_inner_div {border:1px solid black;}
+.photo_note_box_inner_inner_div {border:1px solid white;}
+
+.photo_note_text_div {display:none; position:relative; padding:5px; border: 1px solid black; background-color:#fff; width:200px;}
+
+#shadow_table td, #rotate_table td, #comm_table td, #notes_text_table td {padding:0px;}
+#shadow_table img, #rotate_table img, #comm_table img, #notes_text_table img {border:0px;}
+.td_note_white {background-color:#fff;}
+.td_white {background-color:#fff;}
+.td_note_yeller {background-color:#ffffd3;}
+
+.add_to_link:link, .add_to_link:active, .add_to_link:visited {text-decoration:none !important; background-color:inherit !important; color: #0063DC}
+.add_to_link:hover {text-decoration:none !important; background-color:#0063DC !important; color: #ffffff}
+
+.trans_png {
+   behavior: url('/javascript/pngbehavior.htc');
+   border:0;
+}
+
+
+/* ############################ */
+/*         CLUSTERS             */
+/* ############################ */
+
+.ClusterHeading { width: 100%; margin-bottom: 10px; }
+.ClusterHeading tr { vertical-align: top; }
+.ClusterHeading td { padding: 0px; }
+.ClusterHeading div {
+	float: right;
+	margin-left: 20px;
+	text-align: left;
+	padding-right: 10px;
+	padding-top: 8px;
+	background-image: url(/images/dotted_v.gif);
+	background-repeat: repeat-y;
+	background-position: right top;
+}
+.SearchBox { margin-bottom: 0; margin-top: 3px; }
+.Advanced { font-size: 11px; margin-top: 3px; }
+h3.More {
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left top;
+	margin-top: 5px;
+}
+
+
+.ClusterList { 
+	font: 11px Arial, Helvetica, sans-serif; 
+	padding: 0px; 
+	margin-right: 10px; 
+	margin-bottom: 5px; 
+	float: left; 
+	text-align: center; 
+	width: 110px; 
+	height: 118px; 
+	}
+	
+.Cluster { margin-top: -10px; margin-bottom: 10px; }
+.Tags { 	
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left bottom;
+	padding-top: 30px;
+	vertical-align: top;
+	width: 295px; 	
+}
+.Tags p { font-size: 12px; }
+.Cluster .Photos { 	
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left bottom;
+	padding-top: 10px;
+	padding-left: 30px;
+	padding-right: 5px;		
+	vertical-align: top;
+	width: 465px;
+}
+
+.SqClusterList { 
+	font: 11px Arial, Helvetica, sans-serif; 
+	padding: 0px; 
+	margin-right: 5px; 
+	margin-bottom: 5px; 
+	float: left; 
+	text-align: center; 
+	width: 80px; 
+	height: 90px; 
+	}
+	
+#tagThumbs { padding-left: 30px; }
+
+.ThinSeparated { 
+	background-image: url(/images/dotted.gif); 
+	background-repeat: repeat-x; 
+	background-position: left bottom;
+	padding-right: 5px;
+	padding-bottom: 3px;
+	padding-left: 5px;	
+	margin-bottom: 3px;
+}
+
+.Keys { margin-bottom: 30px; width: 760px; }
+.Keys tr { vertical-align: top; }
+.Keys th { padding: 5px; border-bottom: 2px solid #333; color: #333; font-weight: bold; font-size: 16px; }
+.Keys td { padding: 5px 5px 5px 10px; }
+.Keys h3 { margin-top: 5px; }
+
+/* EXPLORE */
+
+/* POD = Photo of the Day */
+p.POD { } 
+.POD img { float: left; margin-right: 5px; }
+
+.ExploreTop { margin-bottom: 10px; }
+.LastDay { font-size: 14px; width: 200px; padding: 10px;}
+.PhotoBy { 
+	font-size: 12px;
+	margin: 0 9px 10px 0;
+	padding: 10px 10px 15px 10px;
+	border-top: none; border-right: 1px solid #eee; border-bottom: 1px solid #eee; border-left: 1px solid #eee; }	
+.PhotoBy img { margin: 0px 10px 10px 0px; float: left; }
+.PhotoBy a { text-decoration: none; }
+	
+.Announce { margin: 5px 20px 5px 20px; padding: 10px; text-align: left; font-size: 13px; font-family: Arial, Helvetica, sans-serif; background: #f3f3f3; }
+.ExploreChoose { }
+.ExploreChoose p { font-size: 14px; }
+.ExploreChoose li { font-size: 14px; }
+.ExploreChoose img { border: none; }
+.ExploreChoose select { font-size: 16px; font-weight: normal; } 
+.ChooseCalendar { margin: 0px 10px 10px 10px; border: none; float: right; }
+
+.Separated { font-size: 14px; margin-top: 20px; padding-top: 10px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top;}
+.Separate { margin-top: 0px; margin-bottom: 10px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom;}
+
+.Slices { margin-top: 0; }
+.Slices h3 { margin-bottom: 0; }
+.Slices p { margin-top: 5px; margin-bottom: 5px;}
+.ExploreYearAgo { }
+
+.ExploreSet { padding-right: 10px;}
+.SetName { font-weight: bold; margin-bottom: 0px; }
+.SetName img { float: left; margin-right: 10px; }
+.SetMeta { margin-top: 5px; margin-bottom: 10px; font: 11px/15px Arial, Helvetica; color: #888; }
+.SetMeta a { text-decoration: none; }
+.SetDesc { margin-top: 0px; }
+
+.ExploreGroup { }
+.GroupName { font-weight: bold; margin-bottom: 0px; }
+.GroupName img { float: left; margin-right: 10px; }
+.GroupMeta { margin-top: 5px; margin-bottom: 10px; font: 11px/15px Arial, Helvetica; color: #888; }
+.GroupMeta a { text-decoration: none; }
+.GroupDesc { margin-top: 0px; }
+
+
+.InterestingNavi { width: 100%; margin-top: -10px; margin-bottom: 10px; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left bottom; }
+.InterestingNavi tr { vertical-align: top; }
+.InterestingNavi td { width: 33%; padding: 0 5px 5px 5px; }
+.InterestingNavi p { font: normal 14px Arial, Helvetica; }
+.InHere { font: 18px Arial, Helvetica; text-align: center; color: #ff0084; }
+
+.DayView { width: 600px; margin-left: auto; margin-right: auto; }
+.DayView tr { vertical-align: top; }
+.DayPic { text-align: center; padding-bottom: 20px; }
+.PicDesc { text-align: left; padding-left: 30px; padding-top: 10px; }
+.PicDesc h3 { color: #333333; }
+.PicFrom { margin-top: 10px; margin-bottom: 30px; font-size: 14px; }
+.PicFrom img { float: left; margin-right: 5px; }
+
+.Interestingness { width: 520px; margin-right: auto; margin-left: auto; }
+.Interestingness tr { vertical-align: top; }
+.WhatIsIt { padding: 15px 10px 10px 10px; }
+.WhatIsIt p { font-size: 14px;}
+.WhatIs { padding: 0; }
+.OtherPics {
+	font-size: 14px;
+	padding: 10px;
+}
+.GoMonth  { margin: 0px 10px 10px 0px; border: none; float: left; }
+
+.TwentyFour { margin-top: 5px; margin-bottom: 20px; }
+.TwentyFour a { text-decoration: none; }
+.TwentyFour .Photo { width: 33%; vertical-align: middle; text-align: center; padding-bottom: 5px; }
+.TwentyFour .Owner { vertical-align: top; padding: 5px 10px 25px 10px; text-align: center; font-size: 12px; color: #333;}
+.Owner i {font-size: 14px;}
+.Owner img { float: left; margin-right: 5px; margin-left: 5px; }
+
+.IgnoreList li { font-size: 14px; }
+
+a.image_link:link, a.image_link:visited, a.image_link:hover, a.image_link:active {background-color:transparent;}
+.intrest_pop_thumb {margin:0 3px 3px 0; border:0;}
+.intrest_pop_td {padding:0}
+#intrest_pop_day_link:link, #intrest_pop_day_link:visited, #intrest_pop_day_link:hover, #intrest_pop_day_link:active {font-weight:bold; font-size:14px; background-color:white; text-decoration:none; color:#0063DC}
+
+
+/* sign on page */
+a.so_link, a.so_link:link, a.so_link:active, a.so_link:visited {
+	display:block;
+	font: bold 22px Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	background-image: url(/images/sso_bg.jpg);
+	background-repeat: repeat-x;
+	background-position: left top;
+	text-align: center;
+	height:122px;
+	border: 2px solid #fff;
+	color: #000;
+}
+
+a.so_link:hover {
+	color: #0063DC;
+	text-decoration: none;
+	border: 2px solid #ccc;
+	background-color: #fff;
+	background-image: url(/images/sso_bg_reverse.jpg);
+}
+
+.so_link_div {margin-top:9px}
+.so_link_img {margin-top:12px; border:0;}
+
+#spaceout {height:0}
+
+#sort_options_div {
+	display:none; 
+	position:absolute;
+	background:white; 
+	margin-top:0px; 
+	margin-left: 110px;
+	padding:10px;
+}
+
+.tagSuggestions {
+	position:absolute;
+	width: 150px;
+	border: 1px solid #666666;
+	font-family: arial, sans-serif;
+	font-size: 13px;
+	padding: 1px;
+	background-color: white;
+	width:198px;
+	display: none;
+}
+.tagSuggestions span {
+	padding:1px;
+	display: block;
+}
+.tagSuggestions span.selected {
+	background-color: #0063DC;
+	color: white;
+}
+
+/* ##################### */
+/*      Rounded corner table styles (for promos)     */
+/* ##################### */
+
+.rounded_t { background-image: url(/images/grey_dot.gif); background-repeat: repeat-x; background-position: left top; }
+.rounded_tr { width:3px; height:3px; background-image: url(/images/corner_tr.gif); } 
+.rounded_r { background-image: url(/images/grey_dot.gif); background-repeat: repeat-y; background-position: right top; }
+.rounded_br { width:3px; height:3px;  background-image: url(/images/corner_br.gif);} 
+.rounded_b { background-image: url(/images/grey_dot.gif); background-repeat: repeat-x; background-position: left bottom; }
+.rounded_bl { width:3px; height:3px; background-image: url(/images/corner_bl.gif); } 
+.rounded_l { background-image: url(/images/grey_dot.gif); background-repeat: repeat-y; background-position: left top; }
+.rounded_tl { width:3px; height:3px; background-image: url(/images/corner_tl.gif); } 
+
+/* ##################### */
+/*      Styles for print stuff on photo.gne    */
+/* ##################### */
+
+.print_item_td {font-weight:bold; font-size:12px; font-family:arial}
+.print_item_notrec_td {font-weight:normal; font-style:italic; font-size:12px;color:#666; font-family:arial}
+.print_price_td {font-size:12px; font-family:arial; text-align:right}
+.print_price_notrec_td {font-size:12px; font-style:italic;color:#666; font-family:arial; text-align:right}
+.print_header_td {font-size:10px; font-family:verdana}
+.print_small_grey {font-size:10px; color:#666; font-family:verdana;}
+.print_dropdown_td { padding-left:0px; width:10px; }
+
+#print_items_table {margin:0px 15px 0px 10px;}
+#print_items_table td {border-bottom: 1px solid #f3f3f3; padding:2px;}
+
+#print_cart_form {font-family:arial; font-size:11px;}
+#print_cart_prompt {border-top:1px solid gray; font-family:arial; font-size:11px; padding-top:5px; margin-top:0px;}
+.print_table td {padding:2px;}
+
+.print_item_td a, .print_item_td a:visited, .print_item_td a:hover, .print_item_td a:active, .print_item_td a:link {
+	color: #000; 
+	text-decoration: none; 
+	background: none; 
+}
+.print_item_notrec_td a, .print_item_notrec_td a:visited, .print_item_notrec_td a:hover, .print_item_notrec_td a:active, .print_item_notrec_td a:link{
+	color: #666; 
+	text-decoration: none; 
+	background: none; 
+}
+.print_dropdown_td a, .print_dropdown_td a:visited, .print_dropdown_td a:hover, .print_dropdown_td a:active, .print_dropdown_td a:link {
+	text-decoration: none; 
+}
+
+#print_totals_table {margin:0 10px 5px 10px;}
+
+#print_buttons_table {margin:0 10px 2px 10px;}
+
+#print_not_rec_tr {display:none;}
+#print_product_tr {display:none;}
+#print_form {display:none;}
+#choose_a_country_div {display:none; padding:15px;}
+#no_providers_div {display:none; padding:15px;}
+
+#other_printers_tr {}
+#other_printers_tr td{padding-top:0px;}
+
+p.menu_footer{ font-size:11px; color:#666; margin: 8px 0 0 0; padding: 8px 0 0 0 ; font-family:arial; background-image: url(/images/dotted.gif); background-repeat: repeat-x; background-position: left top;}
+
+

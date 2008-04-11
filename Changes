@@ -1,5 +1,7 @@
 Revision history for CSS.pm
 
+2.00		Complete rewrite to parse using the core LL grammar, allow pluggable 
+		grammars, use correct CSS spec terminology and support at-rules.
 1.08		Dual licensed
 1.07		Corrected some typos in the POD
 1.06		Fixed bug where '0' properties would be stored as the empty string

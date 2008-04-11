@@ -1,30 +1,34 @@
-use Test::Simple tests => 7;
+use Test::More;
 
-use CSS;
-my $css = CSS->new();
-ok( (defined($css) and ref $css eq 'CSS'), "CSS::new() works");
+BEGIN {
+	@::modules = (
+		'CSS',
+		'CSS::Adaptor',
+		'CSS::AtRule',
+		'CSS::Declaration',
+		'CSS::Grammar',
+		'CSS::Ruleset',
+		'CSS::Selector',
+		'CSS::Stylesheet',
+		'CSS::Adaptor::Debug',
+		'CSS::Adaptor::Pretty',
+		'CSS::Grammar::Core',
+		'CSS::Grammar::CSS10',
+		'CSS::Grammar::CSS20',
+		'CSS::Grammar::CSS21',
+		'CSS::Grammar::CSS30',
+		'CSS::Grammar::Simple',
+		'CSS::Parse::Rule',
+		'CSS::Parse::Op',
+		'CSS::Parse::Match',
+		'CSS::Parse::Rule::Trace',
+	);
 
-use CSS::Parse::Lite;
-my $css_lite = CSS::Parse::Lite->new();
-ok( (defined($css_lite) and ref $css_lite eq 'CSS::Parse::Lite'), 'CSS::Parse::Lite::new() works' );
+	plan tests => 3 * scalar @::modules;
 
-use CSS::Parse::Heavy;
-my $css_heavy = CSS::Parse::Heavy->new();
-ok( (defined($css_heavy) and ref $css_heavy eq 'CSS::Parse::Heavy'), 'CSS::Parse::Heavy::new() works' );
+	use_ok( $_ ) for @::modules;
+}
 
-use CSS::Style;
-my $css_style = CSS::Style->new();
-ok( (defined($css_style) and ref $css_style eq 'CSS::Style'), 'CSS::Style::new() works' );
+require_ok( $_ ) for @::modules;
 
-use CSS::Selector;
-my $css_selector = CSS::Selector->new();
-ok( (defined($css_selector) and ref $css_selector eq 'CSS::Selector'), 'CSS::Selector::new() works' );
-
-use CSS::Property;
-my $css_property = CSS::Property->new();
-ok( (defined($css_property) and ref $css_property eq 'CSS::Property'), 'CSS::Property::new() works' );
-
-use CSS::Value;
-my $css_value = CSS::Value->new();
-ok( (defined($css_value) and ref $css_value eq 'CSS::Value'), 'CSS::Value::new() works' );
-
+isa_ok(eval "$_->new", $_) for @::modules;

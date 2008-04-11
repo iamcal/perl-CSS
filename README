@@ -1,11 +1,12 @@
-CSS.pm version 1.08
+CSS.pm version 2.00
 =======================
 
 Object-oriented access to cascading stylesheets.
 
+
 NOTICE
 
-Version 1.00 onwards of this modules is
+Version 2.00 onwards of this modules is
 
    * NOT BACKWARDS COMPATIBLE *
 
@@ -26,14 +27,13 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-  Parse::RecDescent
   Test::Simple
+
 
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
-
+Copyright (C) 2003-2006 Cal Henderson <cal@iamcal.com>
 
 CSS.pm is dual licensed under the same terms as
 Perl itself.
