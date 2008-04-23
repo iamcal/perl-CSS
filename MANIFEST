@@ -34,3 +34,4 @@ t/harness_adaptor
 examples/parsers.pl
 examples/adapt.pl
 examples/dump.pl
+META.yml                                 Module meta-data (added by MakeMaker)

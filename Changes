@@ -1,5 +1,6 @@
 Revision history for CSS.pm
 
+1.08		Dual licensed
 1.07		Corrected some typos in the POD
 1.06		Fixed bug where '0' properties would be stored as the empty string
 		Added parser test to catch this in future

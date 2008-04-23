@@ -5,7 +5,7 @@ use CSS;
 my $css = CSS->new({'adaptor' => $adaptor_name});
 $css->read_file("t/css_tiny");
 
-eval "$output = $css->output";
+eval "\$output = $css->output";
 ok(!@!, "adaptor returned ok");
 
 $output = $css->output;
