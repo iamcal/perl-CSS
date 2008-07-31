@@ -5,6 +5,7 @@ use warnings;
 
 use CSS::Parse::Rule;
 use Time::HiRes qw(gettimeofday tv_interval);
+use Data::Dumper;
 
 sub new {
 	my ($class) = @_;
@@ -135,6 +136,33 @@ sub find_lex_rule {
 	my ($self, $rule_name) = @_;
 
 	return $self->{lex_rules}->{$rule_name};
+}
+
+sub dump_tokens {
+	my ($self, $tokens) = @_;
+
+	for my $token(@{$tokens}){
+
+		print "$token->{type}\t-> \"$token->{content}\"\n";
+	}
+}
+
+sub parse {
+	my ($self, $input) = @_;
+
+	#
+	# this method just ties together a bunch of stuff to turn an input string into a
+	# reduced parse tree
+	#
+
+	my $tokens = $self->toke($input);
+	my $tree = $self->lex($tokens);
+
+	$tree->scrub;
+	$tree->reduce;
+	$tree->remove_anon_matches;
+
+	return $tree;
 }
 
 	
