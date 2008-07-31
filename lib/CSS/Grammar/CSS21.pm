@@ -40,24 +40,23 @@ sub init {
 
 	$rx{range}	= "(\\?{1,6}|$rx{h}(\\?{0,5}|$rx{h}(\\?{0,4}|$rx{h}(\\?{0,3}|$rx{h}(\\?{0,2}|$rx{h}(\\??|$rx{h}))))))";
 
-my $junk = '
-A		a|\\0{0,4}(41|61)(\r\n|[ \t\r\n\f])?
-C		c|\\0{0,4}(43|63)(\r\n|[ \t\r\n\f])?
-D		d|\\0{0,4}(44|64)(\r\n|[ \t\r\n\f])?
-E		e|\\0{0,4}(45|65)(\r\n|[ \t\r\n\f])?
-G		g|\\0{0,4}(47|67)(\r\n|[ \t\r\n\f])?|\\g
-H		h|\\0{0,4}(48|68)(\r\n|[ \t\r\n\f])?|\\h
-I		i|\\0{0,4}(49|69)(\r\n|[ \t\r\n\f])?|\\i
-K		k|\\0{0,4}(4b|6b)(\r\n|[ \t\r\n\f])?|\\k
-M		m|\\0{0,4}(4d|6d)(\r\n|[ \t\r\n\f])?|\\m
-N		n|\\0{0,4}(4e|6e)(\r\n|[ \t\r\n\f])?|\\n
-P		p|\\0{0,4}(50|70)(\r\n|[ \t\r\n\f])?|\\p
-R		r|\\0{0,4}(52|72)(\r\n|[ \t\r\n\f])?|\\r
-S		s|\\0{0,4}(53|73)(\r\n|[ \t\r\n\f])?|\\s
-T		t|\\0{0,4}(54|74)(\r\n|[ \t\r\n\f])?|\\t
-X		x|\\0{0,4}(58|78)(\r\n|[ \t\r\n\f])?|\\x
-Z		z|\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\z
-';
+	$rx{A}		= '(a|\\\\0{0,4}(41|61)(\r\n|[ \t\r\n\f])?)';
+	$rx{C}		= '(c|\\\\0{0,4}(43|63)(\r\n|[ \t\r\n\f])?)';
+	$rx{D}		= '(d|\\\\0{0,4}(44|64)(\r\n|[ \t\r\n\f])?)';
+	$rx{E}		= '(e|\\\\0{0,4}(45|65)(\r\n|[ \t\r\n\f])?)';
+	$rx{G}		= '(g|\\\\0{0,4}(47|67)(\r\n|[ \t\r\n\f])?|\\\\g)';
+	$rx{H}		= '(h|\\\\0{0,4}(48|68)(\r\n|[ \t\r\n\f])?|\\\\h)';
+	$rx{I}		= '(i|\\\\0{0,4}(49|69)(\r\n|[ \t\r\n\f])?|\\\\i)';
+	$rx{K}		= '(k|\\\\0{0,4}(4b|6b)(\r\n|[ \t\r\n\f])?|\\\\k)';
+	$rx{M}		= '(m|\\\\0{0,4}(4d|6d)(\r\n|[ \t\r\n\f])?|\\\\m)';
+	$rx{N}		= '(n|\\\\0{0,4}(4e|6e)(\r\n|[ \t\r\n\f])?|\\\\n)';
+	$rx{O}		= '(o|\\\\0{0,4}(51|71)(\r\n|[ \t\r\n\f])?|\\\\o)';
+	$rx{P}		= '(p|\\\\0{0,4}(50|70)(\r\n|[ \t\r\n\f])?|\\\\p)';
+	$rx{R}		= '(r|\\\\0{0,4}(52|72)(\r\n|[ \t\r\n\f])?|\\\\r)';
+	$rx{S}		= '(s|\\\\0{0,4}(53|73)(\r\n|[ \t\r\n\f])?|\\\\s)';
+	$rx{T}		= '(t|\\\\0{0,4}(54|74)(\r\n|[ \t\r\n\f])?|\\\\t)';
+	$rx{X}		= '(x|\\\\0{0,4}(58|78)(\r\n|[ \t\r\n\f])?|\\\\x)';
+	$rx{Z}		= '(z|\\\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\\\z)';
 
 	$self->add_toke_rule('S'		, "$rx{s}+");
 	$self->add_toke_rule('CDO'		, '<!--');
@@ -74,10 +73,10 @@ Z		z|\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\z
 	$self->add_toke_rule('IDENT'		, $rx{ident});
 	$self->add_toke_rule('HASH'		, "#$rx{name}");
 
-	$self->add_toke_rule('IMPORT_SYM'	, '@import');
-	$self->add_toke_rule('PAGE_SYM'		, '@page');
-	$self->add_toke_rule('MEDIA_SYM'	, '@media');
-	$self->add_toke_rule('CHARSET_SYM'	, '@charset');
+	$self->add_toke_rule('IMPORT_SYM'	, "\@$rx{I}$rx{M}$rx{P}$rx{O}$rx{R}$rx{T}");
+	$self->add_toke_rule('PAGE_SYM'		, "\@$rx{P}$rx{A}$rx{G}$rx{E}");
+	$self->add_toke_rule('MEDIA_SYM'	, "\@$rx{M}$rx{E}$rx{D}$rx{I}$rx{A}");
+	$self->add_toke_rule('CHARSET_SYM'	, "\@$rx{C}$rx{H}$rx{A}$rx{R}$rx{S}$rx{E}$rx{T}");
 
 	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}important");
 
