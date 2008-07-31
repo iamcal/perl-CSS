@@ -117,7 +117,7 @@ Z		z|\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\z
 	$self->add_lex_rule('combinator', 'PLUS S* | GREATER S* | S+');
 	$self->add_lex_rule('unary_operator', '_MINUS | PLUS');
 	$self->add_lex_rule('property', 'IDENT S*');
-	$self->add_lex_rule('ruleset', 'selector [ COMMA S* selector ]* LBRACE S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
+	$self->add_lex_rule('ruleset', 'selector [ COMMA S* selector ]* S* LBRACE S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('selector', 'simple_selector [ combinator simple_selector ]*');
 	$self->add_lex_rule('simple_selector', 'element_name [ HASH | class | attrib | pseudo ]* | [ HASH | class | attrib | pseudo ]+');
 	$self->add_lex_rule('class', '_PERIOD IDENT');
