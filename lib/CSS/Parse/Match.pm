@@ -206,6 +206,54 @@ sub reduce {
 	}
 }
 
+sub remove_anon_matches {
+	my ($self) = @_;
+
+
+	#
+	# this function remove unnamed match rules - in general we only care about the named stuff,
+	# since everything else tends to filler. this make walking the tree a lot simpler
+	#
+
+
+	#
+	# first, reduce our children
+	#
+
+	for my $submatch (@{$self->{submatches}}){
+
+		$submatch->remove_anon_matches;
+	}
+
+
+	#
+	# remove any children which have no name and no children of their own
+	#
+
+	my $new_subs = [];
+
+	for my $submatch (@{$self->{submatches}}){
+
+		if (defined $submatch->{subrule}){ 
+
+			push @{$new_subs}, $submatch;
+
+		}else{
+
+			if (scalar @{$submatch->{submatches}}){
+
+				for my $child_of_child (@{$submatch->{submatches}}){
+
+					push @{$new_subs}, $child_of_child;
+				}
+			}
+		}
+	}
+
+	$self->{submatches} = $new_subs;
+
+}
+
 sub tokens_left {
 	return scalar(@{$_[0]->{tokens}}) - $_[0]->{token_pc};
 }
