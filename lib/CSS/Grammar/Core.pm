@@ -91,15 +91,10 @@ sub toke {
 	$self->SUPER::toke($input);
 }
 
-sub walk {
-	my ($self, $tree) = @_;
+sub walk_stylesheet {
+	my ($self, $stylesheet, $submatches) = @_;
 
-	my $stylesheet = new CSS::Stylesheet;
-
-	return $stylesheet unless defined $tree;
-	return $stylesheet unless $tree->{subrule} eq 'stylesheet';
-
-	for my $statement (@{$tree->{submatches}}){
+	for my $statement (@{$submatches}){
 
 		next unless defined $statement->{subrule};
 		next unless $statement->{subrule} eq 'statement';

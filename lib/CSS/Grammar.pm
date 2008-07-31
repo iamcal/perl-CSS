@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use CSS::Parse::Rule;
+use CSS::Stylesheet;
 use Time::HiRes qw(gettimeofday tv_interval);
 use Data::Dumper;
 
@@ -163,6 +164,38 @@ sub parse {
 	$tree->remove_anon_matches;
 
 	return $tree;
+}
+
+sub parse2 {
+	my ($self, $input) = @_;
+
+	#
+	# this method just ties together a bunch of stuff to turn an input string into a
+	# CSS::Stylesheet object
+	#
+
+	my $tokens = $self->toke($input);
+	my $tree = $self->lex($tokens);
+
+	$tree->scrub;
+	$tree->reduce;
+
+	my $sheet = $self->walk($tree);
+
+	return $sheet;
+}
+
+sub walk {
+	my ($self, $tree) = @_;
+
+	my $stylesheet = new CSS::Stylesheet;
+
+	return $stylesheet unless defined $tree;
+	return $stylesheet unless $tree->{subrule} eq $self->{base_rule};
+
+	$self->walk_stylesheet($stylesheet, $tree->{submatches});
+
+	return $stylesheet;
 }
 
 	
