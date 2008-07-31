@@ -172,7 +172,9 @@ sub match {
 	# return, else we return undef
 	#
 
-	#print "\tMatching op $self->{type} against token stack ".$self->stack_peek(5, $tokens, $token_pc)."\n";
+	if ($CSS::TraceParser){
+		print "\tMatching op $self->{type} against token stack ".$self->stack_peek(5, $tokens, $token_pc)."\n";
+	}
 
 
 	#

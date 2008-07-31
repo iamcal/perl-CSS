@@ -176,15 +176,19 @@ sub match {
 	# return, else we return undef
 	#
 
-	#print "trying to match against rule $self->{name}...\n";
+	if ($CSS::TraceParser){
+		print "trying to match against rule $self->{name}...\n";
+	}
 
 	my $ret = $self->{base}->match($tokens, $token_pc);
 
-	#if (defined $ret){
-	#	print "MATCHED $self->{name}!\n";
-	#}else{
-	#	print "NO MATCH on $self->{name} :(\n";
-	#}
+	if ($CSS::TraceParser){
+		if (defined $ret){
+			print "MATCHED $self->{name}!\n";
+		}else{
+			print "NO MATCH on $self->{name} :(\n";
+		}
+	}
 
 	$ret->{subrule} = $self->{name} if defined $ret;
 
