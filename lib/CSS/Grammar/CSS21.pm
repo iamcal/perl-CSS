@@ -78,14 +78,14 @@ sub init {
 	$self->add_toke_rule('MEDIA_SYM'	, "\@$rx{M}$rx{E}$rx{D}$rx{I}$rx{A}");
 	$self->add_toke_rule('CHARSET_SYM'	, "\@$rx{C}$rx{H}$rx{A}$rx{R}$rx{S}$rx{E}$rx{T}");
 
-	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}important");
+	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}$rx{I}$rx{M}$rx{P}$rx{O}$rx{R}$rx{T}$rx{A}$rx{N}$rx{T}");
 
-	$self->add_toke_rule('EMS'		, "$rx{num}em");
-	$self->add_toke_rule('EXS'		, "$rx{num}ex");
-	$self->add_toke_rule('LENGTH'		, "$rx{num}(px|cm|mm|in|pt|pc)");
-	$self->add_toke_rule('ANGLE'		, "$rx{num}(deg|rad|grad)");
-	$self->add_toke_rule('TIME'		, "$rx{num}(ms|s)");
-	$self->add_toke_rule('FREQ'		, "$rx{num}(Hz|kHz)");
+	$self->add_toke_rule('EMS'		, "$rx{num}$rx{E}$rx{M}");
+	$self->add_toke_rule('EXS'		, "$rx{num}$rx{E}$rx{X}");
+	$self->add_toke_rule('LENGTH'		, "$rx{num}($rx{P}$rx{X}|$rx{C}$rx{M}|$rx{M}$rx{M}|$rx{I}$rx{N}|$rx{P}$rx{T}|$rx{P}$rx{C})");
+	$self->add_toke_rule('ANGLE'		, "$rx{num}($rx{D}$rx{E}$rx{G}|$rx{R}$rx{A}$rx{D}|$rx{G}$rx{R}$rx{A}$rx{D})");
+	$self->add_toke_rule('TIME'		, "$rx{num}($rx{M}$rx{S}|$rx{S})");
+	$self->add_toke_rule('FREQ'		, "$rx{num}($rx{H}$rx{Z}|$rx{K}$rx{H}$rx{Z})");
 	$self->add_toke_rule('DIMEN'		, "$rx{num}$rx{ident}");
 	$self->add_toke_rule('PERCENTAGE'	, "$rx{num}%");
 	$self->add_toke_rule('NUMBER'		, "$rx{num}");
