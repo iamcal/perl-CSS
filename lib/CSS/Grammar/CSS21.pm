@@ -143,7 +143,7 @@ sub init {
 	$self->add_toke_rule('HASH'		, "#$rx{name}");
 
 
-	@{I}{M}{P}{O}{R}{T}	{return IMPORT_SYM;}
+	#@{I}{M}{P}{O}{R}{T}	{return IMPORT_SYM;}
 	#@{P}{A}{G}{E}		{return PAGE_SYM;}
 	#@{M}{E}{D}{I}{A}	{return MEDIA_SYM;}
 	#@{C}{H}{A}{R}{S}{E}{T}	{return CHARSET_SYM;}
