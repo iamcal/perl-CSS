@@ -16,7 +16,20 @@ sub init {
 
 	my %rx;
 
+	#####################################################################################
+
 	$self->{case_insensitive} = 1;
+
+
+	#####################################################################################
+
+	#h		[0-9a-f]
+	#nonascii	[\200-\377]
+	#unicode		\\{h}{1,6}(\r\n|[ \t\r\n\f])?
+	#escape		{unicode}|\\[^\r\n\f0-9a-f]
+	#s		[ \t\r\n\f]+
+	#w		{s}?
+	#nl		\n|\r\n|\r|\f
 
 	$rx{h}		= '[0-9a-f]';
 	$rx{nonascii}	= '[\\x80-\\xff]';
@@ -26,11 +39,23 @@ sub init {
 	$rx{w}		= "$rx{s}*";
 	$rx{nl}		= '(\\n|\\r\\n|\\r|\\f)';
 
+
+	#nmstart		[_a-z]|{nonascii}|{escape}
+	#nmchar		[_a-z0-9-]|{nonascii}|{escape}
+	#string1		\"([^\n\r\f\\"]|\\{nl}|{escape})*\"
+	#string2		\'([^\n\r\f\\']|\\{nl}|{escape})*\'
+
 	$rx{nmstart}	= '([_a-z]|'.$rx{nonascii}.'|'.$rx{escape}.')';
 	$rx{nmchar}	= '([_a-zA-Z0-9-]|'.$rx{nonascii}.'|'.$rx{escape}.')';
-
 	$rx{string1}	= '("([\\t !#$%&(-~]|\\\\('.$rx{nl}.')|\'|('.$rx{nonascii}.')|('.$rx{escape}.'))*")';
 	$rx{string2}	= '(\'([\\t !#$%&(-~]|\\\\('.$rx{nl}.')|"|('.$rx{nonascii}.')|('.$rx{escape}.'))*\')';
+
+
+	#ident		-?{nmstart}{nmchar}*
+	#name		{nmchar}+
+	#num		[0-9]+|[0-9]*"."[0-9]+
+	#string		{string1}|{string2}
+	#url		([!#$%&*-~]|{nonascii}|{escape})*
 
 	$rx{ident}	= "$rx{nmstart}$rx{nmchar}*";
 	$rx{name}	= "$rx{nmchar}+";
@@ -38,7 +63,30 @@ sub init {
 	$rx{string}	= "($rx{string1}|$rx{string2})";
 	$rx{url}	= "(([!#\$%&*-~]|$rx{nonascii}|$rx{escape})*)";
 
-	$rx{range}	= "(\\?{1,6}|$rx{h}(\\?{0,5}|$rx{h}(\\?{0,4}|$rx{h}(\\?{0,3}|$rx{h}(\\?{0,2}|$rx{h}(\\??|$rx{h}))))))";
+
+	# these aren't used in any productions...
+	#invalid1	\"([^\n\r\f\\"]|\\{nl}|{escape})*
+	#invalid2	\'([^\n\r\f\\']|\\{nl}|{escape})*
+	#invalid		{invalid1}|{invalid2}
+
+
+	#A		a|\\0{0,4}(41|61)(\r\n|[ \t\r\n\f])?
+	#C		c|\\0{0,4}(43|63)(\r\n|[ \t\r\n\f])?
+	#D		d|\\0{0,4}(44|64)(\r\n|[ \t\r\n\f])?
+	#E		e|\\0{0,4}(45|65)(\r\n|[ \t\r\n\f])?
+	#G		g|\\0{0,4}(47|67)(\r\n|[ \t\r\n\f])?|\\g
+	#H		h|\\0{0,4}(48|68)(\r\n|[ \t\r\n\f])?|\\h
+	#I		i|\\0{0,4}(49|69)(\r\n|[ \t\r\n\f])?|\\i
+	#K		k|\\0{0,4}(4b|6b)(\r\n|[ \t\r\n\f])?|\\k
+	#M		m|\\0{0,4}(4d|6d)(\r\n|[ \t\r\n\f])?|\\m
+	#N		n|\\0{0,4}(4e|6e)(\r\n|[ \t\r\n\f])?|\\n
+	#O		o|\\0{0,4}(51|71)(\r\n|[ \t\r\n\f])?|\\o
+	#P		p|\\0{0,4}(50|70)(\r\n|[ \t\r\n\f])?|\\p
+	#R		r|\\0{0,4}(52|72)(\r\n|[ \t\r\n\f])?|\\r
+	#S		s|\\0{0,4}(53|73)(\r\n|[ \t\r\n\f])?|\\s
+	#T		t|\\0{0,4}(54|74)(\r\n|[ \t\r\n\f])?|\\t
+	#X		x|\\0{0,4}(58|78)(\r\n|[ \t\r\n\f])?|\\x
+	#Z		z|\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\z
 
 	$rx{A}		= '(a|\\\\0{0,4}(41|61)(\r\n|[ \t\r\n\f])?)';
 	$rx{C}		= '(c|\\\\0{0,4}(43|63)(\r\n|[ \t\r\n\f])?)';
@@ -58,20 +106,49 @@ sub init {
 	$rx{X}		= '(x|\\\\0{0,4}(58|78)(\r\n|[ \t\r\n\f])?|\\\\x)';
 	$rx{Z}		= '(z|\\\\0{0,4}(5a|7a)(\r\n|[ \t\r\n\f])?|\\\\z)';
 
+
+	#####################################################################################
+
+	#{s}			{return S;}
+	#"<!--"		{return CDO;}
+	#"-->"			{return CDC;}
+	#"~="			{return INCLUDES;}
+	#"|="			{return DASHMATCH;}
+
 	$self->add_toke_rule('S'		, "$rx{s}+");
 	$self->add_toke_rule('CDO'		, '<!--');
 	$self->add_toke_rule('CDC'		, '-->');
 	$self->add_toke_rule('INCLUDES'		, '~=');
 	$self->add_toke_rule('DASHMATCH'	, '\\|=');
 
+
+	#{w}"{"			{return LBRACE;}
+	#{w}"+"			{return PLUS;}
+	#{w}">"			{return GREATER;}
+	#{w}","			{return COMMA;}
+
 	$self->add_toke_rule('LBRACE'		, "$rx{w}\\{");
 	$self->add_toke_rule('PLUS'		, "$rx{w}\\+");
 	$self->add_toke_rule('GREATER'		, "$rx{w}>");
 	$self->add_toke_rule('COMMA'		, "$rx{w},");
 
+
+	#{string}		{return STRING;}
+	#{invalid}		{return INVALID; /* unclosed string */}
+	#{ident}			{return IDENT;}
+	#"#"{name}		{return HASH;}
+
 	$self->add_toke_rule('STRING'		, $rx{string});
 	$self->add_toke_rule('IDENT'		, $rx{ident});
 	$self->add_toke_rule('HASH'		, "#$rx{name}");
+
+
+	@{I}{M}{P}{O}{R}{T}	{return IMPORT_SYM;}
+	#@{P}{A}{G}{E}		{return PAGE_SYM;}
+	#@{M}{E}{D}{I}{A}	{return MEDIA_SYM;}
+	#@{C}{H}{A}{R}{S}{E}{T}	{return CHARSET_SYM;}
+
+	#"!"({w}|{comment})*{I}{M}{P}{O}{R}{T}{A}{N}{T}	{return IMPORTANT_SYM;}
 
 	$self->add_toke_rule('IMPORT_SYM'	, "\@$rx{I}$rx{M}$rx{P}$rx{O}$rx{R}$rx{T}");
 	$self->add_toke_rule('PAGE_SYM'		, "\@$rx{P}$rx{A}$rx{G}$rx{E}");
@@ -79,6 +156,27 @@ sub init {
 	$self->add_toke_rule('CHARSET_SYM'	, "\@$rx{C}$rx{H}$rx{A}$rx{R}$rx{S}$rx{E}$rx{T}");
 
 	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}$rx{I}$rx{M}$rx{P}$rx{O}$rx{R}$rx{T}$rx{A}$rx{N}$rx{T}");
+
+
+	#{num}{E}{M}		{return EMS;}
+	#{num}{E}{X}		{return EXS;}
+	#{num}{P}{X}		{return LENGTH;}
+	#{num}{C}{M}		{return LENGTH;}
+	#{num}{M}{M}		{return LENGTH;}
+	#{num}{I}{N}		{return LENGTH;}
+	#{num}{P}{T}		{return LENGTH;}
+	#{num}{P}{C}		{return LENGTH;}
+	#{num}{D}{E}{G}		{return ANGLE;}
+	#{num}{R}{A}{D}		{return ANGLE;}
+	#{num}{G}{R}{A}{D}	{return ANGLE;}
+	#{num}{M}{S}		{return TIME;}
+	#{num}{S}		{return TIME;}
+	#{num}{H}{Z}		{return FREQ;}
+	#{num}{K}{H}{Z}		{return FREQ;}
+	#{num}{ident}		{return DIMENSION;}
+
+	#{num}%			{return PERCENTAGE;}
+	#{num}			{return NUMBER;}
 
 	$self->add_toke_rule('EMS'		, "$rx{num}$rx{E}$rx{M}");
 	$self->add_toke_rule('EXS'		, "$rx{num}$rx{E}$rx{X}");
@@ -90,8 +188,16 @@ sub init {
 	$self->add_toke_rule('PERCENTAGE'	, "$rx{num}%");
 	$self->add_toke_rule('NUMBER'		, "$rx{num}");
 
+
+	#"url("{w}{string}{w}")"	{return URI;}
+	#"url("{w}{url}{w}")"	{return URI;}
+	#{ident}"("		{return FUNCTION;}
+
 	$self->add_toke_rule('URI'		, "url\\($rx{w}($rx{string}|$rx{url})$rx{w}\\)");
 	$self->add_toke_rule('FUNCTION'		, "$rx{ident}\\(");
+
+
+	#####################################################################################
 
 	$self->add_toke_rule('_SEMICOLON'	, ';');
 	$self->add_toke_rule('_BRACE_CLOSE'	, '}');
@@ -105,6 +211,8 @@ sub init {
 	$self->add_toke_rule('_EQUALS'		, '=');
 	$self->add_toke_rule('_ROUND_CLOSE'	, '\\)');
 
+
+	#####################################################################################
 
 	$self->add_lex_rule('stylesheet', '[ CHARSET_SYM S* STRING S* _SEMICOLON ]? [S|CDO|CDC]* [ import [S|CDO|CDC]* ]* [ [ ruleset | media | page ] [S|CDO|CDC]* ]*');
 	$self->add_lex_rule('import', 'IMPORT_SYM S* [STRING|URI] S* [ medium [ COMMA S* medium]* ]? _SEMICOLON S*');
@@ -129,6 +237,9 @@ sub init {
 	$self->add_lex_rule('term', 'unary_operator? [ NUMBER S* | PERCENTAGE S* | LENGTH S* | EMS S* | EXS S* | ANGLE S* | TIME S* | FREQ S* ] | STRING S* | IDENT S* | URI S* | hexcolor | function');
 	$self->add_lex_rule('function', 'FUNCTION S* expr _ROUND_CLOSE S*');
 	$self->add_lex_rule('hexcolor', 'HASH S*');
+
+
+	#####################################################################################
 
 	$self->set_base('stylesheet');
 }
