@@ -23,7 +23,7 @@ my ($grammar, $tokens);
 	[
 		['IDENT', 'hello'],
 		['S', ' '],
-		['LBRACE', '{'],
+		['_BRACE_OPEN', '{'],
 		['S', ' '],
 		['IDENT', 'world'],
 		['_COLON', ':'],
@@ -57,11 +57,11 @@ my ($grammar, $tokens);
 	'CSS::Grammar::CSS30',
 	'hello { world: foo; }',
 	[
-		['', ''],
-		['', ''],
-		['', ''],
-		['', ''],
-		['', ''],
+	#	['', ''],
+	#	['', ''],
+	#	['', ''],
+	#	['', ''],
+	#	['', ''],
 	],
 );
 
