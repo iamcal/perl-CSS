@@ -21,6 +21,24 @@ sub init {
 
 	my %rx;
 
+	#####################################################################################
+
+	$self->{case_insensitive} = 1;
+
+	#ident 	{nmstart}{nmchar}*
+	#name 	{nmchar}+
+	#nmstart 	[a-zA-Z]|{nonascii}|{escape}
+	#nonascii	[^\0-\177]
+	#unicode 	\\[0-9a-f]{1,6}[ \n\r\t\f]?
+	#escape 	{unicode}|\\[ -~\200-\4177777]
+	#nmchar 	[a-z0-9-]|{nonascii}|{escape}
+	#num 	[0-9]+|[0-9]*\.[0-9]+
+	#string 	{string1}|{string2}
+	#string1 	\"([\t !#$%&(-~]|\\{nl}|\'|{nonascii}|{escape})*\"
+	#string2 	\'([\t !#$%&(-~]|\\{nl}|\"|{nonascii}|{escape})*\'
+	#nl 	\n|\r\n|\r|\f
+	#w 	[ \t\r\n\f]*
+
 	$rx{w}		= '[ \\t\\r\\n\\f]*';
 	$rx{nl}		= '(\\n|\\r\\n|\\r|\\f)';
 	$rx{unicode}	= '(\\[0-9a-f]{1,6}[ \\n\\r\\t\\f]?)';
@@ -38,7 +56,15 @@ sub init {
 	$rx{name}	= "$rx{nmchar}+";
 
 
-	$self->{case_insensitive} = 1;
+	#####################################################################################
+
+	#IDENT 	{ident}
+	#ATKEYWORD 	@{ident}
+	#STRING 	{string}
+	#HASH 	#{name}
+	#NUMBER 	{num}
+	#PERCENTAGE 	{num}%
+	#DIMENSION 	{num}{ident}
 
 	$self->add_toke_rule('IDENT'		, $rx{ident});
 	$self->add_toke_rule('ATKEYWORD'	, "\@$rx{ident}");
@@ -47,10 +73,22 @@ sub init {
 	$self->add_toke_rule('NUMBER'		, "$rx{num}");
 	$self->add_toke_rule('PERCENTAGE'	, "$rx{num}%");
 	$self->add_toke_rule('DIMENSION'	, "$rx{num}$rx{ident}");
+
+
+	#URI 	url\({w}{string}{w}\)
+	#|url\({w}([!#$%&*-~]|{nonascii}|{escape})*{w}\)
+	#UNICODE-RANGE 	U\+[0-9A-F?]{1,6}(-[0-9A-F]{1,6})?
+	#CDO 	<!--
+	#CDC 	-->
+
 	$self->add_toke_rule('URI'		, "(url\\($rx{w}$rx{string}$rx{w}\\))|(url\\($rx{w}([!#$%&*-~]|$rx{nonascii}|$rx{escape})*$rx{w}\\))");
 	$self->add_toke_rule('UNICODE-RANGE'	, "U\\+[0-9A-F?]{1,6}(-[0-9A-F]{1,6})?");
 	$self->add_toke_rule('CDO'		, '<!--');
 	$self->add_toke_rule('CDC'		, '-->');
+
+
+	#####################################################################################
+
 	$self->add_toke_rule('_COLON'		, ':');
 	$self->add_toke_rule('_SEMICOLON'	, ';');
 	$self->add_toke_rule('_BRACE_OPEN'	, '{');
@@ -59,6 +97,21 @@ sub init {
 	$self->add_toke_rule('_ROUND_CLOSE'	, '\\)');
 	$self->add_toke_rule('_SQUARE_OPEN'	, '\\[');
 	$self->add_toke_rule('_SQUARE_CLOSE'	, '\\]');
+
+
+	#####################################################################################
+
+	#
+	# this is after the _BLAH tokens since DELIM will match them (oops)
+	#
+
+	#S 	[ \t\r\n\f]+
+	#COMMENT 	\/\*[^*]*\*+([^/][^*]*\*+)*\/
+	#FUNCTION 	{ident}\(
+	#INCLUDES 	~=
+	#DASHMATCH 	|=
+	#DELIM 	any other character not matched by the above rules
+
 	$self->add_toke_rule('S'		, '[ \\t\\r\\n\\f]');
 	# COMMENT 	\/\*[^*]*\*+([^/][^*]*\*+)*\/
 	$self->add_toke_rule('FUNCTION'		, "$rx{ident}\\(");
@@ -66,6 +119,21 @@ sub init {
 	$self->add_toke_rule('DASHMATCH'	, '\\|=');
 	$self->add_toke_rule('DELIM'		, '.');
 
+
+	#####################################################################################
+
+	#stylesheet  : [ CDO | CDC | S | statement ]*;
+	#statement   : ruleset | at-rule;
+	#at-rule     : ATKEYWORD S* any* [ block | ';' S* ];
+	#block       : '{' S* [ any | block | ATKEYWORD S* | ';' ]* '}' S*;
+	#ruleset     : selector? '{' S* declaration? [ ';' S* declaration? ]* '}' S*;
+	#selector    : any+;
+	#declaration : property ':' S* value;
+	#property    : IDENT S*;
+	#value       : [ any | block | ATKEYWORD S* ]+;
+	#any         : [ IDENT | NUMBER | PERCENTAGE | DIMENSION | STRING
+	#              | DELIM | URI | HASH | UNICODE-RANGE | INCLUDES
+	#              | FUNCTION | DASHMATCH | '(' any* ')' | '[' any* ']' ] S*;
 
 	$self->add_lex_rule('stylesheet',	'[ CDO | CDC | S | statement ]*');
 	$self->add_lex_rule('statement',	'ruleset | at-rule');
@@ -76,8 +144,11 @@ sub init {
 	$self->add_lex_rule('declaration',	'property _COLON S* value');
 	$self->add_lex_rule('property',		'IDENT S*');
 	$self->add_lex_rule('value',		'[ any | block | ATKEYWORD S* ]+');
-	$self->add_lex_rule('any',		'[ IDENT | NUMBER | PERCENTAGE | DIMENSION | STRING | DELIM | _COLON | URI | HASH | UNICODE-RANGE | INCLUDES | FUNCTION | DASHMATCH | _ROUND_OPEN any* _ROUND_CLOSE | _SQUARE_OPEN any* _SQUARE_CLOSE ] S*');
+	$self->add_lex_rule('any',		'[ IDENT | NUMBER | PERCENTAGE | DIMENSION | STRING | DELIM | _COLON | URI | HASH | '.
+					'UNICODE-RANGE | INCLUDES | FUNCTION | DASHMATCH | _ROUND_OPEN any* _ROUND_CLOSE | _SQUARE_OPEN any* _SQUARE_CLOSE ] S*');
 
+
+	#####################################################################################
 
 	$self->set_base('stylesheet');
 }
