@@ -3,7 +3,7 @@ package CSS;
 use strict;
 use warnings;
 
-our $VERSION = 2.01_06;
+our $VERSION = 2.01_07;
 
 sub new {
 	my $class = shift;
