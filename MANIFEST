@@ -27,7 +27,7 @@ t/02_create.t
 t/03_parse.t
 t/04_search.t
 t/05_grammar.t
-t/06_css_grammars.t
+t/06_css_grammars_01_toke.t
 t/07_parse_rule.t
 t/08_parse_match.t
 t/09_parse_op.t
@@ -42,4 +42,3 @@ t/css_selector_groups
 t/css_selectors
 t/css_simple
 t/css_tiny
-META.yml                                 Module meta-data (added by MakeMaker)
