@@ -4,23 +4,20 @@ use lib 'lib';
 use strict;
 use Data::Dumper;
 use CSS::Grammar::Core;
+use CSS::Grammar::CSS21;
+use CSS::Grammar::CSS20;
+use CSS::Grammar::CSS10;
 
 $|++;
 
+#$CSS::TraceParser = 1;
+
 my $css = new CSS::Grammar::Core;
 
-my $tokens = $css->toke("foo, bar { bar: 10eM; }");
-my $tree = $css->lex($tokens);
+#my $tree = $css->parse("foo, bar { bar: 10eM; }");
+#my $tree = $css->parse("foo { /*yay*/bar: 10; }");
+#my $tree = $css->parse("\@\\000069mport \"foo\";");
+my $tree = $css->parse2("\@import/* yay */ \"foo\"/* woo */;");
 
-#die Dumper $tokens;
-#print $tree->dump;
-
-#$tree->scrub;
-#$tree->reduce;
-#print Dumper $tree;
-#exit;
-
-$tree->reduce;
-my $sheet = $css->walk($tree);
-
-print Dumper $sheet;
+print Dumper $tree;
+exit;
