@@ -163,32 +163,137 @@ sub init {
 
 	#####################################################################################
 
+	#stylesheet
+	#  : [ CHARSET_SYM S* STRING S* ';' ]?
+	#    [S|CDO|CDC]* [ import [S|CDO|CDC]* ]*
+	#    [ [ ruleset | media | page | font_face ] [S|CDO|CDC]* ]*
+	#  ;
+	#import
+	#  : IMPORT_SYM S*
+	#    [STRING|URI] S* [ medium [ ',' S* medium]* ]? ';' S*
+	#  ;
+	#media
+	#  : MEDIA_SYM S* medium [ ',' S* medium ]* '{' S* ruleset* '}' S*
+	#  ;
+
 	$self->add_lex_rule('stylesheet', '[ CHARSET_SYM S* STRING S* _SEMICOLON ]? [S|CDO|CDC]* [ import [S|CDO|CDC]* ]* [ [ ruleset | media | '.
 		'page | font_face ] [S|CDO|CDC]* ]*');
 	$self->add_lex_rule('import', 'IMPORT_SYM S* [STRING|URI] S* [ medium [ _COMMA S* medium]* ]? _SEMICOLON S*');
 	$self->add_lex_rule('media', 'MEDIA_SYM S* medium [ _COMMA S* medium ]* _BRACE_OPEN S* ruleset* _BRACE_CLOSE S*');
+
+
+	#medium
+	#  : IDENT S*
+	#  ;
+	#page
+	#  : PAGE_SYM S* IDENT? pseudo_page? S*
+	#    '{' S* declaration [ ';' S* declaration ]* '}' S*
+	#  ;
+	#pseudo_page
+	#  : ':' IDENT
+	#  ;
+	#font_face
+	#  : FONT_FACE_SYM S*
+	#    '{' S* declaration [ ';' S* declaration ]* '}' S*
+	#  ;
+
 	$self->add_lex_rule('medium', 'IDENT S*');
 	$self->add_lex_rule('page', 'PAGE_SYM S* IDENT? pseudo_page? S* _BRACE_OPEN S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('pseudo_page', '_COLON IDENT');
 	$self->add_lex_rule('font_face', 'FONT_FACE_SYM S* _BRACE_OPEN S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
+
+
+	#operator
+	#  : '/' S* | ',' S* | /* empty */
+	#  ;
+	#combinator
+	#  : '+' S* | '>' S* | /* empty */
+	#  ;
+	#unary_operator
+	#  : '-' | '+'
+	#  ;
+	#property
+	#  : IDENT S*
+	#  ;
+
 	$self->add_lex_rule('operator', '_SLASH S* | _COMMA S* |');
 	$self->add_lex_rule('combinator', '_PLUS S* | _GREATER_THAN S* |'); 
 	$self->add_lex_rule('unary_operator', '_MINUS | _PLUS');
 	$self->add_lex_rule('property', 'IDENT S*');
+
+
+	#ruleset
+	#  : selector [ ',' S* selector ]*
+	#    '{' S* declaration [ ';' S* declaration ]* '}' S*
+	#  ;
+	#selector
+	#  : simple_selector [ combinator simple_selector ]*
+	#  ;
+	#simple_selector
+	#  : element_name? [ HASH | class | attrib | pseudo ]* S*
+	#  ;
+	#class
+	#  : '.' IDENT
+	#  ;
+
 	$self->add_lex_rule('ruleset', 'selector [ _COMMA S* selector ]* _BRACE_OPEN S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('selector', 'simple_selector [ combinator simple_selector ]*');
 	$self->add_lex_rule('simple_selector', 'element_name? [ HASH | class | attrib | pseudo ]* S*');
 	$self->add_lex_rule('class', '_PERIOD IDENT');
+
+
+	#element_name
+	#  : IDENT | '*'
+	#  ;
+	#attrib
+	#  : '[' S* IDENT S* [ [ '=' | INCLUDES | DASHMATCH ] S*
+	#    [ IDENT | STRING ] S* ]? ']'
+	#  ;
+	#pseudo
+	#  : ':' [ IDENT | FUNCTION S* IDENT S* ')' ]
+	#  ;
+	#declaration
+	#  : property ':' S* expr prio?
+	#  | /* empty */
+	#  ;
+
 	$self->add_lex_rule('element_name', 'IDENT | _STAR');
 	$self->add_lex_rule('attrib', '_SQUARE_OPEN S* IDENT S* [ [ _EQUALS | INCLUDES | DASHMATCH ] S* [ IDENT | STRING ] S* ]? _SQUARE_CLOSE');
 	$self->add_lex_rule('pseudo', '_COLON [ IDENT | FUNCTION S* IDENT S* _ROUND_CLOSE ]');
 	$self->add_lex_rule('declaration', 'property _COLON S* expr prio? |');
+
+
+	#prio
+	#  : IMPORTANT_SYM S*
+	#  ;
+	#expr
+	#  : term [ operator term ]*
+	#  ;
+	#term
+	#  : unary_operator?
+	#    [ NUMBER S* | PERCENTAGE S* | LENGTH S* | EMS S* | EXS S* | ANGLE S* |
+	#      TIME S* | FREQ S* | function ]
+	#  | STRING S* | IDENT S* | URI S* | RGB S* | UNICODERANGE S* | hexcolor
+	#  ;
+
 	$self->add_lex_rule('prio', 'IMPORTANT_SYM S*');
 	$self->add_lex_rule('expr', 'term [ operator term ]*');
 	$self->add_lex_rule('term', 'unary_operator? [ NUMBER S* | PERCENTAGE S* | LENGTH S* | EMS S* | EXS S* | ANGLE S* | TIME S* | FREQ S* | function ] '.
 		'| STRING S* | IDENT S* | URI S* | RGB S* | UNICODERANGE S* | hexcolor');
+
+
+	#function
+	#  : FUNCTION S* expr ')' S*
+	#  ;
+	#hexcolor
+	#  : HASH S*
+	#  ;
+
 	$self->add_lex_rule('function', 'FUNCTION S* expr _ROUND_CLOSE S*');
 	$self->add_lex_rule('hexcolor', 'HASH S*');
+
+
+	#####################################################################################
 
 	$self->set_base('stylesheet');
 }
