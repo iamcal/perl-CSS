@@ -149,7 +149,7 @@ sub init {
 
 	$self->add_toke_rule('_SEMICOLON'	, ';');
 	$self->add_toke_rule('_COMMA'		, ',');
-	$self->add_toke_rule('_BRACE_OPEN'	, '}');
+	$self->add_toke_rule('_BRACE_OPEN'	, '{');
 	$self->add_toke_rule('_BRACE_CLOSE'	, '}');
 	$self->add_toke_rule('_COLON'		, ':');
 	$self->add_toke_rule('_SLASH'		, '/');
