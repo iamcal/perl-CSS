@@ -5,27 +5,28 @@ use warnings;
 
 use base 'CSS::Adaptor';
 
-
-my $DIV_LINE = ('-'x50)."\n";
-
-sub output_rule {
-	my ($self, $rule) = @_;
-	return "NEW RULE\n".$DIV_LINE.$rule->selectors.$rule->properties.$DIV_LINE."\n";
+sub format_atrule {
+	my ($self, $atrule) = @_;
+	return "ATRULE: $atrule->{name}=$atrule->{value}\n";
 }
 
-sub output_selectors {
-        my ($self, $selectors) = @_;
-        return "SELECTORS:\n".join('', map {"\t".$_->{name}."\n"} @{$selectors})."\n";
-}
+sub format_ruleset {
+	my ($self, $ruleset) = @_;
 
-sub output_properties {
-        my ($self, $properties) = @_;
-        return "PROPERTIES:\n".join('', map {"\t".$_->{property}.":\t".$_->values.";\n"} @{$properties})."\n";
-}
+	my $out = "RULESET START\n";
 
-sub output_values {
-        my ($self, $values) = @_;
-        return join '', map {$_->{value}} @{$values};
+	for my $selector (@{$ruleset->{selectors}}){
+		$out .= "\tSELECTOR: $selector->{name}\n";
+	}
+
+	for my $declaration (@{$ruleset->{declarations}}){
+
+		$out .= "\tPROPERTY: $declaration->{property}=$declaration->{value}\n";
+	}
+
+	$out .= "RULESET END\n";
+
+	return $out;
 }
 
 
