@@ -1,4 +1,4 @@
-use Test::More tests => 72;
+use Test::More tests => 84;
 
 my ($grammar, $tokens);
 
@@ -57,11 +57,17 @@ my ($grammar, $tokens);
 	'CSS::Grammar::CSS30',
 	'hello { world: foo; }',
 	[
-	#	['', ''],
-	#	['', ''],
-	#	['', ''],
-	#	['', ''],
-	#	['', ''],
+		['IDENT', 'hello'],
+		['S', ' '],
+		['_BRACE_OPEN', '{'],
+		['S', ' '],
+		['IDENT', 'world'],
+		['_COLON', ':'],
+		['S', ' '],
+		['IDENT', 'foo'],
+		['_SEMICOLON', ';'],
+		['S', ' '],
+		['_BRACE_CLOSE', '}'],
 	],
 );
 
