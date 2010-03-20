@@ -211,8 +211,8 @@ sub remove_anon_matches {
 
 
 	#
-	# this function remove unnamed match rules - in general we only care about the named stuff,
-	# since everything else tends to filler. this make walking the tree a lot simpler
+	# this function removes unnamed match rules - in general we only care about the named stuff,
+	# since everything else tends to filler. this makes walking the tree a lot simpler.
 	#
 
 
