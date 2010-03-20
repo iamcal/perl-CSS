@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 7;
 
 use CSS;
 
@@ -11,7 +11,16 @@ is($css->output('CSS::Adaptor'), "\@import test;\nfoo { bar: baz }\n", "CSS::Ada
 
 is($css->output('CSS::Adaptor::Pretty'), "\@import test;\n\nfoo {\n\tbar:\tbaz;\n}\n", "CSS::Adaptor::Pretty output");
 
-is($css->output('CSS::Adaptor::Debug'), "ATRULE: import=test\nRULESET START\n\tSELECTOR: foo\n\tPROPERTY: bar=baz\nRULESET END\n", "CSS::Adaptor::Debug output");
+my $debug_out = "ATRULE: import=test\nRULESET START\n\tSELECTOR: foo\n\tPROPERTY: bar=baz\nRULESET END\n";
+
+is($css->output('CSS::Adaptor::Debug'), $debug_out, "CSS::Adaptor::Debug output");
+
+$css->set_adaptor('CSS::Adaptor::Debug');
+
+is($css->output(), $debug_out, "set_adaptor() works");
+
+is($css->output('CSS::Grammar'), undef, "non-adaptor module");
+is($css->output('CSS::Adaptor::Fake'), undef, "missing adaptor");
 
 
 $css->purge();
