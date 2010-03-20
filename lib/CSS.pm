@@ -137,10 +137,6 @@ sub set_adaptor {
 	my $adaptor = shift;
 
 	$self->{adaptor} = $adaptor;
-
-	#for(@{$self->{styles}}){
-	#	$_->set_adaptor($adaptor);
-	#}
 }
 
 sub output {
@@ -150,6 +146,9 @@ sub output {
 	eval "use $adaptor_class;";
 
 	my $adaptor = eval "$adaptor_class->new();";
+
+	return undef unless defined $adaptor;
+	return undef unless $adaptor->can('format_stylesheet');
 
 	return $adaptor->format_stylesheet($self);
 }
@@ -304,7 +303,7 @@ This constructor returns ...
 
 Copyright (C) 2001-2002, Allen Day <allenday@ucla.edu>
 
-Copyright (C) 2003-2006, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2010, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
