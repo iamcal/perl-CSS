@@ -153,24 +153,6 @@ sub parse {
 
 	#
 	# this method just ties together a bunch of stuff to turn an input string into a
-	# reduced parse tree
-	#
-
-	my $tokens = $self->toke($input);
-	my $tree = $self->lex($tokens);
-
-	$tree->scrub;
-	$tree->reduce;
-	$tree->remove_anon_matches;
-
-	return $tree;
-}
-
-sub parse2 {
-	my ($self, $input) = @_;
-
-	#
-	# this method just ties together a bunch of stuff to turn an input string into a
 	# CSS::Stylesheet object
 	#
 
