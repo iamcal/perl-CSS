@@ -50,7 +50,7 @@ stylesheet in  'debugging' style.
 
 =head1 AUTHORS
 
-Copyright (C) 2003-2004, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2010, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

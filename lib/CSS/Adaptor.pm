@@ -135,7 +135,7 @@ Returns a string representation of the declaration in C<$declaration>.
 
 Copyright (C) 2001-2002, Allen Day <allenday@ucla.edu>
 
-Copyright (C) 2003-2006, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2010, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 

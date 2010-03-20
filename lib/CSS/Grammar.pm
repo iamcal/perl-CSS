@@ -288,7 +288,7 @@ Returns a lexing rule (by name).
 
 =head1 AUTHOR
 
-Copyright (C) 2003-2006, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2010, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
