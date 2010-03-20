@@ -29,6 +29,7 @@ t/04_search.t
 t/05_grammar.t
 t/06_css_grammars_01_toke.t
 t/06_css_grammars_02_lex.t
+t/06_css_grammars_03_reduce.t
 t/07_parse_rule.t
 t/08_parse_match.t
 t/09_parse_op.t
