@@ -139,15 +139,6 @@ sub find_lex_rule {
 	return $self->{lex_rules}->{$rule_name};
 }
 
-sub dump_tokens {
-	my ($self, $tokens) = @_;
-
-	for my $token(@{$tokens}){
-
-		print "$token->{type}\t-> \"$token->{content}\"\n";
-	}
-}
-
 sub parse {
 	my ($self, $input) = @_;
 

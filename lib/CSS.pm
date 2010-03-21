@@ -67,46 +67,10 @@ sub parse_string {
 
 
 	#
-	# tokenize input string
+	# toke, lex, reduce & walk into a sheet
 	#
 
-	my $tokens = $grammar->toke($string);
-
-	unless (defined $tokens){
-
-		die "Can't tokenize input string";
-	}
-
-
-	#
-	# build a match tree
-	#
-
-	my $tree = $grammar->lex($tokens);
-
-	unless (defined $tree){
-
-		die "Can't lex token stream";
-	}
-
-
-	#
-	# 'reduce' the match tree into subrules
-	#
-
-	$tree->reduce;
-
-	unless (defined $tree){
-
-		die "Can't reduce match tree";
-	}
-
-
-	#
-	# walk the match tree and generate a sheet
-	#
-
-	my $sheet = $grammar->walk($tree);
+	my $sheet = $grammar->parse($string);
 
 	unless (defined $sheet){
 
@@ -143,7 +107,7 @@ sub output {
 	my $self = shift;
 	my $adaptor_class = shift || $self->{adaptor};
 
-	eval "use $adaptor_class;";
+	$self->load_module($adaptor_class);
 
 	my $adaptor = eval "$adaptor_class->new();";
 
@@ -180,6 +144,19 @@ sub merge_sheet {
 	}
 
 	push @{$self->{sheets}}, $stylesheet;
+}
+
+sub load_module {
+	my ($self, $module) = @_;
+
+	my $file = $module . '.pm';
+	$file =~ s{::}{/}g;
+
+	return eval { 1 } if $INC{$file};
+	my $ret = eval "require \$file";
+	return $ret unless $ret;
+
+	return eval "\$module->import();";
 }
 
 1;
