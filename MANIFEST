@@ -11,6 +11,7 @@ lib/CSS/Ruleset.pm
 lib/CSS/Selector.pm
 lib/CSS/Stylesheet.pm
 lib/CSS/Adaptor/Debug.pm
+lib/CSS/Adaptor/Minified.pm
 lib/CSS/Adaptor/Pretty.pm
 lib/CSS/Grammar/Core.pm
 lib/CSS/Grammar/CSS10.pm
