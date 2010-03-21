@@ -47,21 +47,26 @@ __END__
 
 =head1 NAME
 
-CSS::Adaptor::Pretty - An example adaptor for pretty-printing CSS.
+CSS::Adaptor::Minified - An example adaptor for outputting minified CSS.
 
 =head1 SYNOPSIS
 
   use CSS;
-  ...
+
+  my $css = new CSS;
+
+  $css->read_file('awesome.css');
+
+  print $css->output('CSS::Adaptor::Minified');
 
 =head1 DESCRIPTION
 
 This class implements a CSS::Adaptor object to display a
-stylesheet in a 'pretty' style.
+stylesheet in a 'minified' style.
 
 =head1 AUTHORS
 
-Copyright (C) 2003-2010, Cal Henderson <cal@iamcal.com>
+Copyright (C) 2010, Cal Henderson <cal@iamcal.com>
 
 =head1 SEE ALSO
 
