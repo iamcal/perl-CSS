@@ -112,13 +112,23 @@ sub output {
 	my $self = shift;
 	my $adaptor_class = shift || $self->{adaptor};
 
-	return undef unless $adaptor_class;
+	unless ($adaptor_class){
+		die "no adaptor class";
+	}
 
-	$self->load_module($adaptor_class);
+	unless ($self->load_module($adaptor_class)){
+		die "unable to load adaptor module";
+	}
+
 	my $adaptor = eval "$adaptor_class->new();";
 
-	return undef unless defined $adaptor;
-	return undef unless $adaptor->can('format_stylesheet');
+	unless (defined $adaptor){
+		die "can't create adaptor ($adaptor_class)";
+	}
+
+	unless ($adaptor->can('format_stylesheet')){
+		die "adaptor can't format stylesheets";
+	}
 
 	return $adaptor->format_stylesheet($self);
 }
@@ -160,9 +170,10 @@ sub load_module {
 
 	return eval { 1 } if $INC{$file};
 	my $ret = eval "require \$file";
-	return $ret unless $ret;
+	return 0 unless $ret;
 
-	return eval "\$module->import();";
+	eval "\$module->import();";
+	return 1;
 }
 
 1;
