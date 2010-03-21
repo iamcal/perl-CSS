@@ -30,7 +30,7 @@ sub read_file {
 	if (ref $path){
 		if (ref $path eq 'ARRAY'){
 			$self->read_file($_) for @$path;
-			return 1;
+			return;
 		}
 	} else {
  		if ($path){
@@ -39,7 +39,7 @@ sub read_file {
 			my $source = join '',<IN>;
 			close(IN);
 			$self->parse_string($source) if $source;
-			return 1;
+			return;
 		}
 	}
 	die "Only scalars and arrays accepted: $!";
@@ -51,20 +51,22 @@ sub read_string {
 	if (ref $data){
 		if (ref $data eq 'ARRAY'){
 			$self->read_string($_) for @$data;
-			return 1;
+			return;
 		}
 	} else {
-		$self->parse_string($data) if length $data;
+		return $self->parse_string($data) if length $data;
 	}
 }
 
 sub parse_string {
 	my ($self, $string) = @_;
 
-	use CSS::Grammar::Core;
+	my $grammar_class = $self->{grammar};
+	return 0 unless $grammar_class;
 
-	my $grammar = new CSS::Grammar::Core;
-
+	$self->load_module($grammar_class);
+        my $grammar = eval "new $grammar_class";
+	return 0 unless $grammar;
 
 	#
 	# toke, lex, reduce & walk into a sheet
@@ -75,6 +77,7 @@ sub parse_string {
 	unless (defined $sheet){
 
 		die "Can't walk the match tree";
+		return 0;
 	}
 
 
@@ -83,6 +86,8 @@ sub parse_string {
 	#
 
 	$self->merge_sheet($sheet);
+
+	return 1;
 }
 
 sub purge {

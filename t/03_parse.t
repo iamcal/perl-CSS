@@ -2,7 +2,7 @@ use Test::More tests => 30;
 
 use CSS;
 
-my $css = new CSS('grammar' => 'Core');
+my $css = new CSS('grammar' => 'CSS::Grammar::Core');
 ok(1, "Created the CSS object ok");
 
 
