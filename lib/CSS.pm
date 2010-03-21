@@ -107,8 +107,9 @@ sub output {
 	my $self = shift;
 	my $adaptor_class = shift || $self->{adaptor};
 
-	$self->load_module($adaptor_class);
+	return undef unless $adaptor_class;
 
+	$self->load_module($adaptor_class);
 	my $adaptor = eval "$adaptor_class->new();";
 
 	return undef unless defined $adaptor;
@@ -149,7 +150,7 @@ sub merge_sheet {
 sub load_module {
 	my ($self, $module) = @_;
 
-	my $file = $module . '.pm';
+	my $file = "$module" . '.pm';
 	$file =~ s{::}{/}g;
 
 	return eval { 1 } if $INC{$file};

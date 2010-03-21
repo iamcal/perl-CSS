@@ -1,4 +1,4 @@
-use Test::More tests => 7;
+use Test::More tests => 8;
 
 use CSS;
 
@@ -22,6 +22,9 @@ is($css->output(), $debug_out, "set_adaptor() works");
 is($css->output('CSS::Grammar'), undef, "non-adaptor module");
 is($css->output('CSS::Adaptor::Fake'), undef, "missing adaptor");
 
+$css->set_adaptor(undef);
+is($css->output(), undef, "undef adaptor");
+$css->set_adaptor('CSS::Adaptor::Debug');
 
 $css->purge();
 $css->parse_string("foo { reallylongname: quux ; bar: baz; }");

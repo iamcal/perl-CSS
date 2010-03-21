@@ -148,7 +148,10 @@ sub parse {
 	#
 
 	my $tokens = $self->toke($input);
+	return undef unless scalar(@{$tokens});
+
 	my $tree = $self->lex($tokens);
+	return undef unless defined $tree;
 
 	$tree->scrub;
 	$tree->reduce;
