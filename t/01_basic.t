@@ -32,3 +32,4 @@ BEGIN {
 require_ok( $_ ) for @::modules;
 
 isa_ok(eval "$_->new", $_) for @::modules;
+
