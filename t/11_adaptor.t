@@ -1,4 +1,4 @@
-use Test::More tests => 8;
+use Test::More tests => 9;
 
 use CSS;
 
@@ -19,11 +19,12 @@ $css->set_adaptor('CSS::Adaptor::Debug');
 
 is($css->output(), $debug_out, "set_adaptor() works");
 
-is($css->output('CSS::Grammar'), undef, "non-adaptor module");
-is($css->output('CSS::Adaptor::Fake'), undef, "missing adaptor");
+is(eval{ $css->output('CSS::Grammar') } , undef, "non-adaptor module");
+is(eval{ $css->output('CSS::Adaptor::Empty') }, undef, "non-creatable adaptor");
+is(eval{ $css->output('CSS::Adaptor::Fake') }, undef, "missing adaptor");
 
 $css->set_adaptor(undef);
-is($css->output(), undef, "undef adaptor");
+is(eval{ $css->output() }, undef, "undef adaptor");
 $css->set_adaptor('CSS::Adaptor::Debug');
 
 $css->purge();
