@@ -1,5 +1,6 @@
 Revision history for CSS.pm
 
+1.09		Recompiled P::RD Grammar against newer version to fix https://rt.cpan.org/Public/Bug/Display.html?id=53948
 1.08		Dual licensed
 1.07		Corrected some typos in the POD
 1.06		Fixed bug where '0' properties would be stored as the empty string

@@ -1,4 +1,4 @@
-CSS.pm version 1.08
+CSS.pm version 1.09
 =======================
 
 Object-oriented access to cascading stylesheets.
@@ -32,7 +32,7 @@ This module requires these other modules and libraries:
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
-Copyright (C) 2003 Cal Henderson <cal@iamcal.com>
+Copyright (C) 2003-2011 Cal Henderson <cal@iamcal.com>
 
 
 CSS.pm is dual licensed under the same terms as
