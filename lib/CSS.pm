@@ -318,4 +318,6 @@ L<CSS::Parse::Op>,
 L<CSS::Parse::Match>,
 L<CSS::Parse::Rule::Trace>,
 
+Source repo: https://github.com/iamcal/perl-CSS
+
 =cut

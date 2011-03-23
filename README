@@ -35,6 +35,10 @@ COPYRIGHT AND LICENCE
 Copyright (C) 2001-2002 Allen Day <allenday@ucla.edu>
 Copyright (C) 2003-2010 Cal Henderson <cal@iamcal.com>
 
+
+The source for this module can be found on github:
+https://github.com/iamcal/perl-CSS
+
 CSS.pm is dual licensed under the same terms as
 Perl itself.
 
