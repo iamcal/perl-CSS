@@ -46,12 +46,12 @@ is($tokens->[0]->{type}, 'MISC', "Token type");
 # test lexing with an invalid base rule
 #
 
-$grammar->{base_rule} = 'fake-rule';
+$grammar->set_base('sheet', 'fake-rule');
 ok(!defined $grammar->lex($tokens), "Lex with invalid base rule");
 
 
 $grammar->add_lex_rule('base', 'ABC+');
-$grammar->{base_rule} = 'base';
+$grammar->set_base('sheet', 'base');
 ok(!defined $grammar->lex($tokens), "Lex with no base match");
 
 
@@ -59,4 +59,3 @@ $tokens = $grammar->toke('ABCx');
 $match = $grammar->lex($tokens);
 is($match->tokens_left, 1, "Tokens left over");
 like($grammar->{error}, qr/^Lexer didn't match/, "Tokens left over");
-

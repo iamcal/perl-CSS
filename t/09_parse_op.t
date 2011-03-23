@@ -12,7 +12,7 @@ my $grammar = CSS::Grammar->new();
 $grammar->add_lex_rule('multiple_as', 'A*');
 $grammar->add_lex_rule('multiple_bs', 'B+');
 $grammar->add_lex_rule('base', 'multiple_as+ multiple_bs');
-$grammar->set_base('base');
+$grammar->set_base('sheet', 'base');
 
 $grammar->add_toke_rule('A', 'a');
 $grammar->add_toke_rule('B', 'b');

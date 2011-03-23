@@ -184,6 +184,9 @@ sub init {
 	$self->add_lex_rule('ruleset'		, 'selector [ _COMMA selector ]* _BRACE_OPEN declaration [ _SEMICOLON declaration ]* _BRACE_CLOSE');
 	$self->add_lex_rule('selector'		, 'simple_selector+ [ pseudo_element ]? | pseudo_element');
 
+	# used for inline styles
+	$self->add_lex_rule('declarations'		, 'declaration [ _SEMICOLON declaration ]*');
+
 
 	#simple_selector
 	# : element_name id? class? pseudo_class?	/* eg: H1.subject */
@@ -267,7 +270,8 @@ sub init {
 
 	#####################################################################################
 
-	$self->set_base('stylesheet');
+	$self->set_base('sheet', 'stylesheet');
+	$self->set_base('inline', 'declarations');
 }
 
 sub toke {

@@ -245,6 +245,9 @@ sub init {
 	$self->add_lex_rule('ruleset', 'selector [ _COMMA S* selector ]* _BRACE_OPEN S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('selector', 'simple_selector [ combinator simple_selector ]*');
 
+	# used for parsing inline styles
+	$self->add_lex_rule('declarations', 'S* declaration [ _SEMICOLON S* declaration ]*');
+
 
 	#simple_selector
 	#  : element_name? [ HASH | class | attrib | pseudo ]* S*
@@ -307,7 +310,8 @@ sub init {
 
 	#####################################################################################
 
-	$self->set_base('stylesheet');
+	$self->set_base('sheet', 'stylesheet');
+	$self->set_base('inline', 'declarations');
 }
 
 

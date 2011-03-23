@@ -15,7 +15,7 @@ sub new {
 	$self->{toke_rules} = {};
 	$self->{toke_order} = [];
 	$self->{case_insensitive} = 0;
-	$self->{base_rule} = '';
+	$self->{base_rules} = {};
 	$self->{lex_rules} = {};
 	$self->{error} = '';
 
@@ -105,11 +105,13 @@ sub toke {
 }
 
 sub lex {
-	my ($self, $input) = @_;
+	my ($self, $input, $base_rule) = @_;
 
 	$self->{error} = '';
 
-	my $rule = $self->{lex_rules}->{$self->{base_rule}};
+	$base_rule = 'sheet' unless defined $base_rule;
+	my $rule_key = $self->{base_rules}->{$base_rule};
+	my $rule = $self->{lex_rules}->{$rule_key};
 
 	return undef unless defined $rule;
 
@@ -128,9 +130,9 @@ sub lex {
 }
 
 sub set_base {
-	my ($self, $base_rule) = @_;
+	my ($self, $key, $rule) = @_;
 
-	$self->{base_rule} = $base_rule;
+	$self->{base_rules}->{$key} = $rule;
 }
 
 sub find_lex_rule {
@@ -167,7 +169,7 @@ sub walk {
 	my $stylesheet = new CSS::Stylesheet;
 
 	return $stylesheet unless defined $tree;
-	return $stylesheet unless $tree->{subrule} eq $self->{base_rule};
+	return $stylesheet unless $tree->{subrule} eq $self->{base_rules}->{sheet};
 
 	$self->walk_stylesheet($stylesheet, $tree->{submatches});
 

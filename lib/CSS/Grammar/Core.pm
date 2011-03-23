@@ -147,10 +147,14 @@ sub init {
 	$self->add_lex_rule('any',		'[ IDENT | NUMBER | PERCENTAGE | DIMENSION | STRING | DELIM | _COLON | URI | HASH | '.
 					'UNICODE-RANGE | INCLUDES | FUNCTION | DASHMATCH | _ROUND_OPEN any* _ROUND_CLOSE | _SQUARE_OPEN any* _SQUARE_CLOSE ] S*');
 
+	# used for inline styles
+	$self->add_lex_rule('declarations',		'S* declaration? [ _SEMICOLON S* declaration? ]*');
+
 
 	#####################################################################################
 
-	$self->set_base('stylesheet');
+	$self->set_base('sheet', 'stylesheet');
+	$self->set_base('inline', 'declarations');
 }
 
 sub toke {

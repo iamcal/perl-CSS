@@ -241,6 +241,9 @@ sub init {
 	$self->add_lex_rule('simple_selector', 'element_name? [ HASH | class | attrib | pseudo ]* S*');
 	$self->add_lex_rule('class', '_PERIOD IDENT');
 
+	# used for inline styles
+	$self->add_lex_rule('declarations', 'S* declaration [ _SEMICOLON S* declaration ]*');
+
 
 	#element_name
 	#  : IDENT | '*'
@@ -295,7 +298,8 @@ sub init {
 
 	#####################################################################################
 
-	$self->set_base('stylesheet');
+	$self->set_base('sheet', 'stylesheet');
+	$self->set_base('inline', 'declarations');
 }
 
 sub toke {

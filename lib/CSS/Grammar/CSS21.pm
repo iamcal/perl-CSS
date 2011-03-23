@@ -274,6 +274,9 @@ sub init {
 	$self->add_lex_rule('property', 'IDENT S*');
 	$self->add_lex_rule('ruleset', 'selector [ COMMA S* selector ]* S* LBRACE S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 
+	# used for inline styles
+	$self->add_lex_rule('declarations', 'S* declaration [ _SEMICOLON S* declaration ]*');
+
 
 	#selector
 	#  : simple_selector [ combinator simple_selector ]*
@@ -341,7 +344,8 @@ sub init {
 
 	#####################################################################################
 
-	$self->set_base('stylesheet');
+	$self->set_base('sheet', 'stylesheet');
+	$self->set_base('inline', 'declarations');
 }
 
 sub toke {
