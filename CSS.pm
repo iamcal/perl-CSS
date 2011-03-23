@@ -273,4 +273,6 @@ L<CSS::Parse>, L<CSS::Parse::Lite>, L<CSS::Parse::Heavy>,
 L<CSS::Parse::Compiled>, L<CSS::Parse::PRDGrammar>, L<CSS::Adaptor>, 
 L<CSS::Adaptor::Pretty>, L<CSS::Adaptor::Debug>, perl(1)
 
+Source repo: https://github.com/iamcal/perl-CSS/tree/1.x
+
 =cut
