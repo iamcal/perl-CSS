@@ -123,8 +123,8 @@ sub init {
 	#####################################################################################
 
 	#stylesheet  : [ CDO | CDC | S | statement ]*;
-	#statement   : ruleset | at-rule;
-	#at-rule     : ATKEYWORD S* any* [ block | ';' S* ];
+	#statement   : ruleset | atrule;
+	#atrule     : ATKEYWORD S* any* [ block | ';' S* ];
 	#block       : '{' S* [ any | block | ATKEYWORD S* | ';' ]* '}' S*;
 	#ruleset     : selector? '{' S* declaration? [ ';' S* declaration? ]* '}' S*;
 	#selector    : any+;
@@ -136,8 +136,8 @@ sub init {
 	#              | FUNCTION | DASHMATCH | '(' any* ')' | '[' any* ']' ] S*;
 
 	$self->add_lex_rule('stylesheet',	'[ CDO | CDC | S | statement ]*');
-	$self->add_lex_rule('statement',	'ruleset | at-rule');
-	$self->add_lex_rule('at-rule',		'ATKEYWORD S* any* [ block | _SEMICOLON S* ]');
+	$self->add_lex_rule('statement',	'ruleset | atrule');
+	$self->add_lex_rule('atrule',		'ATKEYWORD S* any* [ block | _SEMICOLON S* ]');
 	$self->add_lex_rule('block',		'_BRACE_OPEN S* [ any | block | ATKEYWORD S* | _SEMICOLON ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('ruleset',		'selector? _BRACE_OPEN S* declaration? [ _SEMICOLON S* declaration? ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('selector',		'any+');
@@ -167,66 +167,59 @@ sub toke {
 }
 
 sub walk_stylesheet {
-	my ($self, $stylesheet, $submatches) = @_;
+	my ($self, $match) = @_;
 
-	for my $statement (@{$submatches}){
+	my $ret = $self->walk_nodes(['ruleset', 'atrule'], $match->{submatches}, 2);
 
-		next unless defined $statement->{subrule};
-		next unless $statement->{subrule} eq 'statement';
+	my $sheet = new CSS::Stylesheet;
 
-		my $sub = $statement->{submatches}->[0];
+	$sheet->{rulesets} = $ret->{ruleset};
+	$sheet->{atrules} = $ret->{atrule};
+	$sheet->{items} = $ret->{all};
 
-		if ($sub->{subrule} eq 'ruleset'){
-
-			my $ruleset = $self->walk_ruleset($sub);
-
-			push @{$stylesheet->{rulesets}}, $ruleset;
-			push @{$stylesheet->{items}}, $ruleset;
-		}
-
-		if ($sub->{subrule} eq 'at-rule'){
-
-			my $atrule = $self->walk_atrule($sub);
-
-			push @{$stylesheet->{atrules}}, $atrule;
-			push @{$stylesheet->{items}}, $atrule;
-		}
-
-		#print "subrule: $sub->{subrule}\n";
-	}
-
-	return $stylesheet;
+	return $sheet;
 }
 
 sub walk_ruleset {
 	my ($self, $match) = @_;
 
-	#
-	# first match token should be a selector, if we have one
-	#
+	my $ret = $self->walk_nodes(['selector', 'declaration'], $match->{submatches});
 
 	my $ruleset = new CSS::Ruleset;
 
+	$ruleset->{selectors}		= $ret->{selector};
+	$ruleset->{declarations}	= $ret->{declaration};
+
+	return $ruleset;
+}
+
+sub walk_selector {
+	my ($self, $match) = @_;
+
+	my $buffer = '';
+	my $out = [];
+
 	for my $submatch (@{$match->{submatches}}){
 
-		if ($submatch->{subrule} eq 'selector'){
+		if ($submatch->{matched_text} =~ m!\s*,\s*!s){
 
-			$ruleset->{selector} = $submatch->{matched_text};
-			$ruleset->{selector} =~ s/^\s*(.*?)\s*/$1/s;
-
-			$self->walk_selectors($ruleset, $submatch);
-		}
-
-		if ($submatch->{subrule} eq 'declaration'){
-
-			my $declaration = $self->walk_declaration($submatch);
-
-			push @{$ruleset->{declarations}}, $declaration;
-
+			$self->commit_selector($out, $buffer);
+			$buffer = '';
+		}else{
+			$buffer .= $submatch->{matched_text};
 		}
 	}
 
-	return $ruleset;
+	$self->commit_selector($out, $buffer);
+
+	return $out;
+}
+
+sub commit_selector {
+	my ($self, $out, $text) = @_;
+
+	$text =~ s/^\s*(.*?)\s*$/$1/s;
+	push @{$out}, new CSS::Selector($text) if length $text;
 }
 
 sub walk_declaration {
@@ -245,14 +238,12 @@ sub walk_declaration {
 
 		if ($submatch->{subrule} eq 'value'){
 
-			$submatch->{matched_text} =~ s/\s+$//;
-
 			$declaration->{value} = $submatch->{matched_text};
 			$declaration->{simple_value} = $submatch->{matched_text};
 		}
 	}
 
-	return $declaration;
+	return $declaration;	
 }
 
 sub walk_atrule {
@@ -277,32 +268,6 @@ sub walk_atrule {
 	}
 
 	return new CSS::AtRule();
-}
-
-sub walk_selectors {
-	my ($self, $ruleset, $match) = @_;
-
-	my $buffer = '';
-
-	for my $submatch (@{$match->{submatches}}){
-
-		if ($submatch->{matched_text} =~ m!\s*,\s*!s){
-
-			$self->commit_selector($ruleset, $buffer);
-			$buffer = '';
-		}else{
-			$buffer .= $submatch->{matched_text};
-		}
-	}
-
-	$self->commit_selector($ruleset, $buffer);
-}
-
-sub commit_selector {
-	my ($self, $ruleset, $text) = @_;
-
-	$text =~ s/^\s*(.*?)\s*$/$1/s;
-	push @{$ruleset->{selectors}}, new CSS::Selector($text) if length $text;
 }
 
 1;
