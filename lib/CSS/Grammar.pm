@@ -166,14 +166,78 @@ sub parse {
 sub walk {
 	my ($self, $tree) = @_;
 
-	my $stylesheet = new CSS::Stylesheet;
+	my $base_rule = 'stylesheet';
 
-	return $stylesheet unless defined $tree;
-	return $stylesheet unless $tree->{subrule} eq $self->{base_rules}->{sheet};
+	# look for our base rule to walk
 
-	$self->walk_stylesheet($stylesheet, $tree->{submatches});
+	if ($tree->{subrule} eq $base_rule){
 
-	return $stylesheet;
+		return $self->walk_node($tree);
+	}
+
+	return new CSS::Stylesheet;
+}
+
+sub walk_node {
+	my ($self, $node) = @_;
+
+	my $method = 'walk_'.$node->{subrule};
+
+	return $self->$method($node);
+}
+
+sub walk_nodes {
+	my ($self, $rules, $nodes, $max) = @_;
+
+	my $out = {};
+	$out->{all} = [];
+
+	my $rulesk = {};
+	for (@{$rules}){
+		$rulesk->{$_} = 1;
+		$out->{$_} = [];
+	}
+
+	$max = 1 unless $max;
+
+	$self->walk_recurse($rulesk, $nodes, $out, $max);	
+
+	return $out;
+}
+
+sub walk_recurse {
+	my ($self, $rules, $nodes, $out, $max) = @_;
+
+	for my $node (@{$nodes}){
+
+		if ($rules->{$node->{subrule}}){
+
+			my $ret = $self->walk_node($node);
+
+			if (defined $ret){
+
+				if (ref($ret) eq 'ARRAY'){
+
+					for my $sret (@{$ret}){
+						push @{$out->{$node->{subrule}}}, $sret;
+						push @{$out->{all}}, $sret;
+					}
+	
+				}else{
+
+					push @{$out->{$node->{subrule}}}, $ret;
+					push @{$out->{all}}, $ret;
+				}
+			}
+
+		}else{
+
+			if ($max > 1){
+
+				$self->walk_recurse($rules, $node->{submatches}, $out, $max-1);
+			}
+		}
+	}
 }
 
 	
