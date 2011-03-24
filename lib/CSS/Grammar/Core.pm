@@ -245,6 +245,8 @@ sub walk_declaration {
 
 		if ($submatch->{subrule} eq 'value'){
 
+			$submatch->{matched_text} =~ s/\s+$//;
+
 			$declaration->{value} = $submatch->{matched_text};
 			$declaration->{simple_value} = $submatch->{matched_text};
 		}
