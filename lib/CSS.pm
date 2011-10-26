@@ -16,6 +16,7 @@ sub new {
 	$self->{items}    = [];
 	$self->{sheets}   = [];
 
+	# 1.x compatability
 	$self->{styles} = $self->{rulesets};
 
 	$self->{grammar} = $opts{grammar} || 'CSS::Grammar::Core';
@@ -104,6 +105,7 @@ sub purge {
 	$self->{items}    = [];
 	$self->{sheets}   = [];
 
+	# 1.x compatability
 	$self->{styles} = $self->{rulesets};
 }
 

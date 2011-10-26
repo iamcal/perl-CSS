@@ -11,6 +11,7 @@ sub new {
 	$self->{selectors} = [];
 	$self->{declarations} = [];
 
+	# 1.x compatability
 	$self->{properties} = $self->{declarations};
 
 	return $self;
