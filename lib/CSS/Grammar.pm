@@ -170,7 +170,7 @@ sub walk {
 
 	# look for our base rule to walk
 
-	if ($tree->{subrule} eq $base_rule){
+	if ($tree->{subrule} && $tree->{subrule} eq $base_rule){
 
 		return $self->walk_node($tree);
 	}
