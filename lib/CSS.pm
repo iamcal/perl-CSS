@@ -80,6 +80,12 @@ sub parse_string {
 		return 0;
 	}
 
+	if ($grammar->{error}){
+
+		die "Failed grammar parse: ".$grammar->{error};
+		return 0;
+	}
+
 
 	#
 	# merge the resultant sheet with the CSS object
