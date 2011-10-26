@@ -6,6 +6,13 @@ use Data::Dumper;
 
 use base 'CSS::Grammar';
 
+use CSS::Stylesheet;
+use CSS::Ruleset;
+use CSS::Declaration;
+use CSS::Selector;
+use CSS::AtRule;
+
+
 #
 # http://www.w3.org/TR/REC-CSS1-961217.html#appendix-b
 #
@@ -132,7 +139,8 @@ sub init {
 	$self->add_toke_rule('CDO'		, "<!--");
 	$self->add_toke_rule('CDC'		, "-->");
 
-	$self->add_toke_rule('WHITESPACE'	, '[ \t\n]+');
+	# i've modified this to include carriage-return, otherwise windows CSS will fail to parse
+	$self->add_toke_rule('WHITESPACE'	, '[ \t\r\n]+');
 
 
 	#####################################################################################
@@ -296,6 +304,73 @@ sub toke {
 	}
 
 	return $out;
+}
+
+sub walk_stylesheet {
+	my ($self, $match) = @_;
+
+	my $ret = $self->walk_nodes(['ruleset', 'atrule'], $match->{submatches}, 3);
+
+	my $sheet = new CSS::Stylesheet;
+
+	$sheet->{rulesets} = $ret->{ruleset};
+	$sheet->{atrules} = $ret->{atrule};
+	$sheet->{items} = $ret->{all};
+
+	return $sheet;
+}
+
+sub walk_ruleset {
+	my ($self, $match) = @_;
+
+	my $ret = $self->walk_nodes(['selector', 'declaration'], $match->{submatches}, 3);
+
+	my $ruleset = new CSS::Ruleset;
+
+	$ruleset->{selectors}		= $ret->{selector};
+	$ruleset->{declarations}	= $ret->{declaration};
+
+	return $ruleset;
+}
+
+sub walk_selector {
+	my ($self, $match) = @_;
+
+	my $sel = $self->SUPER::trim($match->{matched_text});
+
+	return new CSS::Selector($sel);
+}
+
+sub walk_declaration {
+	my ($self, $match) = @_;
+
+	my $declaration = new CSS::Declaration;
+
+	for my $submatch (@{$match->{submatches}}){
+
+		next unless defined $submatch->{subrule};
+
+		if ($submatch->{subrule} eq 'property'){
+
+			$declaration->{property} = $submatch->{matched_text};
+		}
+
+		if ($submatch->{subrule} eq 'expr'){
+
+			my $value = $self->SUPER::trim($submatch->{matched_text});
+			$declaration->{value} = $value;
+			$declaration->{simple_value} = $value;
+		}
+
+		if ($submatch->{subrule} eq 'prio'){
+
+			my $value = $self->SUPER::trim($submatch->{matched_text});
+			$declaration->{prio} = $value;
+			$declaration->{simple_value} .= ' '.$value;
+		}
+	}
+
+	return $declaration;
 }
 	
 1;
