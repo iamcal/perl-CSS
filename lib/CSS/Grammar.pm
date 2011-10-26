@@ -210,7 +210,7 @@ sub walk_recurse {
 
 	for my $node (@{$nodes}){
 
-		if ($rules->{$node->{subrule}}){
+		if ($node->{subrule} && $rules->{$node->{subrule}}){
 
 			my $ret = $self->walk_node($node);
 
