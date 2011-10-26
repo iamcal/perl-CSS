@@ -8,7 +8,7 @@ BEGIN {
 	#	'CSS::Grammar::CSS10',
 	#	'CSS::Grammar::CSS20',
 	#	'CSS::Grammar::CSS21',
-	#	'CSS::Grammar::CSS30',
+		'CSS::Grammar::CSS30',
 	);
 
 	plan tests => 28 * scalar @::modules;
@@ -22,7 +22,7 @@ for my $module (@::modules){
 
 	$css->read_file('t/css_simple');
 
-	&test_ruleset($css, [
+	&test_ruleset($module, $css, [
 		{
 			'selectors'	=> [
 				'a:visited',
@@ -64,9 +64,9 @@ for my $module (@::modules){
 
 
 sub test_ruleset {
-	my ($css, $expected) = @_;
+	my ($module, $css, $expected) = @_;
 
-	is(scalar(@{$css->{rulesets}}), scalar(@{$expected}), "expected number of rulesets");
+	is(scalar(@{$css->{rulesets}}), scalar(@{$expected}), "$module: expected number of rulesets");
 
 	my $i = 0;
 
@@ -78,7 +78,7 @@ sub test_ruleset {
 		# selectors
 		#
 
-		is(scalar(@{$got_set->{selectors}}), scalar(@{$expected_set->{selectors}}), "expected number of selectors in ruleset $i");
+		is(scalar(@{$got_set->{selectors}}), scalar(@{$expected_set->{selectors}}), "$module: expected number of selectors in ruleset $i");
 
 		my $j = 0;
 
@@ -86,7 +86,7 @@ sub test_ruleset {
 
 			my $got_sel = $got_set->{selectors}->[$j];
 
-			is($got_sel->{name}, $expected_sel, "selector $j matches (for ruleset $i)");
+			is($got_sel->{name}, $expected_sel, "$module: selector $j matches (for ruleset $i)");
 
 			$j++;
 		}
@@ -96,7 +96,7 @@ sub test_ruleset {
 		# declarations
 		#
 
-		is(scalar(@{$got_set->{declarations}}), scalar(@{$expected_set->{declarations}}), "expected number of declarations in ruleset $i");
+		is(scalar(@{$got_set->{declarations}}), scalar(@{$expected_set->{declarations}}), "$module: expected number of declarations in ruleset $i");
 
 		$j = 0;
 
@@ -104,8 +104,8 @@ sub test_ruleset {
 
 			my $got_dec = $got_set->{declarations}->[$j];
 
-			is($got_dec->{property}, $expected_dec->[0], "declaration property $j matches (for ruleset $i)");
-			is($got_dec->{value}, $expected_dec->[1], "declaration value $j matches (for ruleset $i)");
+			is($got_dec->{property}, $expected_dec->[0], "$module: declaration property $j matches (for ruleset $i)");
+			is($got_dec->{value}, $expected_dec->[1], "$module: declaration value $j matches (for ruleset $i)");
 
 			$j++;
 		}
