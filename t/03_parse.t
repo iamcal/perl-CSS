@@ -1,6 +1,7 @@
 use Test::More tests => 30;
 
 use CSS;
+use Data::Dumper;
 
 my $css = new CSS('grammar' => 'CSS::Grammar::Core');
 ok(1, "Created the CSS object ok");
@@ -87,7 +88,7 @@ for(@{$css->{styles}}){
 
 $css->purge();
 $css->read_file("t/css_oddities");
-my @props = @{$css->{styles}->[0]->{properties}};
+my @props = @{$css->{rulesets}->[0]->{declarations}};
 is($props[0]->{simple_value}, 'a', "first property ok");
 is($props[1]->{simple_value}, '0', "second property ok");
 
