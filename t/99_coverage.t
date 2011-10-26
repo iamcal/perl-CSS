@@ -26,11 +26,11 @@ $atrule = $grammar->walk_atrule({ matched_text => 'foo' });
 is($atrule->{name}, undef, "Bad atrule string name");
 is($atrule->{value}, undef, "Bad atrule string value");
 
-my $ruleset = { selectors => [] };
+my $selectors = [];
 
-$grammar->commit_selector($ruleset, '');
-is(scalar @{$ruleset->{selectors}}, 0, "Add blank selector");
+$grammar->commit_selector($selectors, '');
+is(scalar @{$selectors}, 0, "Add blank selector");
 
-$grammar->commit_selector($ruleset, "\nfoo\t");
-is(scalar @{$ruleset->{selectors}}, 1, "Add real selector (count)");
-is($ruleset->{selectors}->[0]->{name}, 'foo', "Add real selector (string)");
+$grammar->commit_selector($selectors, "\nfoo\t");
+is(scalar @{$selectors}, 1, "Add real selector (count)");
+is($selectors->[0]->{name}, 'foo', "Add real selector (string)");
