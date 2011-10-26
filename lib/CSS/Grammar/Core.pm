@@ -238,8 +238,10 @@ sub walk_declaration {
 
 		if ($submatch->{subrule} eq 'value'){
 
-			$declaration->{value} = $submatch->{matched_text};
-			$declaration->{simple_value} = $submatch->{matched_text};
+			my $value = $self->SUPER::trim($submatch->{matched_text});
+
+			$declaration->{value} = $value;
+			$declaration->{simple_value} = $value;
 		}
 	}
 

@@ -240,6 +240,12 @@ sub walk_recurse {
 	}
 }
 
+sub trim {
+	$_[1] =~ s/\s+$//;
+	$_[1] =~ s/^\s+//;
+	return $_[1];
+}
+
 	
 package CSS::Token;
 
