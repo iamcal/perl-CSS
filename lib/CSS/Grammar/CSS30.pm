@@ -76,7 +76,7 @@ sub init {
 	#"|="			{return DASHMATCH;}
 
 	#{string}		{return STRING;}
-	#{ident}			{return IDENT;}
+	#{ident}		{return IDENT;}
 	#"#"{name}		{return HASH;}
 
 	$self->add_toke_rule('S'		, "[ \t\r\n\f]+");
@@ -86,12 +86,12 @@ sub init {
 	$self->add_toke_rule('DASHMATCH'	, '\\|=');
 
 	$self->add_toke_rule('STRING'		, $rx{string});
-	$self->add_toke_rule('IDENT'		, $rx{ident});
+	# IDENT has to go below FUNCTION
 	$self->add_toke_rule('HASH'		, "#$rx{name}");
 
 
 	#"@import"		{return IMPORT_SYM;}
-	#"@page"			{return PAGE_SYM;}
+	#"@page"		{return PAGE_SYM;}
 	#"@media"		{return MEDIA_SYM;}
 	#"@font-face"		{return FONT_FACE_SYM;}
 	#"@charset"		{return CHARSET_SYM;}
@@ -109,20 +109,20 @@ sub init {
 	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}important");
 
 
-	#{num}em			{return EMS;}
-	#{num}ex			{return EXS;}
-	#{num}px			{return LENGTH;}
-	#{num}cm			{return LENGTH;}
-	#{num}mm			{return LENGTH;}
-	#{num}in			{return LENGTH;}
-	#{num}pt			{return LENGTH;}
-	#{num}pc			{return LENGTH;}
+	#{num}em		{return EMS;}
+	#{num}ex		{return EXS;}
+	#{num}px		{return LENGTH;}
+	#{num}cm		{return LENGTH;}
+	#{num}mm		{return LENGTH;}
+	#{num}in		{return LENGTH;}
+	#{num}pt		{return LENGTH;}
+	#{num}pc		{return LENGTH;}
 	#{num}deg		{return ANGLE;}
 	#{num}rad		{return ANGLE;}
 	#{num}grad		{return ANGLE;}
-	#{num}ms			{return TIME;}
+	#{num}ms		{return TIME;}
 	#{num}s			{return TIME;}
-	#{num}Hz			{return FREQ;}
+	#{num}Hz		{return FREQ;}
 	#{num}kHz		{return FREQ;}
 	#{num}{ident}		{return DIMEN;}
 	#{num}%			{return PERCENTAGE;}
@@ -140,8 +140,8 @@ sub init {
 
 
 	#"url("{w}{string}{w}")"	{return URI;}
-	#"url("{w}{url}{w}")"	{return URI;}
-	#{ident}"("		{return FUNCTION;}
+	#"url("{w}{url}{w}")"		{return URI;}
+	#{ident}"("			{return FUNCTION;}
 
 	#U\+{range}		{return UNICODERANGE;}
 	#U\+{h}{1,6}-{h}{1,6}	{return UNICODERANGE;}
@@ -151,6 +151,7 @@ sub init {
 
 	$self->add_toke_rule('UNICODERANGE'	, "U\\+($rx{range}|${rx{h}}{1,6}-${rx{h}}{1,6})");
 
+	$self->add_toke_rule('IDENT'		, $rx{ident});
 
 	#####################################################################################
 
