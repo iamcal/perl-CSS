@@ -73,7 +73,7 @@ sub init {
 	$self->add_toke_rule('COMMENT'		, "\\/\\*(\\*[^\\/]|[^\\*])*\\*\\/");
 	$self->add_toke_rule('IMPORT_SYM'	, "\@import");
 	$self->add_toke_rule('IMPORTANT_SYM'	, "!$rx{w}important");
-	$self->add_toke_rule('IDENT'		, $rx{ident});
+	# IDENT needs to go below URL
 	$self->add_toke_rule('STRING'		, $rx{string});
 
 
@@ -88,10 +88,11 @@ sub init {
 	#{num}em/{notnm}			{BEGIN(0); return EMS;}
 	#{num}ex/{notnm}			{BEGIN(0); return EXS;}
 
+	$self->add_toke_rule('PERCENTAGE'	, "$rx{num}%");
+	$self->add_toke_rule('LENGTH'		, "$rx{num}(pt|mm|cm|pc|in|px|em|ex)(?!$rx{notnm})");
+	$self->add_toke_rule('EMS'		, "$rx{num}em(?!$rx{notnm})");
+	$self->add_toke_rule('EXS'		, "$rx{num}ex(?!$rx{notnm})");
 	$self->add_toke_rule('NUMBER'		, $rx{num});
-	# TODO: 
-	# this is kinda weird - what does the slash mean here? it's not literal.
-	# need to revisit this block of rules
 
 
 	#<AFTER_IDENT>":"link		{return LINK_PSCLASS_AFTER_IDENT;}
@@ -127,8 +128,10 @@ sub init {
 	#url\({w}([^ \n\'\")]|\\\ |\\\'|\\\"|\\\))+{w}\)		{BEGIN(0); return URL;}
 	#rgb\({w}{num}%?{w}\,{w}{num}%?{w}\,{w}{num}%?{w}\)	{BEGIN(0); return RGB;}
 
-	# TODO:
-	# i've not done these rules yet
+	$self->add_toke_rule('URL'		, "url\\($rx{w}($rx{string}|(([^ \r\n\'\")]|\\ |\\\'|\\\"|\\\\)+))$rx{w}\\)");
+	$self->add_toke_rule('RGB'		, "rgb\\($rx{w}$rx{num}%?$rx{w}\,$rx{w}$rx{num}%?$rx{w}\,$rx{w}$rx{num}%?$rx{w}\\)");
+
+	$self->add_toke_rule('IDENT'		, $rx{ident});
 
 
 	#[ \t]+				{BEGIN(0); /* ignore whitespace */}
@@ -345,6 +348,7 @@ sub walk_declaration {
 	my ($self, $match) = @_;
 
 	my $declaration = new CSS::Declaration;
+	my $value = '';
 
 	for my $submatch (@{$match->{submatches}}){
 
@@ -357,14 +361,14 @@ sub walk_declaration {
 
 		if ($submatch->{subrule} eq 'expr'){
 
-			my $value = $self->SUPER::trim($submatch->{matched_text});
+			$value = $self->SUPER::trim($submatch->{matched_text});
 			$declaration->{value} = $value;
 			$declaration->{simple_value} = $value;
 		}
 
 		if ($submatch->{subrule} eq 'prio'){
 
-			my $value = $self->SUPER::trim($submatch->{matched_text});
+			$value = $self->SUPER::trim($submatch->{matched_text});
 			$declaration->{prio} = $value;
 			$declaration->{simple_value} .= ' '.$value;
 		}
