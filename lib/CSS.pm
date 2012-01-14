@@ -209,11 +209,11 @@ CSS - A CSS parser
 
   # parse some CSS from a string
   $css->read_string( $css_data );
-  $css->read_string( ( $css_data, $more_css_data ) );
+  $css->read_string( [ $css_data, $more_css_data ] );
 
   # parse some CSS from a file
   $css->read_file( 'my_file.css' );
-  $css->read_file( ( 'my_file.css', 'my_other_file.css' ) );
+  $css->read_file( [ 'my_file.css', 'my_other_file.css' ] );
 
 
 
