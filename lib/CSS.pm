@@ -253,9 +253,9 @@ the concept of a 'parser' class has been thrown away, so calls to set the
 parser are no-ops and won't fail. However, the classes that make up the tree 
 have been renamed inline with the CSS specification, so tree walking code 
 may be broken by this change. The 1.X series is still available on CPAN - 
-the latest release is 1.07:
+the latest release is 1.09:
 
-L<http://search.cpan.org/dist/CSS-1.07/>
+L<http://search.cpan.org/dist/CSS-1.09/>
 
 =head1 TREE STRUCTURE
 
