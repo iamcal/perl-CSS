@@ -34,11 +34,10 @@ sub read_file {
 			return;
 		}
 	} else {
- 		if ($path){
-			local *IN;
- 			open(IN, $path) or die "Couldn't open file: $!";
-			my $source = join '',<IN>;
-			close(IN);
+		if ($path){
+ 			open(my $fh, '<', $path) or die "Couldn't open file for reading: $!";
+			my $source = join '', <$fh>;
+			close($fh);
 			$self->parse_string($source) if $source;
 			return;
 		}
