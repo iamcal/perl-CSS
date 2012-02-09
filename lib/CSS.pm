@@ -65,7 +65,7 @@ sub parse_string {
 	return 0 unless $grammar_class;
 
 	$self->load_module($grammar_class);
-        my $grammar = eval "new $grammar_class";
+	my $grammar = eval { $grammar_class->new() };
 	return 0 unless $grammar;
 
 	#
@@ -127,7 +127,7 @@ sub output {
 		die "unable to load adaptor module";
 	}
 
-	my $adaptor = eval "$adaptor_class->new();";
+	my $adaptor = eval { $adaptor_class->new() };
 
 	unless (defined $adaptor){
 		die "can't create adaptor ($adaptor_class)";
@@ -172,14 +172,14 @@ sub merge_sheet {
 sub load_module {
 	my ($self, $module) = @_;
 
-	my $file = "$module" . '.pm';
+	my $file = "${module}.pm";
 	$file =~ s{::}{/}g;
 
-	return eval { 1 } if $INC{$file};
-	my $ret = eval "require \$file";
+	return 1 if $INC{$file};
+	my $ret = eval { require $file };
 	return 0 unless $ret;
 
-	eval "\$module->import();";
+	eval { $module->import() };
 	return 1;
 }
 
