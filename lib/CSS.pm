@@ -35,7 +35,7 @@ sub read_file {
 		}
 	} else {
 		if ($path){
- 			open(my $fh, '<', $path) or die "Couldn't open file for reading: $!";
+ 			open(my $fh, '<', $path) or die "Couldn't open file '$path' for reading: $!";
 			my $source = join '', <$fh>;
 			close($fh);
 			$self->parse_string($source) if $source;
@@ -109,15 +109,15 @@ sub purge {
 }
 
 sub set_adaptor {
-	my $self = shift;
-	my $adaptor = shift;
+	my ($self, $adaptor) = @_;
 
 	$self->{adaptor} = $adaptor;
 }
 
 sub output {
-	my $self = shift;
-	my $adaptor_class = shift || $self->{adaptor};
+	my ($self, $adaptor_class) = @_;
+
+	$adaptor_class ||= $self->{adaptor};
 
 	unless ($adaptor_class){
 		die "no adaptor class";
@@ -153,7 +153,7 @@ sub get_ruleset_by_selector {
 		return $ruleset if $ruleset->match_selector($sel_name);
 	}
 
-	return undef;
+	return;
 }
 
 sub merge_sheet {
