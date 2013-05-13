@@ -162,6 +162,7 @@ sub init {
 	$self->add_toke_rule('_COLON'		, ':');
 	$self->add_toke_rule('_SLASH'		, '/');
 	$self->add_toke_rule('_PLUS'		, '\\+');
+	$self->add_toke_rule('_TILDE'		, '~');
 	$self->add_toke_rule('_GREATER_THAN'	, '>');
 	$self->add_toke_rule('_MINUS'		, '-');
 	$self->add_toke_rule('_PERIOD'		, '\\.');
@@ -231,7 +232,7 @@ sub init {
 	$self->add_lex_rule('pseudo_page', '_COLON IDENT');
 	$self->add_lex_rule('font_face', 'FONT_FACE_SYM S* _BRACE_OPEN S* declaration [ _SEMICOLON S* declaration ]* _BRACE_CLOSE S*');
 	$self->add_lex_rule('operator', '_SLASH S* | _COMMA S* | ');
-	$self->add_lex_rule('combinator', '_PLUS S* | _GREATER_THAN S* | ');
+	$self->add_lex_rule('combinator', '_PLUS S* | _GREATER_THAN S* | _TILDE S* | ');
 
 
 	#unary_operator
