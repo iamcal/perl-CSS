@@ -34,11 +34,10 @@ sub read_file {
 			return;
 		}
 	} else {
- 		if ($path){
-			local *IN;
- 			open(IN, $path) or die "Couldn't open file: $!";
-			my $source = join '',<IN>;
-			close(IN);
+		if ($path){
+ 			open(my $fh, '<', $path) or die "Couldn't open file '$path' for reading: $!";
+			my $source = join '', <$fh>;
+			close($fh);
 			$self->parse_string($source) if $source;
 			return;
 		}
@@ -66,7 +65,7 @@ sub parse_string {
 	return 0 unless $grammar_class;
 
 	$self->load_module($grammar_class);
-        my $grammar = eval "new $grammar_class";
+	my $grammar = eval { $grammar_class->new() };
 	return 0 unless $grammar;
 
 	#
@@ -110,15 +109,15 @@ sub purge {
 }
 
 sub set_adaptor {
-	my $self = shift;
-	my $adaptor = shift;
+	my ($self, $adaptor) = @_;
 
 	$self->{adaptor} = $adaptor;
 }
 
 sub output {
-	my $self = shift;
-	my $adaptor_class = shift || $self->{adaptor};
+	my ($self, $adaptor_class) = @_;
+
+	$adaptor_class ||= $self->{adaptor};
 
 	unless ($adaptor_class){
 		die "no adaptor class";
@@ -128,7 +127,7 @@ sub output {
 		die "unable to load adaptor module";
 	}
 
-	my $adaptor = eval "$adaptor_class->new();";
+	my $adaptor = eval { $adaptor_class->new() };
 
 	unless (defined $adaptor){
 		die "can't create adaptor ($adaptor_class)";
@@ -154,7 +153,7 @@ sub get_ruleset_by_selector {
 		return $ruleset if $ruleset->match_selector($sel_name);
 	}
 
-	return undef;
+	return;
 }
 
 sub merge_sheet {
@@ -173,14 +172,14 @@ sub merge_sheet {
 sub load_module {
 	my ($self, $module) = @_;
 
-	my $file = "$module" . '.pm';
+	my $file = "${module}.pm";
 	$file =~ s{::}{/}g;
 
-	return eval { 1 } if $INC{$file};
-	my $ret = eval "require \$file";
+	return 1 if $INC{$file};
+	my $ret = eval { require $file };
 	return 0 unless $ret;
 
-	eval "\$module->import();";
+	eval { $module->import() };
 	return 1;
 }
 
@@ -253,9 +252,9 @@ the concept of a 'parser' class has been thrown away, so calls to set the
 parser are no-ops and won't fail. However, the classes that make up the tree 
 have been renamed inline with the CSS specification, so tree walking code 
 may be broken by this change. The 1.X series is still available on CPAN - 
-the latest release is 1.07:
+the latest release is 1.09:
 
-L<http://search.cpan.org/dist/CSS-1.07/>
+L<http://search.cpan.org/dist/CSS-1.09/>
 
 =head1 TREE STRUCTURE
 
