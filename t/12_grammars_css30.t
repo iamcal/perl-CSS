@@ -3,68 +3,59 @@ use CSS;
 use Data::Dumper;
 
 BEGIN {
-	@::modules = (
-		'CSS::Grammar::Core',
-	#	'CSS::Grammar::CSS10',
-	#	'CSS::Grammar::CSS20',
-	#	'CSS::Grammar::CSS21',
-		'CSS::Grammar::CSS30',
-	);
-
-	plan tests => 28 * scalar @::modules;
+	plan tests => 28;
 }
 
 
-for my $module (@::modules){
+my $css = new CSS;
+$css->{grammar} = 'CSS::Grammar::CSS30';
 
-	my $css = new CSS;
-	$css->{grammar} = $module;
+$css->read_file('t/css_simple');
 
-	$css->read_file('t/css_simple');
+&test_ruleset($css, [
+	{
+		'selectors'	=> [
+			'a:visited',
+		],
+		'declarations'	=> [
+			['background-color', 'red'],
+			['border', '1px solid #000000'],
+			['foo', '"bar"'],
+		],
+	},
 
-	&test_ruleset($module, $css, [
-		{
-			'selectors'	=> [
-				'a:visited',
-			],
-			'declarations'	=> [
-				['background-color', 'red'],
-				['border', '1px solid #000000'],
-				['foo', '"bar"'],
-			],
-		},
+	{
+		'selectors'	=> [
+			'foo.bar',
+			'baz',
+		],
+		'declarations'	=> [
+			['font', 'monospace'],
+			['color', 'black'],
+			['baz', 'url(la/la/la)'],
+			['fop', 'url("la la la")'],
+		],
+	},
 
-		{
-			'selectors'	=> [
-				'foo.bar',
-				'baz',
-			],
-			'declarations'	=> [
-				['font', 'monospace'],
-				['color', 'black'],
-				['baz', 'url(la/la/la)'],
-				['fop', 'url("la la la")'],
-			],
-		},
+	{
+		'selectors'	=> [
+			'foo.xyzzy',
+			'a p',
+		],
+		'declarations'	=> [
+			['font', 'sans-serif'],
+		],
+	},
+]);
 
-		{
-			'selectors'	=> [
-				'foo.xyzzy',
-				'a p',
-			],
-			'declarations'	=> [
-				['font', 'sans-serif'],
-			],
-		},
-	]);
-
-	#print Dumper $css;
-	#exit;
-}
+#print Dumper $css;
+#exit;
 
 
 sub test_ruleset {
-	my ($module, $css, $expected) = @_;
+	my ($css, $expected) = @_;
+
+	my $module = $css->{grammar};
 
 	is(scalar(@{$css->{rulesets}}), scalar(@{$expected}), "$module: expected number of rulesets");
 
